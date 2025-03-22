@@ -28,8 +28,8 @@
         <nav>
             <a href="{% url 'admin_dashboard' %}" class="admin-nav-link {% if show_stats %}active{% endif %}">数据总览</a>
             <a href="{% url 'admin_users' %}" class="admin-nav-link {% if user_management %}active{% endif %}">用户管理</a>
-            <a href="{% url 'pets:list' %}" class="admin-nav-link {% if pet_management %}active{% endif %}">宠物管理</a>
-            <a href="{% url 'admin_announcements:admin_list' %}" class="admin-nav-link {% if announcement_management %}active{% endif %}">公告管理</a>
+            <a href="{% url 'admin_pets' %}" class="admin-nav-link {% if pet_management %}active{% endif %}">宠物管理</a>
+            <a href="{% url 'admin_announcements' %}" class="admin-nav-link {% if announcement_management %}active{% endif %}">公告管理</a>
             <a href="{% url 'admin_adoptions' %}" class="admin-nav-link {% if adoption_management %}active{% endif %}">领养审核</a>
         </nav>
     </aside>
@@ -47,6 +47,14 @@
 
         {% if pet_management %}
             {% include "admin/pets.html" %}
+        {% endif %}
+
+        {% if announcement_management %}
+            {% include "admin/announcements.html" %}
+        {% endif %}
+
+        {% if adoption_management %}
+            {% include "admin/adoptions.html" %}
         {% endif %}
     </main>
 </div>

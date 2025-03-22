@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',  # 正确引用应用配置
     'pets',  # 取消注释
-    'announcements',
+    'announcements.apps.AnnouncementsConfig',  # 注意类名大小写
 ]
 
 MIDDLEWARE = [
