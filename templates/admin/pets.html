@@ -1,0 +1,81 @@
+<div class="admin-card">
+    <div class="admin-toolbar">
+        <form method="get" class="search-form">
+            <input type="text" 
+                   name="q" 
+                   placeholder="搜索宠物..." 
+                   value="{{ search_query }}"
+                   class="search-input">
+            <select name="status" class="status-filter" onchange="this.form.submit()">
+                <option value="all" {% if status_filter == 'all' %}selected{% endif %}>全部状态</option>
+                <option value="available" {% if status_filter == 'available' %}selected{% endif %}>可领养</option>
+                <option value="adopted" {% if status_filter == 'adopted' %}selected{% endif %}>已领养</option>
+                <option value="medical" {% if status_filter == 'medical' %}selected{% endif %}>医疗中</option>
+            </select>
+            <button type="submit" class="btn btn--primary">🔍</button>
+        </form>
+        <a href="{% url 'pets:create' %}" class="btn btn--success">+ 新增宠物</a>
+    </div>
+
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>照片</th>
+                <th>名字</th>
+                <th>品种</th>
+                <th>年龄</th>
+                <th>状态</th>
+                <th>收容日期</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pet in pets %}
+            <tr>
+                <td class="pet-thumbnail">
+                    {% if pet.photo %}
+                    <img src="{{ pet.photo.url }}" alt="{{ pet.name }}">
+                    {% else %}
+                    <div class="no-photo">暂无照片</div>
+                    {% endif %}
+                </td>
+                <td>{{ pet.name }}</td>
+                <td>{{ pet.breed }}</td>
+                <td>{{ pet.age }}岁</td>
+                <td>
+                    <span class="status-badge status-{{ pet.status }}">
+                        {{ pet.get_status_display }}
+                    </span>
+                </td>
+                <td>{{ pet.arrival_date|date:"Y-m-d" }}</td>
+                <td class="action-buttons">
+                    <a href="{% url 'pets:edit' pet.id %}" class="btn btn--small">编辑</a>
+                    <a href="#" class="btn btn--small btn--danger">删除</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" class="no-data">未找到匹配的宠物</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if pets.has_previous %}
+                <a href="?page=1{% if search_query %}&q={{ search_query }}{% endif %}">« 首页</a>
+                <a href="?page={{ pets.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}">上一页</a>
+            {% endif %}
+
+            <span class="current">
+                第 {{ pets.number }} / {{ pets.paginator.num_pages }} 页
+            </span>
+
+            {% if pets.has_next %}
+                <a href="?page={{ pets.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}">下一页</a>
+                <a href="?page={{ pets.paginator.num_pages }}{% if search_query %}&q={{ search_query }}{% endif %}">末页 »</a>
+            {% endif %}
+        </span>
+    </div>
+</div> 

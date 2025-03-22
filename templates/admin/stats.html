@@ -1,0 +1,49 @@
+<div class="data-overview">
+    <div class="admin-stat-grid">
+        <div class="admin-card">
+            <h4>注册用户</h4>
+            <p class="stat-number">{{ stats.total_users }}</p>
+        </div>
+        <div class="admin-card">
+            <h4>待审申请</h4>
+            <p class="stat-number">{{ stats.pending_adoptions }}</p>
+        </div>
+        <div class="admin-card">
+            <h4>在册宠物</h4>
+            <p class="stat-number">{{ stats.total_pets }}</p>
+        </div>
+    </div>
+
+    <div class="recent-activities">
+        <h4>最新动态</h4>
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>申请时间</th>
+                    <th>宠物名称</th>
+                    <th>申请人</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for adoption in recent_activities %}
+                <tr>
+                    <td>{{ adoption.apply_date|date:"Y-m-d" }}</td>
+                    <td>{{ adoption.pet.name }}</td>
+                    <td>{{ adoption.applicant.username }}</td>
+                    <td>
+                        <span class="status-badge status-{{ adoption.status }}">
+                            {{ adoption.get_status_display }}
+                        </span>
+                    </td>
+                    <td class="action-buttons">
+                        <a href="#" class="btn btn--primary">审核</a>
+                        <a href="#" class="btn btn--secondary">详情</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div> 

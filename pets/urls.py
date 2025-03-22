@@ -9,4 +9,5 @@ urlpatterns = [
     # 新增list路由
     path('list/', views.PetListView.as_view(), name='list'),
     path('<int:pk>/', views.PetDetailView.as_view(), name='detail'),
+    path('create/', views.PetCreateView.as_view(), name='create'),  # 新增创建路由
 ] 

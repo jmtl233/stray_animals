@@ -38,14 +38,14 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "E:/Python Project/stray_animals/templates",
+    "last_opened_file_path": "E:/Python Project/stray_animals",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\Python Project\stray_animals\templates" />
       <recent name="E:\Python Project\stray_animals" />
+      <recent name="E:\Python Project\stray_animals\templates" />
       <recent name="E:\Python Project\stray_animals\templates\pets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -87,7 +87,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1742661094639</updated>
-      <workItem from="1742661096788" duration="3441000" />
+      <workItem from="1742661096788" duration="5956000" />
     </task>
     <servers />
   </component>

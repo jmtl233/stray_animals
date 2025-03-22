@@ -37,8 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users',  # 新增用户应用
+    'users.apps.UsersConfig',  # 正确引用应用配置
     'pets',  # 取消注释
+    'announcements',
 ]
 
 MIDDLEWARE = [
@@ -134,12 +135,12 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'users.User'  # 添加自定义用户模型
+AUTH_USER_MODEL = 'users.User'  # 确保存在
 
 # 在文件末尾添加
-LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = 'dashboard'  # 登录后跳转到控制台
-LOGOUT_REDIRECT_URL = 'users:login'  # 登出后返回登录页
+LOGIN_URL = '/users/'
+LOGIN_REDIRECT_URL = 'home'  # 默认跳转首页（会被视图中的逻辑覆盖）
+LOGOUT_REDIRECT_URL = 'users:login'  # 使用带命名空间的URL名称
 
 # 添加静态文件配置（如果尚未配置）
 STATIC_URL = '/static/'

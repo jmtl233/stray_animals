@@ -7,6 +7,11 @@ class LoginView(AuthLoginView):
     form_class = LoginForm
     template_name = 'login/login.html'
 
+    def get_success_url(self):
+        if self.request.user.is_staff or self.request.user.is_superuser:
+            return '/admin/dashboard/'  # 指向管理仪表盘
+        return '/home/'  # 普通用户跳转首页
+
     def form_valid(self, form):
         response = super().form_valid(form)
         if self.request.user.is_superuser:
@@ -25,4 +30,4 @@ class RegisterView(CreateView):
         return super().form_invalid(form)
 
 class LogoutView(AuthLogoutView):
-    next_page = '/login/' 
+    next_page = 'users:login'  # 使用带命名空间的URL名称 

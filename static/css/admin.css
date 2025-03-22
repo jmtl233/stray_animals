@@ -1,0 +1,318 @@
+/* 管理后台专用样式 */
+.admin-container {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    min-height: 100vh;
+}
+
+.admin-sidebar {
+    background: #2c3e50;
+    padding: 2rem;
+    color: white;
+}
+
+.admin-main {
+    padding: 2rem;
+    background: #f8f9fa;
+}
+
+.admin-nav-link {
+    display: block;
+    padding: 1rem;
+    color: #bdc3c7;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.admin-nav-link:hover {
+    color: white;
+    background: #34495e;
+}
+
+.admin-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.admin-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* 表格样式 */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.admin-table th {
+    background: #f8f9fa;
+}
+
+/* 新顶部栏样式 */
+.admin-header .admin-navbar {
+    background: #2c3e50; /* 与侧边栏完全一致 */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    padding: 0.8rem 0;
+}
+
+.admin-logo {
+    color: #ecf0f1 !important;
+    font-size: 1.4rem;
+    padding-left: 35px;
+    position: relative;
+    margin: 0;
+}
+
+.admin-logo::before {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2em;
+}
+
+.admin-nav-links {
+    gap: 1.5rem;
+}
+
+.admin-welcome {
+    color: #bdc3c7 !important;
+    font-size: 0.95rem;
+}
+
+.admin-logout-btn {
+    background: rgba(255,255,255,0.1) !important;
+    color: #ecf0f1 !important;
+    border: 1px solid rgba(255,255,255,0.2) !important;
+    padding: 0.6rem 1.2rem !important;
+    transition: all 0.3s ease !important;
+}
+
+.admin-logout-btn:hover {
+    background: rgba(255,255,255,0.2) !important;
+}
+
+/* 用户管理专用样式 */
+.admin-toolbar {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search-form {
+    display: flex;
+    gap: 0.5rem;
+    width: 300px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 0.6rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.status-active {
+    background: #2ecc71;
+    color: white;
+}
+
+.status-inactive {
+    background: #95a5a6;
+    color: white;
+}
+
+.btn--small {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.9rem;
+}
+
+.btn--warning {
+    background: #f39c12;
+    color: white;
+}
+
+.btn--warning:hover {
+    background: #e67e22;
+}
+
+.pagination {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination a {
+    padding: 0.5rem 1rem;
+    margin: 0 0.3rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #2c3e50;
+}
+
+.pagination a:hover {
+    background: #2c3e50;
+    color: white;
+}
+
+.no-data {
+    text-align: center;
+    color: #95a5a6;
+    padding: 1.5rem;
+}
+
+/* 宠物管理专用样式 */
+.pet-thumbnail {
+    width: 60px;
+    height: 60px;
+    padding: 2px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+}
+
+.pet-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+.no-photo {
+    width: 100%;
+    height: 100%;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #95a5a6;
+    font-size: 0.8rem;
+}
+
+.status-filter {
+    padding: 0.6rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-left: 1rem;
+}
+
+.btn--success {
+    background: #2ecc71 !important;
+    color: white !important;
+}
+
+.btn--danger {
+    background: #e74c3c !important;
+}
+
+/* 宠物状态标签 */
+.status-available { background: #2ecc71; }
+.status-adopted { background: #3498db; }
+.status-medical { background: #f1c40f; color: #2c3e50; }
+
+/* 新增宠物表单样式 */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    min-height: 100px;
+}
+
+.form-actions {
+    margin-top: 2rem;
+    text-align: right;
+}
+
+/* 数据总览专属样式 */
+.data-overview {
+    margin-bottom: 2rem;
+}
+
+.admin-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.recent-activities {
+    background: #fff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.recent-activities h4 {
+    margin-top: 0;
+    color: #2c3e50;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.admin-tag {
+    background: #e74c3c;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.8em;
+    margin-left: 5px;
+}
+
+.admin-badge {
+    position: relative;
+    padding-right: 25px;
+}
+
+.admin-badge::after {
+    content: "⚙️";
+    position: absolute;
+    right: 0;
+    top: -2px;
+}
+
+
+

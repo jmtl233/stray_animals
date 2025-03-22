@@ -1,0 +1,53 @@
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/admin.css' %}">
+{% endblock %}
+
+{% block header %}
+<header class="admin-header">
+    <nav class="navbar admin-navbar">
+        <div class="container">
+            <h1 class="logo admin-logo">🔐 管理后台</h1>
+            <div class="nav-links admin-nav-links">
+                {% if user.is_authenticated %}
+                    <span class="welcome-msg admin-welcome">欢迎，{{ user.username }}</span>
+                    <a href="{% url 'users:logout' %}" class="btn admin-logout-btn">退出系统</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+</header>
+{% endblock %}
+
+{% block content %}
+<div class="admin-container">
+    <aside class="admin-sidebar">
+        <h3>管理导航</h3>
+        <nav>
+            <a href="{% url 'admin_dashboard' %}" class="admin-nav-link {% if show_stats %}active{% endif %}">数据总览</a>
+            <a href="{% url 'admin_users' %}" class="admin-nav-link {% if user_management %}active{% endif %}">用户管理</a>
+            <a href="{% url 'pets:list' %}" class="admin-nav-link {% if pet_management %}active{% endif %}">宠物管理</a>
+            <a href="{% url 'admin_announcements:admin_list' %}" class="admin-nav-link {% if announcement_management %}active{% endif %}">公告管理</a>
+            <a href="{% url 'admin_adoptions' %}" class="admin-nav-link {% if adoption_management %}active{% endif %}">领养审核</a>
+        </nav>
+    </aside>
+    
+    <main class="admin-main">
+        <h2>管理仪表盘</h2>
+        
+        {% if show_stats %}
+            {% include "admin/stats.html" %}
+        {% endif %}
+
+        {% if user_management %}
+            {% include "admin/users.html" %}
+        {% endif %}
+
+        {% if pet_management %}
+            {% include "admin/pets.html" %}
+        {% endif %}
+    </main>
+</div>
+{% endblock %} 

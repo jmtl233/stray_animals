@@ -16,12 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import RedirectView, TemplateView
+from . import admin_views, views  # 需要创建admin_views.py和确保导入视图模块
 
 urlpatterns = [
+    path('admin/dashboard/', views.dashboard, name='admin_dashboard'),
+    path('admin/users/', views.user_management, name='admin_users'),
     path('admin/', admin.site.urls),
-    path('users/', include('users.urls')),
+    path('users/', include('users.urls', namespace='users')),
     path('', RedirectView.as_view(url='/users/'), name='home'),
     path('dashboard/', TemplateView.as_view(template_name='home/home.html'), name='dashboard'),
     path('pets/', include('pets.urls', namespace='pets')),  # 取消注释
     path('events/', include('events.urls', namespace='events')),
+    path('announcements/', include('announcements.urls', namespace='announcements')),
+    path('admin/announcements/', include('announcements.urls', namespace='admin_announcements')),
+    path('admin/adoptions/', views.adoption_management, name='admin_adoptions'),
 ]

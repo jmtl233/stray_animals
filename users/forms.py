@@ -8,4 +8,9 @@ class LoginForm(AuthenticationForm):
 class RegisterForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ('username', 'phone', 'password1', 'password2') 
+        fields = ('username', 'phone', 'password1', 'password2')
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'is_staff'] 

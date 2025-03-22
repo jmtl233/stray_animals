@@ -1,0 +1,70 @@
+<div class="admin-card">
+    <div class="admin-toolbar">
+        <form method="get" class="search-form">
+            <input type="text" 
+                   name="q" 
+                   placeholder="搜索用户..." 
+                   value="{{ search_query }}"
+                   class="search-input">
+            <button type="submit" class="btn btn--primary">
+                <span class="icon-search">🔍</span>
+            </button>
+        </form>
+    </div>
+
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>用户名</th>
+                <th>邮箱</th>
+                <th>注册时间</th>
+                <th>最后登录</th>
+                <th>管理员</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email|default:"未填写" }}</td>
+                <td>{{ user.date_joined|date:"Y-m-d H:i" }}</td>
+                <td>{{ user.last_login|date:"Y-m-d H:i"|default:"从未登录" }}</td>
+                <td>
+                    {% if user.is_staff %}
+                    <span class="status-badge status-active">是</span>
+                    {% else %}
+                    <span class="status-badge status-inactive">否</span>
+                    {% endif %}
+                </td>
+                <td class="action-buttons">
+                    <a href="#" class="btn btn--small">详情</a>
+                    <a href="#" class="btn btn--small btn--warning">禁用</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="no-data">未找到匹配的用户</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if users.has_previous %}
+                <a href="?page=1{% if search_query %}&q={{ search_query }}{% endif %}">« 首页</a>
+                <a href="?page={{ users.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}">上一页</a>
+            {% endif %}
+
+            <span class="current">
+                第 {{ users.number }} / {{ users.paginator.num_pages }} 页
+            </span>
+
+            {% if users.has_next %}
+                <a href="?page={{ users.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}">下一页</a>
+                <a href="?page={{ users.paginator.num_pages }}{% if search_query %}&q={{ search_query }}{% endif %}">末页 »</a>
+            {% endif %}
+        </span>
+    </div>
+</div> 
