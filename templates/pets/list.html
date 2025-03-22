@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pets.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>待领养宠物列表</h2>
+    <div class="filter-section">
+        <form method="get" class="filter-form">
+            <div class="filter-group">
+                <label>品种筛选：</label>
+                <select name="breed" onchange="this.form.submit()">
+                    <option value="">全部品种</option>
+                    {% for breed in breeds %}
+                    <option value="{{ breed }}" {% if request.GET.breed == breed %}selected{% endif %}>{{ breed }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="filter-group">
+                <a href="{% url 'pets:list' %}" class="reset-btn">重置筛选</a>
+            </div>
+        </form>
+    </div>
+    <div class="pet-grid">
+        {% for pet in pets %}
+        <div class="pet-card">
+            <img src="{{ pet.photo.url }}" alt="{{ pet.name }}" class="pet-image">
+            <div class="pet-info">
+                <h3>{{ pet.name }}</h3>
+                <p>品种：{{ pet.breed }}</p>
+                <p>年龄：{{ pet.age }}岁</p>
+                <a href="{% url 'pets:detail' pet.id %}" class="btn">查看详情</a>
+            </div>
+        </div>
+        {% empty %}
+        <p class="no-pets">暂时没有待领养的宠物</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

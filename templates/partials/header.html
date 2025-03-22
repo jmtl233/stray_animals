@@ -1,0 +1,25 @@
+<header class="header">
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">🐾 流浪动物之家</h1>
+            <div class="nav-links">
+                <a href="/" class="nav-link {% if request.path == '/' %}active{% endif %}">首页</a>
+                <a href="{% url 'pets:list' %}" 
+                   class="nav-link {% if '/pets/' in request.path %}active{% endif %}">
+                   待领养宠物
+                </a>
+                <a href="{% url 'events:list' %}" class="nav-link">救助活动</a>
+                {% if user.is_authenticated %}
+                    <span class="welcome-msg {% if user.is_staff %}admin-badge{% endif %}">
+                        欢迎，{{ user.username }}
+                        <!-- {% if user.is_staff %}<span class="admin-tag">(管理员)</span>{% endif %} -->
+                    </span>
+                    <a href="{% url 'users:logout' %}" class="btn">退出</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn">登录</a>
+                    <a href="{% url 'users:register' %}" class="btn">注册</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+</header>

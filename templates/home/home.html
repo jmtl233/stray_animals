@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<main class="main-content">
+    <section class="hero">
+        <div class="container">
+            <h2>给流浪动物一个温暖的家</h2>
+{#            <div class="cta-buttons">#}
+{#                <a href="{% url 'pets:list' %}" class="cta-btn">立即领养</a>  <!-- 修改URL引用 -->#}
+{#            </div>#}
+        </div>
+    </section>
+
+    <section class="featured-pets">
+        <div class="container">
+            <h2>本周推荐宠物</h2>
+            <div class="pet-grid">
+                {% for pet in featured_pets %}
+                <div class="pet-card">
+                    <img src="{{ pet.photo.url }}" alt="{{ pet.name }}" class="pet-image">
+                    <div class="pet-info">
+                        <h3>{{ pet.name }}</h3>
+                        <p>{{ pet.get_gender_display }} · {{ pet.age }}岁 · {{ pet.breed }}</p>
+                        <div class="pet-status">
+                            <span class="status-tag {% if pet.is_vaccinated %}vaccinated{% endif %}">已疫苗</span>
+                            <span class="status-tag {% if pet.is_neutered %}neutered{% endif %}">已绝育</span>
+                        </div>
+                        {# 注释掉未实现的宠物相关链接 #}
+                        {# <a href="{% url 'pets:detail' pet.id %}" class="btn">了解详情</a> #}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    
+            <section class="feature-card feature-card--adopt">
+                <div class="feature-card__image">
+                    <img src="{% static 'images/adoption-bg.jpg' %}" alt="领养背景">
+                </div>
+                <div class="feature-card__content">
+                    <h2 class="feature-card__title">在线领养</h2>
+                    <p class="highlight">给流浪动物一个温暖的家</p>
+                    <div class="cta-features">
+                        <div class="feature-item">
+                            <i class="icon-paw"></i>
+                            <p>100+ 待领养宠物</p>
+                        </div>
+                        <div class="feature-item">
+                            <i class="icon-heart"></i>
+                            <p>专业领养指导</p>
+                        </div>
+                        <div class="feature-item">
+                            <i class="icon-shield"></i>
+                            <p>完善的后续保障</p>
+                        </div>
+                    </div>
+                    <a href="{% url 'pets:list' %}" class="cta-button cta-button--adopt">
+                        立即浏览可领养宠物 →
+                    </a>
+                </div>
+            </section>
+
+    <!-- 修改后的最新动态模块 -->
+    <section class="feature-card feature-card--news">
+        <div class="feature-card__image">
+            <img src="{% static 'images/news-bg.jpg' %}" alt="最新动态">
+        </div>
+        <div class="feature-card__content">
+            <h2 class="feature-card__title">📢 救助站最新动态</h2>
+            <div class="cta-features">
+                <div class="feature-item">
+                    <i class="icon-paw"></i>
+                    <p>每日救助故事更新</p>
+                </div>
+                <div class="feature-item">
+                    <i class="icon-heart"></i>
+                    <p>志愿者活动报名</p>
+                </div>
+                <div class="feature-item">
+                    <i class="icon-shield"></i>
+                    <p>医疗进展报告</p>
+                </div>
+            </div>
+            {# 注释掉未实现的公告和通讯模块 #}
+            {# <a href="{% url 'announcements:list' %}" class="cta-button cta-button--news"> #}
+            {# 查看最新动态 → #}
+            {# </a> #}
+        </div>
+    </section>
+
+    <!-- 修改后的爱心救助模块 -->
+    <section class="feature-card feature-card--rescue">
+        <div class="feature-card__content">
+            <h2 class="feature-card__title">❤️ 爱心救助行动</h2>
+            <div class="cta-features">
+                <div class="feature-item">
+                    <i class="icon-paw"></i>
+                    <p>紧急救助资金募集</p>
+                </div>
+                <div class="feature-item">
+                    <i class="icon-heart"></i>
+                    <p>物资捐赠通道</p>
+                </div>
+                <div class="feature-item">
+                    <i class="icon-shield"></i>
+                    <p>成为长期捐助人</p>
+                </div>
+            </div>
+            {# 注释掉未实现的公告和通讯模块 #}
+            {# <a href="{% url 'communication:index' %}" class="cta-button cta-button--rescue"> #}
+            {# 参与救助行动 → #}
+            {# </a> #}
+        </div>
+        <div class="feature-card__image">
+            <img src="{% static 'images/rescue-bg.jpg' %}" alt="爱心救助">
+        </div>
+    </section>
+
+    <section class="success-cases">
+        <div class="container">
+            <h3>领养成功案例</h3>
+            <div class="case-grid">
+                {% for case in success_cases %}
+                <div class="case-card">
+                    <img src="{{ case.pet.photo.url }}" alt="{{ case.pet.name }}">
+                    <div class="case-info">
+                        <h4>{{ case.pet.name }}的新家</h4>
+                        <p class="adopter">领养人：{{ case.applicant.username }}</p>
+                        <p class="date">领养日期：{{ case.apply_date|date:"Y-m-d" }}</p>
+                        <blockquote>"感谢平台让我们相遇"</blockquote>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

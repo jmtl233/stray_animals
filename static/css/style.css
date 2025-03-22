@@ -1,0 +1,715 @@
+/* 基础重置与全局样式 */
+:root {
+  --primary-color: #4CAF50;
+  --secondary-color: #3498db;
+  --danger-color: #e74c3c;
+  --text-dark: #2c3e50;
+  --text-light: #7f8c8d;
+  --bg-light: #f8f9fa;
+  --shadow-sm: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  line-height: 1.6;
+  color: var(--text-dark);
+}
+
+/* 通用容器 */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* 导航栏 */
+.navbar {
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  margin: 0;
+  font-size: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--text-dark);
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--primary-color);
+}
+
+/* 按钮样式 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1.5rem;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  gap: 0.5rem;
+}
+
+.cta-btn {
+  background: var(--primary-color);
+  color: white !important;
+  font-weight: 500;
+}
+
+.cta-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+/* 认证表单 */
+.auth-form {
+  max-width: 400px;
+  margin: 4rem auto;
+  padding: 2.5rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.auth-form h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.8rem;
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem 1.2rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(76,175,80,0.1);
+}
+
+.error-message {
+  color: var(--danger-color);
+  padding: 1rem;
+  margin: 1rem 0;
+  background: #f8d7da;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.login-alert {
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 8px;
+  animation: slideIn 0.3s ease;
+}
+
+.login-alert.success {
+  background: #d4edda;
+  color: #155724;
+}
+
+.login-alert.error {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.admin-alert {
+  background: #cce5ff;
+  color: #004085;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* 页脚 */
+.footer {
+  background: var(--text-dark);
+  color: white;
+  padding: 2rem 0;
+  margin-top: 4rem;
+}
+
+.footer .container {
+  text-align: center;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .navbar .container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .auth-form {
+    margin: 2rem auto;
+    padding: 1.5rem;
+  }
+}
+
+/* 管理员特殊样式 */
+.admin-badge::after {
+  content: "⚙️";
+  margin-left: 0.5rem;
+  filter: grayscale(0.8);
+}
+
+/* 统一交互效果 */
+[class*="hover:"] {
+  transition: all 0.3s ease;
+}
+
+.hover\:scale:hover {
+  transform: scale(1.02);
+}
+
+.hover\:shadow:hover {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+} 
+.navbar { background: #f8f9fa; padding: 1rem; }
+.container { max-width: 1200px; margin: 0 auto; }
+.auth-form { max-width: 400px; margin: 2rem auto; }
+.error-message { color: #dc3545; }
+.login-alert { padding: 0.75rem; margin: 1rem 0; border-radius: 4px; }
+.login-alert.success { background: #d4edda; color: #155724; }
+.login-alert.error { background: #f8d7da; color: #721c24; }
+.admin-alert { background: #cce5ff; color: #004085; }
+.cta-btn { background: #28a745; color: white; padding: 0.5rem 1rem; } 
+
+
+
+
+/* 基础样式 */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* 导航栏 */
+.navbar {
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  padding: 1rem 0;
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  margin: 0;
+  color: #2c3e50;
+  display: inline-block;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  margin-left: 2rem;
+  text-decoration: none;
+  color: #34495e;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  filter: brightness(0.9);
+}
+
+/* 主内容区 */
+.hero {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.cta-buttons {
+  margin-top: 2rem;
+}
+
+.cta-btn {
+  padding: 1rem 2rem;
+  margin: 0 1rem;
+  border-radius: 5px;
+  text-decoration: none;
+  background: #4CAF50;
+  color: white;
+}
+
+/* 功能卡片 */
+.features {
+  padding: 4rem 0;
+}
+
+.feature-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  margin: 3rem 0;
+  overflow: hidden;
+}
+
+/* 统一图片容器 */
+.feature-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.feature-card__image:hover img {
+  transform: scale(1.05);
+}
+
+/* 统一内容区域 */
+.feature-card__content {
+  padding: 3rem;
+}
+
+/* 统一标题样式 */
+.feature-card__title {
+  font-size: 2.2rem;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid;
+}
+
+/* 不同模块的配色方案 */
+.feature-card--adopt .feature-card__title {
+  border-color: #4CAF50;
+}
+.feature-card--news .feature-card__title {
+  border-color: #3498db;
+}
+.feature-card--rescue .feature-card__title {
+  border-color: #e74c3c;
+}
+
+/* 统一按钮样式 */
+.feature-card__button {
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-radius: 30px;
+  color: white !important;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+/* 按钮颜色对应模块 */
+.feature-card--adopt .feature-card__button {
+  background: #4CAF50;
+}
+.feature-card--news .feature-card__button {
+  background: #3498db;
+}
+.feature-card--rescue .feature-card__button {
+  background: #e74c3c;
+}
+
+/* 页脚 */
+.footer {
+  background: #2c3e50;
+  color: white;
+  padding: 2rem 0;
+  margin-top: 4rem;
+}
+
+.contact-info {
+  margin-top: 1rem;
+}
+
+.auth-form {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.error-message {
+  color: #e74c3c;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.auth-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #7f8c8d;
+}
+
+.auth-link a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+.auth-link a:hover {
+  text-decoration: underline;
+}
+
+/* 认证页面专用样式 */
+.auth-form {
+  max-width: 400px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.auth-form h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.error-message {
+  color: #e74c3c;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.auth-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #7f8c8d;
+}
+
+.auth-link a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+.auth-link a:hover {
+  text-decoration: underline;
+}
+
+.adoption-cta {
+  padding: 4rem 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.cta-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  overflow: hidden;
+  margin: 2rem 0;
+}
+
+.cta-content {
+  padding: 3rem;
+}
+
+.cta-content h2 {
+  font-size: 2.2rem;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid;
+  display: inline-block;
+}
+
+.highlight {
+  color: #e74c3c;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.cta-features {
+  display: grid;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.icon-paw::before { content: "🐾"; }
+.icon-heart::before { content: "❤️"; } 
+.icon-shield::before { content: "🛡️"; }
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  gap: 0.8rem;
+}
+
+.cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  opacity: 0.9;
+}
+
+.cta-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.cta-image:hover img {
+  transform: scale(1.03);
+}
+
+.success-cases {
+  padding: 4rem 0;
+  background: #fff;
+}
+
+.case-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.case-card {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.case-card:hover {
+  transform: translateY(-5px);
+}
+
+.case-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.case-info {
+  padding: 1.5rem;
+}
+
+.adopter {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+.date {
+  color: #95a5a6;
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+blockquote {
+  border-left: 3px solid #4CAF50;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  color: #2c3e50;
+}
+
+/* 新增布局控制 */
+.feature-card__image {
+  order: 1;
+}
+
+.feature-card__content {
+  order: 2;
+}
+
+/* 需要反向布局时添加 */
+.feature-card--reverse .feature-card__image {
+  order: 2;
+}
+
+.feature-card--reverse .feature-card__content {
+  order: 1;
+}
+
+/* 新增图标样式 */
+.icon-news::before { content: "📰"; }
+.icon-medical::before { content: "🏥"; }
+.icon-donate::before { content: "💝"; }
+
+.auth-form form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cta-btn {
+  width: fit-content;
+}
+
+/* 管理后台扩展样式 */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.admin-table th {
+  background: #f8f9fa;
+}
+
+.action-buttons .btn {
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+}
+
+.status-pending { background: #f1c40f; color: #2c3e50; }
+.status-approved { background: #2ecc71; color: white; }
+.status-rejected { background: #e74c3c; color: white; }
+
+.admin-alert {
+background: #2ecc71;
+color: white;
+padding: 1rem;
+border-radius: 4px;
+margin: 1rem 0;
+animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+from { transform: translateY(-10px); opacity: 0; }
+to { transform: translateY(0); opacity: 1; }
+}
+
+/* 管理员标识 */
+.welcome-msg.admin-badge {
+  position: relative;
+  padding-right: 25px;
+}
+
+.welcome-msg.admin-badge::after {
+  content: "⚙️";
+  position: absolute;
+  right: 0;
+  top: -2px;
+}

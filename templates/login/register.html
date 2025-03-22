@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户注册</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">🐾 流浪动物之家 | 用户注册</h1>
+            <div class="nav-links">
+                <a href="{% url 'home' %}" class="nav-link">返回首页</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <form class="auth-form" method="post" action="{% url 'users:register' %}">
+            {% csrf_token %}
+            <h2>用户注册</h2>
+            {% if form.errors %}
+            <p class="error-message">请检查以下输入信息</p>
+            {% endif %}
+            
+            {% if messages %}
+              {% for message in messages %}
+                <div class="login-alert {{ message.tags }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+
+            <div class="form-group">
+                <label for="username">用户名:</label>
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                <label for="phone">手机号:</label>
+                {{ form.phone }}
+            </div>
+            <div class="form-group">
+                <label for="password1">密码:</label>
+                {{ form.password1 }}
+            </div>
+            <div class="form-group">
+                <label for="password2">确认密码:</label>
+                {{ form.password2 }}
+            </div>
+            <button type="submit" class="cta-btn">立即注册</button>
+            <div class="auth-link">
+                已有账号？<a href="{% url 'users:login' %}">立即登录</a>
+            </div>
+        </form>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2024 流浪动物救助平台 · 用爱终止流浪</p>
+        </div>
+    </footer>
+</body>
+</html>
