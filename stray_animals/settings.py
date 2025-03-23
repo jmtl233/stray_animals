@@ -129,6 +129,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+STATIC_ROOT = BASE_DIR / "staticfiles"  # 新增收集静态文件目录
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -141,10 +145,7 @@ AUTH_USER_MODEL = 'users.User'  # 确保存在
 LOGIN_URL = 'login_redirect'  # 使用新定义的根路径名称
 LOGOUT_REDIRECT_URL = 'login_redirect'  # 登出后返回登录页
 
-# 添加静态文件配置（如果尚未配置）
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
-
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

@@ -1,3 +1,5 @@
+{% load static %}
+{% block content %}
 <div class="admin-card">
     <div class="admin-toolbar">
         <form method="get" class="search-form">
@@ -50,7 +52,8 @@
                 <td>{{ pet.arrival_date|date:"Y-m-d" }}</td>
                 <td class="action-buttons">
                     <a href="{% url 'pets:edit' pet.id %}" class="btn btn--small">编辑</a>
-                    <a href="#" class="btn btn--small btn--danger">删除</a>
+                    <a href="{% url 'pets:delete' pet.id %}" class="btn btn--small btn--danger" 
+                       onclick="return confirm('确定要删除这只宠物吗？')">删除</a>
                 </td>
             </tr>
             {% empty %}
@@ -78,4 +81,5 @@
             {% endif %}
         </span>
     </div>
-</div> 
+</div>
+{% endblock %} 
