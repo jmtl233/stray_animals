@@ -19,7 +19,7 @@ from django.views.generic import RedirectView, TemplateView
 from . import admin_views, views  # 需要创建admin_views.py和确保导入视图模块
 
 urlpatterns = [
-    path('admin/dashboard/', views.dashboard, name='admin_dashboard'),
+    path('admin/dashboard/', admin_views.AdminDashboardView.as_view(), name='admin_dashboard'),
     path('admin/users/', views.user_management, name='admin_users'),
     path('admin/pets/', views.pet_management, name='admin_pets'),
     path('admin/announcements/', views.announcement_management, name='admin_announcements'),

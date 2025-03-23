@@ -41,12 +41,12 @@
             {% include "admin/stats.html" %}
         {% endif %}
 
-        {% if user_management %}
-            {% include "admin/users.html" %}
-        {% endif %}
-
         {% if pet_management %}
             {% include "admin/pets.html" %}
+        {% endif %}
+
+        {% if user_management %}
+            {% include "admin/users.html" %}
         {% endif %}
 
         {% if announcement_management %}

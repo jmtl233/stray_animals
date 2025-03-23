@@ -7,21 +7,36 @@ from django.contrib.auth.decorators import login_required
 
 def dashboard(request):
     return render(request, 'admin/dashboard.html', {
-        'show_stats': True  # 仅显示统计模块
+        'show_stats': True,
+        'stats': {
+            'total_users': User.objects.count(),  # 真实用户数量
+            'pending_adoptions': 0,  # 待实现功能
+            'total_pets': Pet.objects.count()  # 真实宠物数量
+        }
     })
 
 def user_management(request):
+    from users.models import User  # 添加导入
     users = User.objects.all()
     return render(request, 'admin/dashboard.html', {
-        'user_management': True,  # 激活用户管理模块
-        'users': users
+        'user_management': True,
+        'users': users,
+        'stats': {  # 保持统计数据显示
+            'total_users': User.objects.count(),
+            'pending_adoptions': 0,
+            'total_pets': Pet.objects.count()
+        }
     })
 
 def pet_management(request):
     pets = Pet.objects.all()
     return render(request, 'admin/dashboard.html', {
         'pet_management': True,  # 激活宠物管理模块
-        'pets': pets
+        'pets': pets,
+        'stats': {  # 保持统计数据显示
+            'total_users': User.objects.count(),
+            'pending_adoptions': 0
+        }
     })
 
 def announcement_management(request):
