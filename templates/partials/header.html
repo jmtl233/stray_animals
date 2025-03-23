@@ -10,13 +10,13 @@
                 </a>
                 <a href="{% url 'events:list' %}" class="nav-link">救助活动</a>
                 {% if user.is_authenticated %}
-                    <span class="welcome-msg {% if user.is_staff %}admin-badge{% endif %}">
+                    <span class="welcome-msg">
                         欢迎，{{ user.username }}
-                        <!-- {% if user.is_staff %}<span class="admin-tag">(管理员)</span>{% endif %} -->
+                        {% if user.is_staff %}<span class="admin-tag">(管理员)</span>{% endif %}
                     </span>
                     <a href="{% url 'users:logout' %}" class="btn">退出</a>
                 {% else %}
-                    <a href="{% url 'login' %}" class="btn">登录</a>
+                    <a href="{% url 'users:login' %}" class="btn">登录</a>
                     <a href="{% url 'users:register' %}" class="btn">注册</a>
                 {% endif %}
             </div>

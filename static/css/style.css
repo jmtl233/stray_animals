@@ -701,15 +701,3 @@ from { transform: translateY(-10px); opacity: 0; }
 to { transform: translateY(0); opacity: 1; }
 }
 
-/* 管理员标识 */
-.welcome-msg.admin-badge {
-  position: relative;
-  padding-right: 25px;
-}
-
-.welcome-msg.admin-badge::after {
-  content: "⚙️";
-  position: absolute;
-  right: 0;
-  top: -2px;
-}

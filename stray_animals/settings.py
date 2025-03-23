@@ -138,9 +138,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.User'  # 确保存在
 
 # 在文件末尾添加
-LOGIN_URL = '/users/'
-LOGIN_REDIRECT_URL = 'home'  # 默认跳转首页（会被视图中的逻辑覆盖）
-LOGOUT_REDIRECT_URL = 'users:login'  # 使用带命名空间的URL名称
+LOGIN_URL = 'login_redirect'  # 使用新定义的根路径名称
+LOGOUT_REDIRECT_URL = 'login_redirect'  # 登出后返回登录页
 
 # 添加静态文件配置（如果尚未配置）
 STATIC_URL = '/static/'

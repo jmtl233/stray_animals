@@ -1,0 +1,82 @@
+.pet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.pet-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.pet-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.pet-info {
+    padding: 1rem;
+    text-align: center;
+}
+
+.no-pets {
+    text-align: center;
+    color: #666;
+    padding: 2rem;
+}
+
+.featured-pets {
+    background: #f8f9fa;
+    padding: 3rem 0;
+}
+
+.filter-section {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.filter-form {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.filter-group select {
+    padding: 0.8rem;
+    border: 2px solid #e9ecef;
+    border-radius: 4px;
+    min-width: 200px;
+}
+
+.status-tag {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    margin-right: 0.5rem;
+}
+
+.status-tag.vaccinated {
+    background: #4CAF50;
+    color: white;
+}
+
+.status-tag.neutered {
+    background: #2196F3;
+    color: white;
+}
+
+.reset-btn {
+    color: #666;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+} 

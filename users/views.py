@@ -2,6 +2,7 @@ from django.contrib.auth.views import LoginView as AuthLoginView, LogoutView as 
 from django.views.generic import CreateView
 from .forms import LoginForm, RegisterForm
 from django.contrib import messages
+from django.urls import reverse
 
 class LoginView(AuthLoginView):
     form_class = LoginForm
@@ -9,13 +10,13 @@ class LoginView(AuthLoginView):
 
     def get_success_url(self):
         if self.request.user.is_staff or self.request.user.is_superuser:
-            return '/admin/dashboard/'  # 指向管理仪表盘
-        return '/home/'  # 普通用户跳转首页
+            return reverse('admin_dashboard')  # 管理员跳转后台
+        return reverse('home')  # 普通用户跳转首页
 
     def form_valid(self, form):
         response = super().form_valid(form)
         if self.request.user.is_superuser:
-            messages.success(self.request, 'admin 管理员身份验证成功')
+            messages.success(self.request, '管理员身份验证成功')
         return response
 
 class RegisterView(CreateView):

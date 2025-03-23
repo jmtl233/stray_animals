@@ -3,6 +3,7 @@ from users.forms import UserForm  # 从具体应用导入
 from users.models import User  # 从自定义用户模型导入
 from pets.models import Pet
 from announcements.models import Announcement
+from django.contrib.auth.decorators import login_required
 
 def dashboard(request):
     return render(request, 'admin/dashboard.html', {
@@ -32,4 +33,8 @@ def announcement_management(request):
 
 def adoption_management(request):
     # 领养审核逻辑
-    return render(request, 'admin/dashboard.html', {'adoption_management': True}) 
+    return render(request, 'admin/dashboard.html', {'adoption_management': True})
+
+@login_required
+def home_view(request):
+    return render(request, 'home/home.html') 

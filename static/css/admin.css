@@ -302,17 +302,7 @@
     margin-left: 5px;
 }
 
-.admin-badge {
-    position: relative;
-    padding-right: 25px;
-}
 
-.admin-badge::after {
-    content: "⚙️";
-    position: absolute;
-    right: 0;
-    top: -2px;
-}
 
 
 

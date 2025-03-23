@@ -25,9 +25,9 @@ urlpatterns = [
     path('admin/announcements/', views.announcement_management, name='admin_announcements'),
     path('admin/', admin.site.urls),
     path('users/', include('users.urls', namespace='users')),
-    path('', RedirectView.as_view(url='/users/'), name='home'),
-    path('dashboard/', TemplateView.as_view(template_name='home/home.html'), name='dashboard'),
-    path('pets/', include('pets.urls', namespace='pets')),  # 取消注释
+    path('', TemplateView.as_view(template_name='login/login.html'), name='login_redirect'),  # 根路径显示登录页
+    path('home/', views.home_view, name='home'),  # 普通用户首页
+    path('pets/', include('pets.urls', namespace='pets')),
     path('events/', include('events.urls', namespace='events')),
     path('announcements/', include('announcements.urls', namespace='announcements')),
     path('admin/adoptions/', views.adoption_management, name='admin_adoptions'),
