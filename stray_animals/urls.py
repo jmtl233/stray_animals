@@ -33,4 +33,5 @@ urlpatterns = [
     path('events/', include('events.urls', namespace='events')),
     path('announcements/', include('announcements.urls', namespace='announcements')),
     path('admin/adoptions/', views.adoption_management, name='admin_adoptions'),
+    path('success-cases/', views.success_cases_view, name='success_cases'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="success-cases">
+    <div class="container">
+        <h2>成功救助案例</h2>
+        <div class="case-grid">
+            {% for case in success_cases %}
+            <div class="case-card">
+                {% if case.photo %}
+                <img src="{{ case.photo.url }}" alt="{{ case.name }}">
+                {% endif %}
+                <div class="case-info">
+                    <h3>{{ case.name }}</h3>
+                    <p>品种：{{ case.breed }}</p>
+                    <p>救助时间：{{ case.rescue_date|date:"Y-m-d" }}</p>
+                    <div class="case-desc">
+                        {{ case.rescue_story|truncatechars:100 }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %} 

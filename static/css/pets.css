@@ -7,15 +7,43 @@
 
 .pet-card {
     background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 12px;
     overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+}
+
+.pet-card:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.pet-card:active {
+    transform: scale(0.98);
 }
 
 .pet-image {
     width: 100%;
-    height: 200px;
+    max-width: 280px;
+    aspect-ratio: 1/1;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.pet-image img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.pet-image:hover img {
+    transform: scale(1.03);
 }
 
 .pet-info {
@@ -79,4 +107,119 @@
     padding: 0.5rem 1rem;
     border: 1px solid #ddd;
     border-radius: 4px;
+}
+
+.pet-detail-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+.pet-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.adopted-badge {
+    background: #4CAF50;
+    color: white;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.pet-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.info-section {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.health-status {
+    margin: 1rem 0;
+}
+
+.status-tag {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    margin-right: 0.5rem;
+    border-radius: 15px;
+    font-size: 0.9rem;
+}
+
+.status-tag.vaccinated {
+    background: #8BC34A;
+    color: white;
+}
+
+.status-tag.neutered {
+    background: #2196F3;
+    color: white;
+}
+
+.action-buttons {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.rescue-story {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: #fff3e0;
+    border-radius: 8px;
+}
+
+.pet-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.pet-card-link:hover {
+    transform: translateY(-5px);
+}
+
+@media (max-width: 768px) {
+    .pet-image {
+        max-width: 100%;
+        aspect-ratio: 4/3;
+    }
+}
+
+@media (max-width: 576px) {
+    .pet-image {
+        aspect-ratio: 3/2;
+    }
+}
+
+.current-photo {
+    border: 2px dashed #ddd;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+}
+
+.current-photo img {
+    display: block;
+    margin: 0 auto;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.help-text {
+    color: #666;
+    font-size: 0.9em;
+    margin-top: 0.5rem;
 } 

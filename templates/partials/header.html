@@ -3,15 +3,22 @@
         <div class="container">
             <h1 class="logo">🐾 流浪动物之家</h1>
             <div class="nav-links">
-                <a href="/" class="nav-link {% if request.path == '/' %}active{% endif %}">首页</a>
+                <a href="{% url 'home' %}" 
+                   class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                   首页
+                </a>
                 <a href="{% url 'pets:list' %}" 
                    class="nav-link {% if '/pets/' in request.path %}active{% endif %}">
                    待领养宠物
                 </a>
                 <a href="{% url 'events:list' %}" class="nav-link">救助活动</a>
+                <a href="{% url 'success_cases' %}" 
+                   class="nav-link {% if request.resolver_match.url_name == 'success_cases' %}active{% endif %}">
+                   救助案例
+                </a>
                 {% if user.is_authenticated %}
                     <span class="welcome-msg">
-                        欢迎：{{ user.username }}
+                        欢迎：{{ user.username }}           
                         {% if user.is_staff %}<span class="admin-tag">(管理员)</span>{% endif %}
                     </span>
                     <a href="{% url 'users:logout' %}" class="btn">退出</a>

@@ -13,6 +13,20 @@ class PetListView(ListView):
     model = Pet
     template_name = 'pets/list.html'
     context_object_name = 'pets'
+    paginate_by = 12
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        breed_filter = self.request.GET.get('breed', '')
+        if breed_filter:
+            queryset = queryset.filter(breed=breed_filter)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # 获取所有品种选项（去重）
+        context['breeds'] = dict(Pet.BREED_CHOICES).keys()
+        return context
 
 class PetDetailView(DetailView):
     model = Pet
@@ -21,7 +35,7 @@ class PetDetailView(DetailView):
 
 class PetCreateView(CreateView):
     model = Pet
-    fields = ['name', 'breed', 'age', 'gender', 'photo', 'is_vaccinated', 'is_neutered']
+    fields = ['name', 'breed', 'age', 'gender', 'photo', 'is_vaccinated', 'is_neutered', 'health_status', 'description']
     template_name = 'pets/create.html'
     success_url = '/pets/list/'
 
@@ -32,7 +46,7 @@ class PetCreateView(CreateView):
 
 class PetUpdateView(UpdateView):
     model = Pet
-    fields = '__all__'
+    fields = ['name', 'breed', 'age', 'gender', 'photo', 'is_vaccinated', 'is_neutered', 'health_status', 'description']
     template_name = 'pets/create.html'  # 可以复用创建模板
     success_url = '/admin/pets/'
 

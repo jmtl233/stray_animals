@@ -52,4 +52,11 @@ def adoption_management(request):
 
 @login_required
 def home_view(request):
-    return render(request, 'home/home.html') 
+    return render(request, 'home/home.html')
+
+def success_cases_view(request):
+    # 使用正确的字段名进行过滤
+    success_cases = Pet.objects.filter(is_adopted=True)
+    return render(request, 'home/success_cases.html', {
+        'success_cases': success_cases
+    }) 

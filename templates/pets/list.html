@@ -26,15 +26,16 @@
     </div>
     <div class="pet-grid">
         {% for pet in pets %}
-        <div class="pet-card">
-            <img src="{{ pet.photo.url }}" alt="{{ pet.name }}" class="pet-image">
-            <div class="pet-info">
-                <h3>{{ pet.name }}</h3>
-                <p>品种：{{ pet.breed }}</p>
-                <p>年龄：{{ pet.age }}岁</p>
-                <a href="{% url 'pets:detail' pet.id %}" class="btn">查看详情</a>
+        <a href="{% url 'pets:detail' pet.id %}" class="pet-card-link">
+            <div class="pet-card">
+                <img src="{{ pet.photo.url }}" alt="{{ pet.name }}" class="pet-image">
+                <div class="pet-info">
+                    <h3>{{ pet.name }}</h3>
+                    <p>品种：{{ pet.breed }}</p>
+                    <p>年龄：{{ pet.age }}岁</p>
+                </div>
             </div>
-        </div>
+        </a>
         {% empty %}
         <p class="no-pets">暂时没有待领养的宠物</p>
         {% endfor %}
