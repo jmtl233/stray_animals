@@ -28,7 +28,9 @@
         {% for pet in pets %}
         <a href="{% url 'pets:detail' pet.id %}" class="pet-card-link">
             <div class="pet-card">
-                <img src="{{ pet.photo.url }}" alt="{{ pet.name }}" class="pet-image">
+                <div class="image-container">
+                    <img src="{{ pet.photo.url }}" alt="{{ pet.name }}" class="pet-image">
+                </div>
                 <div class="pet-info">
                     <h3>{{ pet.name }}</h3>
                     <p>品种：{{ pet.breed }}</p>

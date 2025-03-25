@@ -35,12 +35,14 @@ body {
 
 .navbar .container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 2rem;
 }
 
 .logo {
-  margin: 0;
+  margin-right: auto;
+  flex-shrink: 0;
+  white-space: nowrap;
   font-size: 1.5rem;
   display: inline-flex;
   align-items: center;
@@ -49,8 +51,19 @@ body {
 
 .nav-links {
   display: flex;
-  align-items: center;
   gap: 1.5rem;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.nav-left {
+  display: flex;
+  gap: 1.5rem;
+  flex: 1;
+  justify-content: flex-start;
 }
 
 .nav-link {
@@ -182,6 +195,13 @@ body {
   }
   
   .nav-links {
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+  
+  .nav-left {
     flex-wrap: wrap;
     justify-content: center;
   }
@@ -699,5 +719,81 @@ animation: slideIn 0.3s ease;
 @keyframes slideIn {
 from { transform: translateY(-10px); opacity: 0; }
 to { transform: translateY(0); opacity: 1; }
+}
+
+/* 下拉菜单样式 */
+.nav-item.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 160px;
+    background: white;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    display: block !important;
+}
+
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition-delay: 0.1s;
+}
+
+.dropdown-item {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    background: transparent;
+}
+
+.dropdown-item:hover {
+    background: rgba(0,0,0,0.03);
+    color: #2c3e50;
+}
+
+.dropdown-item i {
+    margin-right: 8px;
+    width: 18px;
+    color: #3498db;
+}
+
+/* 响应式调整 */
+@media (max-width: 1024px) {
+    .nav-links {
+        gap: 1rem;
+    }
+    
+    .nav-left {
+        gap: 1rem;
+    }
+    
+    .welcome-msg {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+        gap: 1rem;
+        padding: 1rem 0;
+    }
+    
+    .nav-left {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 }
 

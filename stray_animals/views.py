@@ -55,8 +55,15 @@ def home_view(request):
     return render(request, 'home/home.html')
 
 def success_cases_view(request):
-    # 使用正确的字段名进行过滤
+    animal_type = request.GET.get('type', 'all')
     success_cases = Pet.objects.filter(is_adopted=True)
+    
+    if animal_type == 'cat':
+        success_cases = success_cases.filter(breed__contains='猫')
+    elif animal_type == 'dog':
+        success_cases = success_cases.filter(breed__contains='犬')
+
     return render(request, 'home/success_cases.html', {
-        'success_cases': success_cases
+        'success_cases': success_cases,
+        'current_type': animal_type
     }) 

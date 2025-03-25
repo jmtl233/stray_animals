@@ -12,10 +12,20 @@
                    待领养宠物
                 </a>
                 <a href="{% url 'events:list' %}" class="nav-link">救助活动</a>
-                <a href="{% url 'success_cases' %}" 
-                   class="nav-link {% if request.resolver_match.url_name == 'success_cases' %}active{% endif %}">
-                   救助案例
-                </a>
+                <div class="nav-item dropdown">
+                    <a href="{% url 'success_cases' %}" 
+                       class="nav-link {% if request.resolver_match.url_name == 'success_cases' %}active{% endif %}">
+                       救助案例
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="{% url 'success_cases' %}?type=cat" class="dropdown-item">
+                            <i class="fas fa-cat"></i> 猫咪案例
+                        </a>
+                        <a href="{% url 'success_cases' %}?type=dog" class="dropdown-item">
+                            <i class="fas fa-dog"></i> 狗狗案例
+                        </a>
+                    </div>
+                </div>
                 {% if user.is_authenticated %}
                     <span class="welcome-msg">
                         欢迎：{{ user.username }}           
