@@ -14,20 +14,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, reverse_lazy
 from django.views.generic import RedirectView, TemplateView
 from . import admin_views, views  # 需要创建admin_views.py和确保导入视图模块
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('', RedirectView.as_view(url=reverse_lazy('users:login')), name='root_redirect'),
     path('admin/dashboard/', admin_views.AdminDashboardView.as_view(), name='admin_dashboard'),
     path('admin/users/', views.user_management, name='admin_users'),
     path('admin/pets/', views.pet_management, name='admin_pets'),
     path('admin/announcements/', views.announcement_management, name='admin_announcements'),
     path('admin/', admin.site.urls),
-    path('users/', include('users.urls')),
-    path('login/', include('users.urls')),
+    path('users/', include(('users.urls', 'users'), namespace='users')),
     path('home/', views.home_view, name='home'),
     path('pets/', include('pets.urls', namespace='pets')),
     path('events/', include('events.urls', namespace='events')),

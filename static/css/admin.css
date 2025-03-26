@@ -219,6 +219,7 @@
 
 .btn--danger {
     background: #e74c3c !important;
+    color: white;
 }
 
 /* 宠物状态标签 */
@@ -301,6 +302,258 @@
     font-size: 0.8em;
     margin-left: 5px;
 }
+
+/* 用户详情页专属样式 */
+.user-profile {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    padding: 2.5rem;
+    margin: 2rem 0;
+}
+
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.profile-header h2 {
+    color: #2c3e50;
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+.admin-tag {
+    background: #3498db;
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.85rem;
+}
+
+.profile-section {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 3rem;
+}
+
+.profile-info .info-item {
+    display: flex;
+    align-items: center;
+    padding: 1.2rem 1.5rem;
+    margin: 1rem 0;
+    background: #f8f9fa;
+    border-radius: 8px;
+    line-height: 1.6;
+}
+
+.profile-info label {
+    min-width: 120px;
+    font-size: 0.95rem;
+    color: #636e72;
+}
+
+.profile-info span {
+    color: #2c3e50;
+    flex-grow: 1;
+}
+
+.status-badge {
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.85rem;
+}
+
+.status-active {
+    background: #2ecc71;
+    color: white;
+}
+
+.status-inactive {
+    background: #95a5a6;
+    color: white;
+}
+
+.profile-actions {
+    gap: 2rem;
+    padding: 2rem;
+    flex-direction: column;
+}
+
+.profile-actions .btn {
+    width: 100%;
+    min-width: 180px;
+    padding: 14px 28px;
+    margin: 0.5rem 0;
+}
+
+@media (min-width: 768px) {
+    .profile-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+    
+    .profile-actions .btn {
+        width: auto;
+        flex: 1 0 calc(33% - 1rem);
+        max-width: 240px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-actions .btn {
+        min-width: 100%;
+    }
+}
+
+/* 统一按钮样式 */
+.profile-actions .btn--secondary,
+.profile-actions .btn--primary,
+.profile-actions .btn--danger {
+    /* 尺寸统一 */
+    padding: 14px 28px !important;
+    font-size: 15px !important;
+    min-width: 160px;
+    height: 44px;
+    line-height: 1.5;
+    
+    /* 布局统一 */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    
+    /* 样式统一 */
+    border-radius: 8px;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    
+    /* 颜色统一 */
+    background: #1e6fbf;
+    color: white;
+}
+
+/* 悬停效果统一 */
+.profile-actions .btn--secondary:hover,
+.profile-actions .btn--primary:hover,
+.profile-actions .btn--danger:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    background: #165a9c;
+}
+
+/* 图标样式统一 */
+.profile-actions .btn--secondary::before,
+.profile-actions .btn--primary::before,
+.profile-actions .btn--danger::before {
+    font-size: 1.1em;
+    opacity: 0.9;
+}
+
+
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .user-profile {
+        padding: 1.5rem;
+    }
+    
+    .profile-section {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .profile-actions {
+        padding: 1.5rem;
+    }
+    
+    .profile-info .info-item {
+        padding: 1rem;
+    }
+}
+
+/* 统一尺寸规范 */
+:root {
+    --base-unit: 0.5rem; /* 8px */
+    --radius-md: 6px;
+    --radius-lg: 10px;
+}
+
+/* 用户信息主容器 */
+.user-profile {
+    padding: calc(var(--base-unit) * 4); /* 32px */
+    margin: calc(var(--base-unit) * 3) 0; /* 24px */
+}
+
+/* 信息项统一尺寸 */
+.profile-info .info-item {
+    padding: calc(var(--base-unit) * 2) calc(var(--base-unit) * 3); /* 16px 24px */
+    margin: var(--base-unit) 0; /* 8px */
+    border-radius: var(--radius-md);
+}
+
+/* 标签统一宽度 */
+.profile-info label {
+    min-width: 140px; /* 统一标签宽度 */
+    font-size: 0.95rem;
+}
+
+/* 活动记录项 */
+.activity-item {
+    padding: calc(var(--base-unit) * 1.5); /* 12px */
+    margin: var(--base-unit) 0;
+    border-radius: var(--radius-md);
+}
+
+/* 统一字体层级 */
+.profile-header h2 { font-size: 1.5rem; } /* 24px */
+.admin-tag { font-size: 0.85rem; } /* 13.6px */
+.status-badge { font-size: 0.85rem; }
+
+/* 统一图标尺寸 */
+.profile-actions .btn::before {
+    font-size: 1.1em;
+    width: 1.2em;
+    height: 1.2em;
+}
+
+/* 统一阴影强度 */
+.user-profile,
+.activity-item,
+.profile-actions .btn {
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* 统一过渡效果 */
+.profile-info .info-item,
+.profile-actions .btn {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    :root {
+        --base-unit: 0.4rem; /* 缩小基准单位 */
+    }
+    
+    .profile-info label {
+        min-width: 100px; /* 缩小标签宽度 */
+    }
+    
+    .profile-actions .btn {
+        padding: calc(var(--base-unit) * 1.5) calc(var(--base-unit) * 2);
+    }
+}
+
+
+
+
 
 
 

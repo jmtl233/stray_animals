@@ -1,8 +1,11 @@
 from django.contrib.auth.views import LoginView as AuthLoginView, LogoutView as AuthLogoutView
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 from .forms import LoginForm, RegisterForm
 from django.contrib import messages
 from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth import get_user_model
+from .models import User
 
 class LoginView(AuthLoginView):
     form_class = LoginForm
@@ -32,3 +35,16 @@ class RegisterView(CreateView):
 
 class LogoutView(AuthLogoutView):
     next_page = 'users:login'  # 使用带命名空间的URL名称 
+
+class UserDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+    model = get_user_model()
+    template_name = 'admin/user_detail.html'
+    context_object_name = 'target_user'
+
+    def test_func(self):
+        return self.request.user.is_staff
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_management'] = True
+        return context
