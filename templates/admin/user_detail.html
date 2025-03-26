@@ -1,0 +1,65 @@
+{% extends "admin/dashboard.html" %}
+{% load static %}
+
+{% block content %}
+<div class="admin-card">
+    <div class="user-profile">
+        <div class="profile-header">
+            <h2>{{ target_user.username }} 的详细信息</h2>
+            <span class="admin-tag">用户ID: {{ target_user.id }}</span>
+        </div>
+
+        <div class="profile-section">
+            <div class="profile-info">
+                <div class="info-item">
+                    <label>用户名：</label>
+                    <span>{{ target_user.username }}</span>
+                </div>
+                <div class="info-item">
+                    <label>电子邮箱：</label>
+                    <span>{{ target_user.email|default:"未填写" }}</span>
+                </div>
+                <div class="info-item">
+                    <label>注册时间：</label>
+                    <span>{{ target_user.date_joined|date:"Y-m-d H:i" }}</span>
+                </div>
+                <div class="info-item">
+                    <label>最后登录：</label>
+                    <span>{{ target_user.last_login|date:"Y-m-d H:i"|default:"从未登录" }}</span>
+                </div>
+                <div class="info-item">
+                    <label>管理员权限：</label>
+                    <span class="status-badge {% if target_user.is_staff %}status-active{% else %}status-inactive{% endif %}">
+                        {{ target_user.is_staff|yesno:"是,否" }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="profile-actions">
+                <a href="{% url 'admin_users' %}" class="btn btn--secondary">返回列表</a>
+                <a href="#" class="btn btn--primary">编辑信息</a>
+                <a href="#" 
+                   class="btn btn--danger" 
+                   onclick="return confirm('确定要禁用该用户吗？')">
+                   禁用账户
+                </a>
+            </div>
+        </div>
+
+        <div class="user-activity">
+            <h3>近期活动记录</h3>
+            <div class="activity-list">
+                <!-- 可添加用户活动日志 -->
+                <div class="activity-item">
+                    <span class="activity-time">2024-03-25 14:30</span>
+                    <span class="activity-desc">登录了系统</span>
+                </div>
+                <div class="activity-item">
+                    <span class="activity-time">2024-03-24 09:15</span>
+                    <span class="activity-desc">查看了宠物详情</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

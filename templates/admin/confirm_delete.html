@@ -1,0 +1,29 @@
+{% extends "admin/dashboard.html" %}
+{% load static %}
+
+{% block content %}
+<div class="admin-card">
+    <div class="delete-confirmation">
+        <h2>确认删除用户</h2>
+        <div class="warning-message">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>即将永久删除用户：{{ user.username }}</p>
+            <p>此操作不可恢复！</p>
+        </div>
+        
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-actions">
+                <button type="submit" class="btn btn--danger">
+                    <i class="fas fa-trash-alt"></i>
+                    确认删除
+                </button>
+                <a href="{% url 'admin_users' %}" class="btn btn--secondary">
+                    <i class="fas fa-times"></i>
+                    取消
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %} 
