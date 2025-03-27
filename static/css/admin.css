@@ -70,10 +70,9 @@
 }
 
 .admin-logo-container {
-    margin-right: auto;  /* 推动右侧元素 */
-    padding-left: 0;  /* 移除左侧内边距 */
     display: flex;
     align-items: center;
+    gap: 1.5rem;  /* 控制元素间距 */
 }
 
 .admin-logo {
@@ -100,7 +99,15 @@
     color: #bdc3c7;
     font-size: 0.95rem;
     margin: 0;
-    white-space: nowrap;
+    position: relative;
+    padding-left: 1rem;
+}
+
+.admin-welcome::before {
+    content: "|";
+    position: absolute;
+    left: 0;
+    color: #4a5568;
 }
 
 .admin-logout-btn {
@@ -497,6 +504,18 @@
     .profile-info .info-item {
         padding: 1rem;
     }
+    .admin-logo-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    .admin-welcome {
+        padding-left: 0;
+        font-size: 0.85rem;
+    }
+    .admin-welcome::before {
+        display: none;
+    }
 }
 
 /* 统一尺寸规范 */
@@ -712,6 +731,43 @@
 @media (max-width: 768px) {
     .pet-management-table tr {
         border-bottom: 1px solid #eee; /* 移动端更浅的分隔线 */
+    }
+}
+
+/* 侧边栏底部样式 */
+.sidebar-footer {
+    margin-top: auto;
+    border-top: none;
+    padding-top: 0;
+}
+
+.logout-link {
+    background: transparent !important;
+    color: #bdc3c7 !important;
+    border: none !important;
+    padding: 1rem !important;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.logout-link:hover {
+    background: #34495e !important;
+    color: white !important;
+    transform: none;
+}
+
+.logout-link i {
+    margin-right: 0.8rem;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .sidebar-footer {
+        position: static;
+        margin-top: 2rem;
+    }
+    .logout-link {
+        transform: none;
     }
 }
 

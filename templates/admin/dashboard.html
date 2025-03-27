@@ -11,13 +11,16 @@
         <div class="container">
             <div class="admin-logo-container">
                 <h1 class="logo admin-logo">🔐 管理后台</h1>
+                {% if user.is_authenticated %}
+                    <span class="welcome-msg admin-welcome">欢迎：{{ user.username }}</span>
+                {% endif %}
             </div>
             <div class="nav-links admin-nav-links">
                 {% if user.is_authenticated %}
-                    <div class="user-info-group">
-                        <span class="welcome-msg admin-welcome">欢迎，{{ user.username }}</span>
+                    <!-- 删除以下div -->
+                    <!-- <div class="user-info-group">
                         <a href="{% url 'users:logout' %}" class="btn admin-logout-btn">退出系统</a>
-                    </div>
+                    </div> -->
                 {% endif %}
             </div>
         </div>
@@ -35,6 +38,10 @@
             <a href="{% url 'admin_pets' %}" class="admin-nav-link {% if pet_management %}active{% endif %}">宠物管理</a>
             <a href="{% url 'admin_announcements' %}" class="admin-nav-link {% if announcement_management %}active{% endif %}">公告管理</a>
             <a href="{% url 'admin_adoptions' %}" class="admin-nav-link {% if adoption_management %}active{% endif %}">领养审核</a>
+            <a href="{% url 'users:logout' %}" class="admin-nav-link">
+                <i class="fas fa-sign-out-alt"></i>
+                退出系统
+            </a>
         </nav>
     </aside>
     
