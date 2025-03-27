@@ -211,3 +211,60 @@
     border-radius: 15px; /* 胶囊状标签 */
     font-size: 0.85rem;
 }
+
+/* 详情按钮样式 */
+.btn--info {
+    border: 1px solid #3498db !important; /* 使用蓝色系边框 */
+    background-color: rgba(52, 152, 219, 0.1) !important; /* 浅蓝背景 */
+    color: #3498db !important;
+    transition: all 0.2s ease;
+}
+
+.btn--info:hover {
+    background-color: #3498db !important;
+    color: white !important;
+    transform: translateY(-1px);
+}
+
+/* 调整按钮边距 */
+.action-buttons .btn {
+    margin-right: 0.8rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+}
+
+/* 表单控件样式 */
+.form-control {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+/* 下拉框样式 */
+select.form-control {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23343a40' viewBox='0 0 16 16'%3E%3Cpath d='M2 5l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    padding-right: 2.5rem;
+}
+
+select.form-control:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+/* 表单组样式 */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}

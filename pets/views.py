@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Pet  # 需要先创建Pet模型
+from .forms import PetForm
 
 # Create your views here.
 
@@ -46,7 +47,7 @@ class PetCreateView(CreateView):
 
 class PetUpdateView(UpdateView):
     model = Pet
-    fields = ['name', 'breed', 'age', 'gender', 'photo', 'is_vaccinated', 'is_neutered', 'health_status', 'description']
+    fields = ['name', 'breed', 'age', 'gender', 'photo', 'is_vaccinated', 'is_neutered', 'health_status', 'description', 'status']
     template_name = 'pets/create.html'  # 可以复用创建模板
     success_url = '/admin/pets/'
 
@@ -61,3 +62,17 @@ class PetDeleteView(DeleteView):
     
     def get(self, request, *args, **kwargs):
         return self.delete(request, *args, **kwargs)
+
+def create(request):
+    if request.method == 'POST':
+        form = PetForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_pets')
+    else:
+        form = PetForm()  # 确保正确初始化表单
+    
+    return render(request, 'pets/create.html', {
+        'form': form,
+        'edit_mode': False
+    })

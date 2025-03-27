@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 
@@ -30,6 +31,22 @@ class Pet(models.Model):
     is_adopted = models.BooleanField(default=False, verbose_name='是否被领养')
     rescue_date = models.DateField(verbose_name='救助时间', null=True, blank=True)
     rescue_story = models.TextField(verbose_name='救助故事', blank=True)
+    STATUS_CHOICES = [
+        ('available', '可领养'),
+        ('adopted', '已领养'),
+        ('medical', '医疗中')
+    ]
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='available',
+        verbose_name='状态'
+    )
+    arrival_date = models.DateField(
+        verbose_name='收容日期',
+        default=timezone.now,  # 默认当前日期
+        help_text='宠物被收容的日期'
+    )
 
     def __str__(self):
         return self.name

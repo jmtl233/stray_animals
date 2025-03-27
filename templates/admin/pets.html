@@ -14,7 +14,6 @@
                 <option value="adopted" {% if status_filter == 'adopted' %}selected{% endif %}>已领养</option>
                 <option value="medical" {% if status_filter == 'medical' %}selected{% endif %}>医疗中</option>
             </select>
-            <button type="submit" class="btn btn--primary">🔍</button>
         </form>
         <a href="{% url 'pets:create' %}" class="btn btn--success">+ 新增宠物</a>
     </div>
@@ -28,7 +27,7 @@
                 <th>年龄</th>
                 <th>状态</th>
                 <th>收容日期</th>
-                <th>操作</th>
+                <th style="text-align: center">操作</th>
             </tr>
         </thead>
         <tbody>
@@ -50,12 +49,8 @@
                     </span>
                 </td>
                 <td>{{ pet.arrival_date|date:"Y-m-d" }}</td>
-                <td class="action-buttons">
-                    <div class="action-buttons">
-                        <a href="{% url 'pets:edit' pet.id %}" class="btn btn--primary pet-action-btn">
-                            编辑
-                        </a>
-                    </div>
+                <td class="action-buttons" style="text-align: center">
+                    <a href="{% url 'pets:edit' pet.id %}" class="btn btn--small btn--info">编辑</a>
                 </td>
             </tr>
             {% empty %}
