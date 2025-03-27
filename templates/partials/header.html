@@ -11,7 +11,10 @@
                    class="nav-link {% if '/pets/' in request.path %}active{% endif %}">
                    待领养宠物
                 </a>
-                <a href="{% url 'events:list' %}" class="nav-link">救助活动</a>
+                <a href="{% url 'events:list' %}" 
+                   class="nav-link {% if request.resolver_match.view_name == 'events:list' %}active{% endif %}">
+                    救助活动
+                </a>
                 <div class="nav-item dropdown">
                     <a href="{% url 'success_cases' %}" 
                        class="nav-link {% if request.resolver_match.url_name == 'success_cases' %}active{% endif %}">
