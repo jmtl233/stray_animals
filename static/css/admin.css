@@ -1,781 +1,213 @@
-/* 管理后台专用样式 */
+/* ================= 管理后台全局样式 ================= */
+/* 主容器 - 网格布局侧边栏与内容区 */
 .admin-container {
     display: grid;
-    grid-template-columns: 240px 1fr;
-    min-height: 100vh;
+    grid-template-columns: 240px 1fr; /* 固定侧边栏宽度 */
+    min-height: 100vh; /* 全屏高度 */
 }
 
+/* 侧边栏样式 */
 .admin-sidebar {
-    background: #2c3e50;
+    background: #2c3e50; /* 深蓝底色 */
     padding: 2rem;
     color: white;
 }
 
+/* 主内容区域 */
 .admin-main {
     padding: 2rem;
-    background: #f8f9fa;
+    background: #f8f9fa; /* 浅灰背景 */
 }
 
+/* ================= 导航链接样式 ================= */
 .admin-nav-link {
     display: block;
     padding: 1rem;
-    color: #bdc3c7;
+    color: #bdc3c7; /* 默认灰色 */
     text-decoration: none;
-    transition: all 0.3s;
+    transition: all 0.3s; /* 悬停动画 */
 }
-
 .admin-nav-link:hover {
     color: white;
-    background: #34495e;
+    background: #34495e; /* 悬停深蓝底色 */
 }
 
+/* ================= 数据统计卡片布局 ================= */
 .admin-stat-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 自适应列宽 */
     gap: 2rem;
     margin: 2rem 0;
 }
-
 .admin-card {
     background: white;
     padding: 2rem;
     border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* 柔和阴影 */
 }
 
-/* 表格样式 */
+/* ================= 表格样式 ================= */
 .admin-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 1rem;
 }
-
 .admin-table th,
 .admin-table td {
     padding: 1rem;
     text-align: left;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #eee; /* 细分割线 */
     vertical-align: middle;
 }
-
 .admin-table th {
-    background: #f8f9fa;
+    background: #f8f9fa; /* 表头浅灰背景 */
 }
 
-/* 新顶部栏样式 */
+/* ================= 顶部导航栏样式 ================= */
 .admin-header .admin-navbar {
-    background: #2c3e50; /* 与侧边栏完全一致 */
+    background: #2c3e50;
     box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     padding: 0.8rem 0;
 }
 
+/* 新增容器定位规则 */
+.admin-header .admin-navbar .container {
+    width: 100%;
+    max-width: 1200px; /* 根据实际需要调整 */
+    margin: 0 auto; /* 移除自动居中 */
+    padding: 0 15px; /* 保持内容呼吸空间 */
+    margin-left: 0; /* 强制左对齐 */
+    justify-content: flex-start; /* flex容器左对齐 */
+}
+
+/* 修改logo容器 */
 .admin-logo-container {
     display: flex;
     align-items: center;
-    gap: 1.5rem;  /* 控制元素间距 */
+    gap: 1.5rem;
+    margin-right: auto;
+    padding-left: 0;
+    position: relative; /* 新增定位上下文 */
 }
 
 .admin-logo {
     font-size: 1.4rem;
     color: #ecf0f1;
-    margin: 0;  /* 移除原有margin */
-    padding: 0;  /* 移除原有padding */
-    position: relative;
+    margin-left: -0.5rem; /* 新增：微调logo左间距 */
 }
-
-.admin-logo::before {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.2em;
-}
-
-.admin-nav-links {
-    gap: 1.5rem;
-}
-
-.admin-welcome {
-    color: #bdc3c7;
-    font-size: 0.95rem;
-    margin: 0;
-    position: relative;
-    padding-left: 1rem;
-}
-
-.admin-welcome::before {
-    content: "|";
-    position: absolute;
-    left: 0;
-    color: #4a5568;
-}
-
 .admin-logout-btn {
     background: rgba(255,255,255,0.1) !important;
-    color: #ecf0f1 !important;
     border: 1px solid rgba(255,255,255,0.2) !important;
-    padding: 0.6rem 1.2rem !important;
-    transition: all 0.3s ease !important;
+    transition: all 0.3s ease !important; /* 按钮渐变效果 */
 }
 
-.admin-logout-btn:hover {
-    background: rgba(255,255,255,0.2) !important;
+/* 更新欢迎信息样式 */
+.admin-logo-container .admin-welcome {
+    color: #ecf0f1 !important;
+    font-size: 0.9rem;
+    margin-left: auto;
+    padding: 0 1rem;
+    position: relative; /* 为伪元素定位准备 */
 }
 
-/* 用户管理专用样式 */
+/* 添加分隔线 */
+.admin-logo-container .admin-welcome::before {
+    content: "|";
+    color: rgba(236, 240, 241, 0.5); /* 半透明白色 */
+    margin-right: -1.5rem;
+    position: relative;
+    left: -2rem;
+}
+
+/* ================= 用户管理专用样式 ================= */
+/* 工具栏布局 */
 .admin-toolbar {
-    margin-bottom: 1.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 1.5rem;
 }
-
-.search-form {
-    display: flex;
-    gap: 0.5rem;
-    width: 300px;
-}
-
 .search-input {
-    flex: 1;
+    flex: 1; /* 搜索框自适应宽度 */
     padding: 0.6rem;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
 
-.status-active {
-    background: #2ecc71;
-    color: white;
-}
+/* 状态标签 */
+.status-active { background: #2ecc71; } /* 启用状态绿色 */
+.status-inactive { background: #95a5a6; } /* 停用状态灰色 */
 
-.status-inactive {
-    background: #95a5a6;
-    color: white;
-}
-
-.btn--small {
-    padding: 0.3rem 0.8rem;
-    font-size: 0.9rem;
-}
-
-.btn--warning {
-    background: #f39c12;
-    color: white;
-}
-
-.btn--warning:hover {
-    background: #e67e22;
-}
-
-.pagination {
-    margin-top: 1.5rem;
-    padding: 1rem;
-    background: #f8f9fa;
-    border-radius: 4px;
-    display: flex;
-    justify-content: center;
-}
-
-.pagination a {
-    padding: 0.5rem 1rem;
-    margin: 0 0.3rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    color: #2c3e50;
-}
-
-.pagination a:hover {
-    background: #2c3e50;
-    color: white;
-}
-
-.no-data {
-    text-align: center;
-    color: #95a5a6;
-    padding: 1.5rem;
-}
-
-/* 宠物管理专用样式 */
+/* ================= 宠物管理专用样式 ================= */
 .pet-thumbnail {
     width: 60px;
     height: 60px;
-    padding: 2px;
-    border: none;
     border-radius: 4px;
-    overflow: hidden;
-    transition: all 0.3s ease;
+    overflow: hidden; /* 图片裁剪 */
 }
-
 .pet-thumbnail img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    border-radius: 3px;
-}
-
-.no-photo {
-    width: 100%;
-    height: 100%;
-    background: #f8f9fa;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #95a5a6;
-    font-size: 0.8rem;
-}
-
-.status-filter {
-    padding: 0.6rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    margin-left: 1rem;
-}
-
-.btn--success {
-    background: #2ecc71 !important;
-    color: white !important;
-}
-
-.btn--danger {
-    background: #e74c3c !important;
-    color: white;
+    object-fit: cover; /* 保持图片比例 */
 }
 
 /* 宠物状态标签 */
-.status-available { 
-    background: #2ecc71;
-    color: white;
-}
-.status-adopted { 
-    background: #3498db;
-    color: white; 
-}
-.status-medical { 
-    background: #f1c40f; 
-    color: #2c3e50;
-}
+.status-available { background: #2ecc71; }
+.status-adopted { background: #3498db; }
+.status-medical { background: #f1c40f; }
 
-/* 新增宠物表单样式 */
+/* ================= 表单样式 ================= */
 .form-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr; /* 双列表单布局 */
     gap: 2rem;
     margin-bottom: 2rem;
 }
-
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    color: #2c3e50;
-}
-
-.form-group input[type="text"],
-.form-group input[type="number"],
-.form-group select {
-    width: 100%;
-    padding: 0.8rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
+.form-group input,
+.form-group select,
 .form-group textarea {
     width: 100%;
     padding: 0.8rem;
     border: 1px solid #ddd;
     border-radius: 4px;
-    min-height: 100px;
 }
 
-.form-actions {
-    margin-top: 2rem;
-    text-align: right;
-}
-
-/* 数据总览专属样式 */
-.data-overview {
-    margin-bottom: 2rem;
-}
-
-.admin-stat-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-}
-
-.recent-activities {
-    background: #fff;
-    border-radius: 8px;
-    padding: 1.5rem;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-.recent-activities h4 {
-    margin-top: 0;
-    color: #2c3e50;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #eee;
-}
-
-.admin-tag {
-    background: #e74c3c;
-    color: white;
-    padding: 2px 6px;
-    border-radius: 3px;
-    font-size: 0.8em;
-    margin-left: 5px;
-}
-
-/* 用户详情页专属样式 */
+/* ================= 用户详情页样式 ================= */
 .user-profile {
     background: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 15px rgba(0,0,0,0.1);
     padding: 2.5rem;
-    margin: 2rem 0;
 }
-
-.profile-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px solid #f0f0f0;
-    padding-bottom: 1.5rem;
-    margin-bottom: 2rem;
-}
-
-.profile-header h2 {
-    color: #2c3e50;
-    margin: 0;
-    font-size: 1.8rem;
-}
-
-.admin-tag {
-    background: #3498db;
-    color: white;
-    padding: 0.3rem 0.8rem;
-    border-radius: 15px;
-    font-size: 0.85rem;
-}
-
 .profile-section {
     display: grid;
-    grid-template-columns: 1fr 320px;
+    grid-template-columns: 1fr 320px; /* 信息与操作区分栏 */
     gap: 3rem;
 }
 
-.profile-info .info-item {
+/* ================= 统一视觉元素 ================= */
+/* 按钮通用样式 */
+.btn--success { background: #2ecc71; } /* 绿色操作按钮 */
+.btn--danger { background: #e74c3c; }  /* 红色危险操作 */
+.btn--warning { background: #f39c12; } /* 黄色警示操作 */
+
+/* 分页组件 */
+.pagination {
     display: flex;
-    align-items: center;
-    padding: 1.2rem 1.5rem;
-    margin: 1rem 0;
-    background: #f8f9fa;
-    border-radius: 8px;
-    line-height: 1.6;
-}
-
-.profile-info label {
-    min-width: 120px;
-    font-size: 0.95rem;
-    color: #636e72;
-}
-
-.profile-info span {
-    color: #2c3e50;
-    flex-grow: 1;
-}
-
-.status-badge {
-    padding: 0.5rem 1rem;
-    line-height: 1.2;
-    display: inline-flex;
-    align-items: center;
-    height: 32px;
-}
-
-.status-active {
-    background: #2ecc71;
-    color: white;
-}
-
-.status-inactive {
-    background: #95a5a6;
-    color: white;
-}
-
-.profile-actions {
-    gap: 2rem;
-    padding: 2rem;
-    flex-direction: column;
-}
-
-.profile-actions .btn {
-    width: 100%;
-    min-width: 180px;
-    padding: 14px 28px;
-    margin: 0.5rem 0;
-}
-
-@media (min-width: 768px) {
-    .profile-actions {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-    }
-    
-    .profile-actions .btn {
-        width: auto;
-        flex: 1 0 calc(33% - 1rem);
-        max-width: 240px;
-    }
-}
-
-@media (max-width: 480px) {
-    .profile-actions .btn {
-        min-width: 100%;
-    }
-}
-
-/* 统一按钮样式 */
-.profile-actions .btn--secondary,
-.profile-actions .btn--primary,
-.profile-actions .btn--danger {
-    /* 尺寸统一 */
-    padding: 14px 28px !important;
-    font-size: 15px !important;
-    min-width: 160px;
-    height: 44px;
-    line-height: 1.5;
-    
-    /* 布局统一 */
-    display: inline-flex;
-    align-items: center;
     justify-content: center;
-    gap: 8px;
-    
-    /* 样式统一 */
-    border-radius: 8px;
-    border: 2px solid transparent;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    
-    /* 颜色统一 */
-    background: #1e6fbf;
-    color: white;
-}
-
-/* 悬停效果统一 */
-.profile-actions .btn--secondary:hover,
-.profile-actions .btn--primary:hover,
-.profile-actions .btn--danger:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    background: #165a9c;
-}
-
-/* 图标样式统一 */
-.profile-actions .btn--secondary::before,
-.profile-actions .btn--primary::before,
-.profile-actions .btn--danger::before {
-    font-size: 1.1em;
-    opacity: 0.9;
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-    .user-profile {
-        padding: 1.5rem;
-    }
-    
-    .profile-section {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-    
-    .profile-actions {
-        padding: 1.5rem;
-    }
-    
-    .profile-info .info-item {
-        padding: 1rem;
-    }
-    .admin-logo-container {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-    }
-    .admin-welcome {
-        padding-left: 0;
-        font-size: 0.85rem;
-    }
-    .admin-welcome::before {
-        display: none;
-    }
-}
-
-/* 统一尺寸规范 */
-:root {
-    --base-unit: 0.5rem; /* 8px */
-    --radius-md: 6px;
-    --radius-lg: 10px;
-    --success: #2ecc71;
-    --danger: #e74c3c;
-    --warning: #f39c12;
-    --primary: #1e6fbf;
-}
-
-/* 用户信息主容器 */
-.user-profile {
-    padding: calc(var(--base-unit) * 4); /* 32px */
-    margin: calc(var(--base-unit) * 3) 0; /* 24px */
-}
-
-/* 信息项统一尺寸 */
-.profile-info .info-item {
-    padding: calc(var(--base-unit) * 2) calc(var(--base-unit) * 3); /* 16px 24px */
-    margin: var(--base-unit) 0; /* 8px */
-    border-radius: var(--radius-md);
-}
-
-/* 标签统一宽度 */
-.profile-info label {
-    min-width: 140px; /* 统一标签宽度 */
-    font-size: 0.95rem;
-}
-
-/* 活动记录项 */
-.activity-item {
-    padding: calc(var(--base-unit) * 1.5); /* 12px */
-    margin: var(--base-unit) 0;
-    border-radius: var(--radius-md);
-}
-
-/* 统一字体层级 */
-.profile-header h2 { font-size: 1.5rem; } /* 24px */
-.admin-tag { font-size: 0.85rem; } /* 13.6px */
-.status-badge { font-size: 0.85rem; }
-
-/* 统一图标尺寸 */
-.profile-actions .btn::before {
-    font-size: 1.1em;
-    width: 1.2em;
-    height: 1.2em;
-}
-
-/* 统一阴影强度 */
-.user-profile,
-.activity-item,
-.profile-actions .btn {
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-/* 统一过渡效果 */
-.profile-info .info-item,
-.profile-actions .btn {
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* 响应式调整 */
-@media (max-width: 768px) {
-    :root {
-        --base-unit: 0.4rem; /* 缩小基准单位 */
-    }
-    
-    .profile-info label {
-        min-width: 100px; /* 缩小标签宽度 */
-    }
-    
-    .profile-actions .btn {
-        padding: calc(var(--base-unit) * 1.5) calc(var(--base-unit) * 2);
-    }
-}
-
-.btn--info {
-    background: #17a2b8;
-    color: white;
-    border: 1px solid #117a8b;
-}
-
-.btn--info:hover {
-    background: #138496;
-    transform: translateY(-1px);
-}
-
-.btn--info:active {
-    transform: translateY(0);
-} 
-
-.action-buttons {
-    height: 32px;
-    padding: 0;
-    align-items: center;
-}
-
-/* 表头同步调整 */
-.admin-table th:nth-child(6),
-.admin-table td:nth-child(6) {
-    text-align: center;
-    width: 200px;
-}
-
-/* 修改container样式 */
-.admin-navbar .container {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    max-width: 100%;  /* 移除宽度限制 */
-    padding: 0 15px;  /* 添加内边距 */
-    margin: 0 auto;   /* 保持居中但宽度100% */
-}
-
-/* 新增用户信息组样式 */
-.user-info-group {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;  /* 控制元素间距 */
-}
-
-/* 新增宠物管理专属样式 */
-.pet-management-table {
-    --table-accent: #4CAF50; /* 主题色 */
-}
-
-.pet-management-table th {
-    background: #e8f5e9; /* 浅绿色背景 */
-    color: #2e7d32; /* 深绿色文字 */
-}
-
-.pet-management-table tr {
-    border-bottom: 1px solid #f0f0f0; /* 添加灰色分隔线 */
-}
-
-.pet-management-table tr:last-child {
-    border-bottom: none; /* 最后一行不显示分隔线 */
-}
-
-/* 表头不加分隔线 */
-.pet-management-table thead tr {
-    border-bottom: 2px solid #e0e0e0; /* 表头底部加粗分隔 */
-}
-
-.pet-management-table td,
-.pet-management-table th {
-    border-bottom: none !important; /* 移除单元格底部边框 */
-}
-
-/* 添加行悬停效果替代分隔线 */
-.pet-management-table tr:hover {
-    background: #f5f5f5;
-    transition: background 0.3s ease;
-}
-
-.pet-management-table .status-badge {
-    border-radius: 12px;
-    padding: 4px 12px;
-}
-
-.pet-thumbnail:hover {
-    transform: scale(1.08);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-/* 专属操作按钮 */
-.pet-action-btn {
-    padding: 6px 12px !important;
-    height: 28px;
-    line-height: 1;
-}
-
-.pet-action-btn:hover {
-    background: #388E3C !important;
-}
-
-/* 用户管理专属样式 */
-.user-management-table {
-    --table-accent: #2196F3; /* 蓝色主题 */
-}
-
-.user-management-table th {
-    background: #e3f2fd;
-    color: #0d47a1;
-}
-
-.user-management-table tr:hover {
-    background: #f5fbff !important;
-}
-
-.user-management-table .status-badge {
+    padding: 1rem;
+    background: #f8f9fa;
     border-radius: 4px;
-    padding: 2px 8px;
 }
 
-.user-action-btn {
-    background: #2196F3 !important;
-    border-color: #1976D2 !important;
-}
-
-.admin-table th:nth-child(7) {  /* 操作列 */
+/* ================= 辅助类样式 ================= */
+.no-data {
     text-align: center;
+    color: #95a5a6;
+    padding: 1.5rem;
 }
-
-.admin-table td.action-buttons {
-    text-align: center;
-    padding: 8px 0;
+.admin-tag {
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px; /* 胶囊状标签 */
+    font-size: 0.85rem;
 }
-
-@media (max-width: 768px) {
-    .pet-management-table tr {
-        border-bottom: 1px solid #eee; /* 移动端更浅的分隔线 */
-    }
-}
-
-/* 侧边栏底部样式 */
-.sidebar-footer {
-    margin-top: auto;
-    border-top: none;
-    padding-top: 0;
-}
-
-.logout-link {
-    background: transparent !important;
-    color: #bdc3c7 !important;
-    border: none !important;
-    padding: 1rem !important;
-    display: block;
-    transition: all 0.3s ease;
-}
-
-.logout-link:hover {
-    background: #34495e !important;
-    color: white !important;
-    transform: none;
-}
-
-.logout-link i {
-    margin-right: 0.8rem;
-}
-
-/* 移动端适配 */
-@media (max-width: 768px) {
-    .sidebar-footer {
-        position: static;
-        margin-top: 2rem;
-    }
-    .logout-link {
-        transform: none;
-    }
-}
-
-
-
-
-
-
-
-
-

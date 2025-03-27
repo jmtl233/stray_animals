@@ -49,13 +49,9 @@
             </div>
 
             <div class="action-buttons">
-                <a href="{% url 'pets:list' %}" class="pet-action-btn">
-                    <i class="fas fa-arrow-left"></i> 返回列表
-                </a>
+                <a href="{% url 'pets:list' %}" class="btn">返回列表</a>
                 {% if user.is_staff %}
-                <a href="{% url 'pets:edit' pet.id %}" class="pet-action-btn">
-                    <i class="fas fa-edit"></i> 编辑信息
-                </a>
+                <a href="{% url 'pets:edit' pet.id %}" class="btn">编辑信息</a>
                 {% endif %}
             </div>
         </div>
