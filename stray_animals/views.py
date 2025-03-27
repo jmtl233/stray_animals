@@ -4,6 +4,7 @@ from users.models import User  # 从自定义用户模型导入
 from pets.models import Pet
 from announcements.models import Announcement
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 def dashboard(request):
     return render(request, 'admin/dashboard.html', {
@@ -16,12 +17,17 @@ def dashboard(request):
     })
 
 def user_management(request):
-    from users.models import User  # 添加导入
-    users = User.objects.all()
+    from users.models import User
+    user_list = User.objects.all()
+    paginator = Paginator(user_list, 10)  # 每页10条
+    
+    page_number = request.GET.get('page')
+    users = paginator.get_page(page_number)
+    
     return render(request, 'admin/dashboard.html', {
         'user_management': True,
-        'users': users,
-        'stats': {  # 保持统计数据显示
+        'users': users,  # 传递分页对象
+        'stats': {
             'total_users': User.objects.count(),
             'pending_adoptions': 0,
             'total_pets': Pet.objects.count()

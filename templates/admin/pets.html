@@ -19,7 +19,7 @@
         <a href="{% url 'pets:create' %}" class="btn btn--success">+ 新增宠物</a>
     </div>
 
-    <table class="admin-table">
+    <table class="admin-table pet-management-table">
         <thead>
             <tr>
                 <th>照片</th>
@@ -51,9 +51,11 @@
                 </td>
                 <td>{{ pet.arrival_date|date:"Y-m-d" }}</td>
                 <td class="action-buttons">
-                    <a href="{% url 'pets:edit' pet.id %}" class="btn btn--small">编辑</a>
-                    <a href="{% url 'pets:delete' pet.id %}" class="btn btn--small btn--danger" 
-                       onclick="return confirm('确定要删除这只宠物吗？')">删除</a>
+                    <div class="action-buttons">
+                        <a href="{% url 'pets:edit' pet.id %}" class="btn btn--primary pet-action-btn">
+                            编辑
+                        </a>
+                    </div>
                 </td>
             </tr>
             {% empty %}

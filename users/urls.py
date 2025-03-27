@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import LoginView, RegisterView, LogoutView, UserDetailView
+from .views import LoginView, RegisterView, LogoutView, UserDetailView, UserDeleteView
 
 app_name = 'users'
 
@@ -15,4 +15,7 @@ urlpatterns = [
     
     # 用户详情
     path('<int:pk>/', UserDetailView.as_view(), name='user_detail'),
+    
+    # 删除用户
+    path('<int:pk>/delete/', UserDeleteView.as_view(), name='user_delete'),
 ] 

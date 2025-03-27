@@ -55,6 +55,7 @@
     padding: 1rem;
     text-align: left;
     border-bottom: 1px solid #eee;
+    vertical-align: middle;
 }
 
 .admin-table th {
@@ -68,12 +69,19 @@
     padding: 0.8rem 0;
 }
 
+.admin-logo-container {
+    margin-right: auto;  /* 推动右侧元素 */
+    padding-left: 0;  /* 移除左侧内边距 */
+    display: flex;
+    align-items: center;
+}
+
 .admin-logo {
-    color: #ecf0f1 !important;
     font-size: 1.4rem;
-    padding-left: 35px;
+    color: #ecf0f1;
+    margin: 0;  /* 移除原有margin */
+    padding: 0;  /* 移除原有padding */
     position: relative;
-    margin: 0;
 }
 
 .admin-logo::before {
@@ -89,8 +97,10 @@
 }
 
 .admin-welcome {
-    color: #bdc3c7 !important;
+    color: #bdc3c7;
     font-size: 0.95rem;
+    margin: 0;
+    white-space: nowrap;
 }
 
 .admin-logout-btn {
@@ -183,8 +193,10 @@
     width: 60px;
     height: 60px;
     padding: 2px;
-    border: 1px solid #eee;
+    border: none;
     border-radius: 4px;
+    overflow: hidden;
+    transition: all 0.3s ease;
 }
 
 .pet-thumbnail img {
@@ -223,9 +235,18 @@
 }
 
 /* 宠物状态标签 */
-.status-available { background: #2ecc71; }
-.status-adopted { background: #3498db; }
-.status-medical { background: #f1c40f; color: #2c3e50; }
+.status-available { 
+    background: #2ecc71;
+    color: white;
+}
+.status-adopted { 
+    background: #3498db;
+    color: white; 
+}
+.status-medical { 
+    background: #f1c40f; 
+    color: #2c3e50;
+}
 
 /* 新增宠物表单样式 */
 .form-grid {
@@ -363,9 +384,11 @@
 }
 
 .status-badge {
-    padding: 0.3rem 0.8rem;
-    border-radius: 15px;
-    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+    line-height: 1.2;
+    display: inline-flex;
+    align-items: center;
+    height: 32px;
 }
 
 .status-active {
@@ -456,8 +479,6 @@
     opacity: 0.9;
 }
 
-
-
 /* 响应式设计 */
 @media (max-width: 768px) {
     .user-profile {
@@ -483,6 +504,10 @@
     --base-unit: 0.5rem; /* 8px */
     --radius-md: 6px;
     --radius-lg: 10px;
+    --success: #2ecc71;
+    --danger: #e74c3c;
+    --warning: #f39c12;
+    --primary: #1e6fbf;
 }
 
 /* 用户信息主容器 */
@@ -548,6 +573,145 @@
     
     .profile-actions .btn {
         padding: calc(var(--base-unit) * 1.5) calc(var(--base-unit) * 2);
+    }
+}
+
+.btn--info {
+    background: #17a2b8;
+    color: white;
+    border: 1px solid #117a8b;
+}
+
+.btn--info:hover {
+    background: #138496;
+    transform: translateY(-1px);
+}
+
+.btn--info:active {
+    transform: translateY(0);
+} 
+
+.action-buttons {
+    height: 32px;
+    padding: 0;
+    align-items: center;
+}
+
+/* 表头同步调整 */
+.admin-table th:nth-child(6),
+.admin-table td:nth-child(6) {
+    text-align: center;
+    width: 200px;
+}
+
+/* 修改container样式 */
+.admin-navbar .container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;  /* 移除宽度限制 */
+    padding: 0 15px;  /* 添加内边距 */
+    margin: 0 auto;   /* 保持居中但宽度100% */
+}
+
+/* 新增用户信息组样式 */
+.user-info-group {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;  /* 控制元素间距 */
+}
+
+/* 新增宠物管理专属样式 */
+.pet-management-table {
+    --table-accent: #4CAF50; /* 主题色 */
+}
+
+.pet-management-table th {
+    background: #e8f5e9; /* 浅绿色背景 */
+    color: #2e7d32; /* 深绿色文字 */
+}
+
+.pet-management-table tr {
+    border-bottom: 1px solid #f0f0f0; /* 添加灰色分隔线 */
+}
+
+.pet-management-table tr:last-child {
+    border-bottom: none; /* 最后一行不显示分隔线 */
+}
+
+/* 表头不加分隔线 */
+.pet-management-table thead tr {
+    border-bottom: 2px solid #e0e0e0; /* 表头底部加粗分隔 */
+}
+
+.pet-management-table td,
+.pet-management-table th {
+    border-bottom: none !important; /* 移除单元格底部边框 */
+}
+
+/* 添加行悬停效果替代分隔线 */
+.pet-management-table tr:hover {
+    background: #f5f5f5;
+    transition: background 0.3s ease;
+}
+
+.pet-management-table .status-badge {
+    border-radius: 12px;
+    padding: 4px 12px;
+}
+
+.pet-thumbnail:hover {
+    transform: scale(1.08);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* 专属操作按钮 */
+.pet-action-btn {
+    padding: 6px 12px !important;
+    height: 28px;
+    line-height: 1;
+}
+
+.pet-action-btn:hover {
+    background: #388E3C !important;
+}
+
+/* 用户管理专属样式 */
+.user-management-table {
+    --table-accent: #2196F3; /* 蓝色主题 */
+}
+
+.user-management-table th {
+    background: #e3f2fd;
+    color: #0d47a1;
+}
+
+.user-management-table tr:hover {
+    background: #f5fbff !important;
+}
+
+.user-management-table .status-badge {
+    border-radius: 4px;
+    padding: 2px 8px;
+}
+
+.user-action-btn {
+    background: #2196F3 !important;
+    border-color: #1976D2 !important;
+}
+
+.admin-table th:nth-child(7) {  /* 操作列 */
+    text-align: center;
+}
+
+.admin-table td.action-buttons {
+    text-align: center;
+    padding: 8px 0;
+}
+
+@media (max-width: 768px) {
+    .pet-management-table tr {
+        border-bottom: 1px solid #eee; /* 移动端更浅的分隔线 */
     }
 }
 

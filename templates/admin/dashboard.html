@@ -9,11 +9,15 @@
 <header class="admin-header">
     <nav class="navbar admin-navbar">
         <div class="container">
-            <h1 class="logo admin-logo">🔐 管理后台</h1>
+            <div class="admin-logo-container">
+                <h1 class="logo admin-logo">🔐 管理后台</h1>
+            </div>
             <div class="nav-links admin-nav-links">
                 {% if user.is_authenticated %}
-                    <span class="welcome-msg admin-welcome">欢迎，{{ user.username }}</span>
-                    <a href="{% url 'users:logout' %}" class="btn admin-logout-btn">退出系统</a>
+                    <div class="user-info-group">
+                        <span class="welcome-msg admin-welcome">欢迎，{{ user.username }}</span>
+                        <a href="{% url 'users:logout' %}" class="btn admin-logout-btn">退出系统</a>
+                    </div>
                 {% endif %}
             </div>
         </div>
