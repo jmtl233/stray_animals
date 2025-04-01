@@ -73,6 +73,8 @@ def adoption_management(request):
 
 @login_required
 def home_view(request):
+    print(f"当前用户认证状态: {request.user.is_authenticated}")  # 调试输出
+    print(f"用户对象: {request.user}")  # 调试输出
     return render(request, 'home/home.html')
 
 def success_cases_view(request):

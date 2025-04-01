@@ -18,8 +18,6 @@ class LoginView(AuthLoginView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        if self.request.user.is_superuser:
-            messages.success(self.request, '管理员身份验证成功')
         return response
 
 class RegisterView(CreateView):
