@@ -1,14 +1,14 @@
 <div class="admin-card">
     <div class="admin-toolbar">
         <form method="get" class="search-form">
-            <input type="text" 
-                   name="q" 
-                   placeholder="搜索用户..." 
-                   value="{{ search_query }}"
-                   class="search-input">
-            <button type="submit" class="search-btn">
-                🔍
-            </button>
+            <div class="search-wrapper">
+                <input type="text" 
+                       name="q" 
+                       placeholder="搜索用户..." 
+                       value="{{ search_query }}"
+                       class="search-input">
+                <button type="submit" class="search-icon-btn">🔍</button>
+            </div>
         </form>
     </div>
 

@@ -123,46 +123,30 @@
 /* 工具栏布局 */
 .admin-toolbar {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    flex-shrink: 0;
+    align-items: center; /* 仅垂直居中 */
+    min-height: 60px;
+    position: relative; /* 保持相对定位 */
 }
+
+/* 新增按钮定位 */
+.admin-toolbar > .btn--success {
+    order: 2; /* 强制右侧显示 */
+    margin-left: auto; /* 自动左外边距推至最右 */
+}
+
+/* 搜索表单自适应 */
 .search-form {
-    position: relative;
-    display: inline-flex;
-    flex: 1;
-    max-width: 300px;
-    overflow: hidden;
+    /* 移除绝对定位和水平居中 */
+    position: static;
+    transform: none;
+    margin: 0; /* 清除外边距 */
 }
 
-.search-input {
-    flex: 1;
-    padding: 8px 30px 8px 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    width: auto;
-}
-
-.search-input:focus {
-    outline: none;
-    border-color: #3498db;
-    box-shadow: 0 0 0 2px rgba(52,152,219,0.2);
-}
-
-.search-form button {
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    padding: 0;
-}
-
-.search-form button .icon-search {
-    font-size: 18px;
-    color: #666;
+.filter-group {
+    display: flex;
+    align-items: center; /* 子元素垂直居中 */
+    gap: 0.5rem;
+    height: 100%; /* 继承父级高度 */
 }
 
 /* 状态标签 */
@@ -456,4 +440,42 @@ select.form-control:focus {
 /* 按钮图标间距 */
 .btn i {
     margin-right: 8px;
+}
+
+/* 用户搜索框样式 */
+.search-wrapper {
+    position: relative;
+    max-width: 300px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 8px 35px 8px 12px; /* 右侧留出图标空间 */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.search-icon-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: #666;
+    font-size: 16px;
+    line-height: 1;
+}
+
+.search-icon-btn:hover {
+    color: #3498db;
+}
+
+.search-input:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52,152,219,0.2);
+    outline: none;
 }
