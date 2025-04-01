@@ -208,19 +208,105 @@
     background: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-    padding: 2.5rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
 }
-.profile-section {
-    display: grid;
-    grid-template-columns: 1fr 320px; /* 信息与操作区分栏 */
-    gap: 3rem;
+
+.profile-header {
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.profile-header h2 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.profile-info .info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+}
+
+.profile-info label {
+    min-width: 100px;
+    font-weight: 600;
+    color: #34495e;
+    margin-right: 1.5rem;
+}
+
+.profile-info span {
+    color: #666;
+}
+
+.user-activity {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid #f0f0f0;
+}
+
+.activity-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.8rem;
+    margin-bottom: 0.8rem;
+    background: #f8f9fa;
+    border-radius: 4px;
+}
+
+.activity-time {
+    color: #95a5a6;
+    font-size: 0.9em;
+}
+
+.activity-desc {
+    color: #2c3e50;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .profile-info .info-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .profile-info label {
+        margin-bottom: 0.5rem;
+    }
+    
+    .activity-item {
+        flex-direction: column;
+    }
+    
+    .activity-time {
+        margin-bottom: 0.3rem;
+    }
 }
 
 /* ================= 统一视觉元素 ================= */
 /* 按钮通用样式 */
 .btn--success { background: #2ecc71; } /* 绿色操作按钮 */
-.btn--danger { background: #e74c3c; }  /* 红色危险操作 */
+.btn--danger { 
+    background: #e74c3c !important;
+    color: white !important;  /* 新增字体颜色设置 */
+    border-color: #c0392b !important;
+}
 .btn--warning { background: #f39c12; } /* 黄色警示操作 */
+.btn--primary {  /* 新增蓝色主按钮 */
+    background: #3498db;
+    color: white !important;
+    border: 1px solid #2980b9 !important;
+}
+
+.btn--primary:hover {
+    background: #2980b9;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(41,128,185,0.3);
+}
 
 /* 分页组件 */
 .pagination {
@@ -245,8 +331,8 @@
 
 /* 详情按钮样式 */
 .btn--info {
-    border: 1px solid #3498db !important; /* 使用蓝色系边框 */
-    background-color: rgba(52, 152, 219, 0.1) !important; /* 浅蓝背景 */
+    border: 1px solid #3498db !important;
+    background-color: rgba(52, 152, 219, 0.1) !important;
     color: #3498db !important;
     transition: all 0.2s ease;
 }
@@ -305,17 +391,30 @@ select.form-control:focus {
     display: flex;
     gap: 1rem;
     margin-top: 1.5rem;
+    width: 100%; /* 新增 */
 }
 
-/* 按钮图标间距 */
-.btn i {
-    margin-right: 8px;
+/* 新增按钮等宽样式 */
+.action-group .btn {
+    flex: 1; /* 平均分配空间 */
+    justify-content: center;
+    text-align: center;
+    padding: 0.8rem 1rem; /* 调整内边距 */
+    white-space: nowrap; /* 防止文字换行 */
 }
 
-/* 危险按钮悬停效果 */
+/* 调整删除按钮设置 */
+.action-group .btn--danger {
+    flex: 1;  /* 改为和其他按钮相同 */
+    min-width: auto; /* 移除固定宽度 */
+    background: #e74c3c !important; /* 保持红色背景 */
+    border-color: #c0392b !important;
+}
+
+/* 保持危险按钮悬停效果 */
 .btn--danger:hover {
     background: #c0392b !important;
-    transform: translateY(-1px);
+    color: white !important;  /* 确保悬停时保持白色 */
 }
 
 /* 次级按钮样式 */
@@ -336,4 +435,25 @@ select.form-control:focus {
     border-radius: 6px;
     display: inline-flex;
     align-items: center;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .action-group {
+        flex-wrap: wrap;
+    }
+    
+    .action-group .btn {
+        flex: 1 1 100%; /* 移动端堆叠显示 */
+        margin-bottom: 0.5rem;
+    }
+    
+    .action-group .btn--danger {
+        order: 3; /* 删除按钮放最后 */
+    }
+}
+
+/* 按钮图标间距 */
+.btn i {
+    margin-right: 8px;
 }
