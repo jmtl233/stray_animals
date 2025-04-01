@@ -5,7 +5,7 @@ app_name = 'users'
 
 urlpatterns = [
     # 登录路径（通过主URL的/users/访问）
-    path('', LoginView.as_view(), name='login'),  # 实际路径为/users/
+    path('login/', LoginView.as_view(), name='login'),  # 实际路径为/users/login/
     
     # 注册路径
     path('register/', RegisterView.as_view(), name='register'),  # 路径为/users/register/

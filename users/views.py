@@ -25,7 +25,7 @@ class LoginView(AuthLoginView):
 class RegisterView(CreateView):
     form_class = RegisterForm
     template_name = 'login/register.html'
-    success_url = '/login/'
+    success_url = reverse_lazy('users:login')
 
     def form_invalid(self, form):
         for field, errors in form.errors.items():

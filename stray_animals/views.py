@@ -5,6 +5,7 @@ from pets.models import Pet
 from announcements.models import Announcement
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.db.models import Q  # 添加这行导入
 
 def dashboard(request):
     return render(request, 'admin/dashboard.html', {
@@ -18,15 +19,29 @@ def dashboard(request):
 
 def user_management(request):
     from users.models import User
-    user_list = User.objects.all()
-    paginator = Paginator(user_list, 10)  # 每页10条
     
+    # 获取搜索查询参数
+    search_query = request.GET.get('q', '')
+    
+    # 基础查询集
+    user_list = User.objects.all()
+    
+    # 如果有搜索查询，过滤用户列表
+    if search_query:
+        user_list = user_list.filter(
+            Q(username__icontains=search_query) |  # 用户名包含搜索词
+            Q(email__icontains=search_query) |     # 邮箱包含搜索词
+            Q(phone__icontains=search_query)       # 手机号包含搜索词
+        )
+    
+    paginator = Paginator(user_list, 10)  # 每页10条
     page_number = request.GET.get('page')
     users = paginator.get_page(page_number)
     
     return render(request, 'admin/dashboard.html', {
         'user_management': True,
-        'users': users,  # 传递分页对象
+        'users': users,
+        'search_query': search_query,  # 传递搜索查询到模板
         'stats': {
             'total_users': User.objects.count(),
             'pending_adoptions': 0,

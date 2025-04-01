@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', RedirectView.as_view(url=reverse_lazy('users:login')), name='root_redirect'),
+    path('login/', RedirectView.as_view(url=reverse_lazy('users:login')), name='login_redirect'),
     path('admin/dashboard/', admin_views.AdminDashboardView.as_view(), name='admin_dashboard'),
     path('admin/users/', views.user_management, name='admin_users'),
     path('admin/pets/', views.pet_management, name='admin_pets'),

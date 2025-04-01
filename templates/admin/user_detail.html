@@ -36,10 +36,22 @@
             </div>
 
             <div class="profile-actions">
-                <a href="{% url 'admin_users' %}" class="btn btn--secondary">返回列表</a>
-                <a href="#" class="btn btn--primary">编辑信息</a>
-                <a href="{% url 'users:user_delete' target_user.id %}" class="btn btn--danger" 
-                   onclick="return confirm('确定要永久删除该用户吗？此操作不可逆！')">删除账户</a>
+                <div class="action-group">
+                    <a href="{% url 'admin_users' %}" class="btn btn--secondary">
+                        <i class="fas fa-arrow-left"></i>
+                        返回列表
+                    </a>
+                    <a href="#" class="btn btn--primary">
+                        <i class="fas fa-edit"></i>
+                        编辑信息
+                    </a>
+                    <a href="{% url 'users:user_delete' target_user.id %}" 
+                       class="btn btn--danger" 
+                       onclick="return confirm('确定要永久删除该用户吗？此操作不可逆！')">
+                        <i class="fas fa-trash-alt"></i>
+                        删除账户
+                    </a>
+                </div>
             </div>
         </div>
 
