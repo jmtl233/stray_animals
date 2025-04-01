@@ -50,11 +50,35 @@ def user_management(request):
     })
 
 def pet_management(request):
+    # 获取搜索查询参数和状态筛选
+    search_query = request.GET.get('q', '')
+    status_filter = request.GET.get('status', 'all')
+    
+    # 基础查询集
     pets = Pet.objects.all()
+    
+    # 应用状态筛选
+    if status_filter and status_filter != 'all':
+        pets = pets.filter(status=status_filter)
+    
+    # 应用搜索过滤
+    if search_query:
+        pets = pets.filter(
+            Q(name__icontains=search_query) | 
+            Q(breed__icontains=search_query)
+        )
+    
+    # 分页处理
+    paginator = Paginator(pets, 10)
+    page_number = request.GET.get('page')
+    pets = paginator.get_page(page_number)
+    
     return render(request, 'admin/dashboard.html', {
-        'pet_management': True,  # 激活宠物管理模块
+        'pet_management': True,
         'pets': pets,
-        'stats': {  # 保持统计数据显示
+        'search_query': search_query,
+        'status_filter': status_filter,  # 传递当前筛选状态到模板
+        'stats': {
             'total_users': User.objects.count(),
             'pending_adoptions': 0
         }

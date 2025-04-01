@@ -123,9 +123,9 @@
 /* 工具栏布局 */
 .admin-toolbar {
     display: flex;
-    align-items: center; /* 仅垂直居中 */
-    min-height: 60px;
-    position: relative; /* 保持相对定位 */
+    gap: 1rem;  /* 元素间距 */
+    align-items: center;  /* 垂直居中 */
+    flex-wrap: wrap;  /* 允许换行 */
 }
 
 /* 新增按钮定位 */
@@ -134,19 +134,21 @@
     margin-left: auto; /* 自动左外边距推至最右 */
 }
 
-/* 搜索表单自适应 */
+/* 搜索表单容器 */
 .search-form {
-    /* 移除绝对定位和水平居中 */
-    position: static;
-    transform: none;
-    margin: 0; /* 清除外边距 */
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-grow: 1;  /* 占据剩余空间 */
 }
 
-.filter-group {
-    display: flex;
-    align-items: center; /* 子元素垂直居中 */
-    gap: 0.5rem;
-    height: 100%; /* 继承父级高度 */
+/* 状态筛选下拉框 */
+.status-filter {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    /* min-width: 120px; */
 }
 
 /* 状态标签 */
@@ -155,15 +157,23 @@
 
 /* ================= 宠物管理专用样式 ================= */
 .pet-thumbnail {
-    width: 60px;
-    height: 60px;
+    width: 100px;
+    height: 100px;
     border-radius: 4px;
-    overflow: hidden; /* 图片裁剪 */
+    overflow: hidden;
+    display: flex;  /* 新增 */
+    align-items: center;  /* 垂直居中 */
+    justify-content: center;  /* 水平居中 */
+    background: #f8f9fa;  /* 添加背景色 */
 }
+
 .pet-thumbnail img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* 保持图片比例 */
+    object-fit: cover;  /* 保持比例填充 */
+    object-position: center;  /* 居中裁剪 */
+    min-width: 100%;  /* 防止小图变形 */
+    min-height: 100%;
 }
 
 /* 宠物状态标签 */
@@ -479,3 +489,12 @@ select.form-control:focus {
     box-shadow: 0 0 0 2px rgba(52,152,219,0.2);
     outline: none;
 }
+
+/* 表格列宽控制 */
+.pet-management-table th:nth-child(1) { width: 100px; }  /* 照片 */
+.pet-management-table th:nth-child(2) { width: 15%; }    /* 名字 */
+.pet-management-table th:nth-child(3) { width: 20%; }    /* 品种 */
+.pet-management-table th:nth-child(4) { width: 80px; }   /* 年龄 */
+.pet-management-table th:nth-child(5) { width: 100px; }  /* 状态 */
+.pet-management-table th:nth-child(6) { width: 120px; }  /* 收容日期 */
+.pet-management-table th:nth-child(7) { width: 100px; }  /* 操作 */

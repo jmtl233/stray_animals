@@ -11,26 +11,31 @@
                        class="search-input">
                 <button type="submit" class="search-icon-btn">🔍</button>
             </div>
+            
+            <select name="status" class="status-filter" onchange="this.form.submit()">
+                <option value="all" {% if status_filter == 'all' %}selected{% endif %}>全部状态</option>
+                <option value="available" {% if status_filter == 'available' %}selected{% endif %}>可领养</option>
+                <option value="adopted" {% if status_filter == 'adopted' %}selected{% endif %}>已领养</option>
+                <option value="medical" {% if status_filter == 'medical' %}selected{% endif %}>医疗中</option>
+            </select>
+            
+            {% if request.GET.page %}
+                <input type="hidden" name="page" value="{{ request.GET.page }}">
+            {% endif %}
         </form>
-        <select name="status" class="status-filter" onchange="this.form.submit()">
-            <option value="all" {% if status_filter == 'all' %}selected{% endif %}>全部状态</option>
-            <option value="available" {% if status_filter == 'available' %}selected{% endif %}>可领养</option>
-            <option value="adopted" {% if status_filter == 'adopted' %}selected{% endif %}>已领养</option>
-            <option value="medical" {% if status_filter == 'medical' %}selected{% endif %}>医疗中</option>
-        </select>
         <a href="{% url 'pets:create' %}" class="btn btn--success">+ 新增宠物</a>
     </div>
 
     <table class="admin-table pet-management-table">
         <thead>
             <tr>
-                <th>照片</th>
-                <th>名字</th>
-                <th>品种</th>
-                <th>年龄</th>
-                <th>状态</th>
-                <th>收容日期</th>
-                <th style="text-align: center">操作</th>
+                <th style="width: 120px">照片</th>
+                <th style="width: 15%">名字</th>
+                <th style="width: 20%">品种</th>
+                <th style="width: 80px">年龄</th>
+                <th style="width: 100px">状态</th>
+                <th style="width: 120px">收容日期</th>
+                <th style="width: 100px; text-align: center">操作</th>
             </tr>
         </thead>
         <tbody>
