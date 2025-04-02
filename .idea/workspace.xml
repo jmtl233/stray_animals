@@ -24,6 +24,13 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/static/css/adoptions.css" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/static/css/pets.css" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/stray_animals/settings.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/stray_animals/urls.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/templates/pets/list.html" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -93,7 +100,7 @@
       <workItem from="1742864703053" duration="1804000" />
       <workItem from="1743171634675" duration="806000" />
       <workItem from="1743387731522" duration="1657000" />
-      <workItem from="1743469600538" duration="2939000" />
+      <workItem from="1743469600538" duration="6215000" />
     </task>
     <servers />
   </component>

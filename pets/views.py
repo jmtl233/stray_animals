@@ -17,7 +17,7 @@ class PetListView(ListView):
     paginate_by = 12
 
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset().filter(status='available')
         breed_filter = self.request.GET.get('breed', '')
         if breed_filter:
             queryset = queryset.filter(breed=breed_filter)

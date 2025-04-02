@@ -35,6 +35,10 @@
                     <h3>{{ pet.name }}</h3>
                     <p>品种：{{ pet.breed }}</p>
                     <p>年龄：{{ pet.age }}岁</p>
+                    <p>收容日期：{{ pet.arrival_date|date:"Y-m-d" }}</p>
+                    <span class="status-badge status-{{ pet.status }}">
+                        {{ pet.get_status_display }}
+                    </span>
                 </div>
             </div>
         </a>

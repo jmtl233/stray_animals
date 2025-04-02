@@ -26,21 +26,27 @@
                     <li>品种：{{ pet.breed }}</li>
                     <li>年龄：{{ pet.age }}岁</li>
                     <li>性别：{{ pet.get_gender_display }}</li>
-                    <li>救助时间：{{ pet.rescue_date|date:"Y-m-d" }}</li>
+                    <li>收容日期：{{ pet.arrival_date|date:"Y-m-d" }}</li>
                 </ul>
             </div>
 
             <div class="info-section">
-                <h3>健康状态</h3>
+                <h3>健康与医疗</h3>
                 <div class="health-status">
                     <span class="status-tag {% if pet.is_vaccinated %}vaccinated{% else %}not-vaccinated{% endif %}">
-                        {% if pet.is_vaccinated %}已疫苗{% else %}未打疫苗{% endif %}
+                        {% if pet.is_vaccinated %}已疫苗{% else %}未接种{% endif %}
                     </span>
                     <span class="status-tag {% if pet.is_neutered %}neutered{% else %}not-neutered{% endif %}">
                         {% if pet.is_neutered %}已绝育{% else %}未绝育{% endif %}
                     </span>
                 </div>
-                <p>{{ pet.health_status }}</p>
+                <div class="health-details">
+                    <p>{{ pet.health_status }}</p>
+                    <ul class="health-meta">
+                        <li>最后体检：{{ pet.last_checkup|date:"Y-m-d"|default:"暂无记录" }}</li>
+                        <li>疫苗有效期：{{ pet.vaccine_expiry|date:"Y-m-d"|default:"-" }}</li>
+                    </ul>
+                </div>
             </div>
 
             <div class="info-section">
@@ -49,7 +55,7 @@
             </div>
 
             <div class="action-buttons">
-                <a href="{% url 'pets:list' %}" class="btn">返回列表</a>
+                <a href="{% url 'pets:list' %}" class="btn btn-primary">返回列表</a>
                 {% if user.is_staff %}
                 <a href="{% url 'pets:edit' pet.id %}" class="btn">编辑信息</a>
                 {% endif %}

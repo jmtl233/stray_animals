@@ -25,38 +25,49 @@ body {
 
 /* 导航栏 */
 .navbar {
-  background: #fff;
-  box-shadow: var(--shadow-sm);
-  padding: 1rem 0;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-.navbar .container {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 2rem;
+  padding: 0 20px;
+  background: #f8f9fa;
+  position: relative;
 }
 
+/* logo新定位 */
 .logo {
-  margin-right: auto;
-  flex-shrink: 0;
+  order: 1;
+  margin-right: 0;
+  padding: 10px 0;
   white-space: nowrap;
-  font-size: 1.5rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
 }
 
+/* 中间内容容器 */
+.container {
+  order: 2;
+  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+/* 导航链接居中 */
 .nav-links {
   display: flex;
-  gap: 1.5rem;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
+  gap: 2rem;
+  justify-content: center;
+  flex: 1;
   max-width: 800px;
-  margin: 0 auto;
+}
+
+/* 登录容器新定位 */
+.nav-auth {
+  order: 3;
+  margin-left: auto;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 0 20px;
 }
 
 .nav-left {
@@ -66,12 +77,13 @@ body {
   justify-content: flex-start;
 }
 
+/* 修改导航链接统一高度 */
 .nav-link {
+  display: flex;
+  align-items: center;
+  height: 50px; /* 统一高度 */
+  padding: 0 1.2rem;
   position: relative;
-  padding: 0.5rem 1rem;
-  color: #2c3e50;
-  text-decoration: none;
-  transition: color 0.3s ease;
 }
 
 .nav-link::after {
@@ -206,27 +218,47 @@ body {
 }
 
 /* 响应式设计 */
-@media (max-width: 768px) {
-  .navbar .container {
-    flex-direction: column;
+@media (max-width: 1024px) {
+  .navbar {
+    flex-wrap: wrap;
+    padding: 10px 15px;
     gap: 1rem;
   }
   
+  .logo {
+    order: 1;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .container {
+    order: 3;
+    width: 100%;
+    margin: 10px 0;
+  }
+  
+  .nav-auth {
+    order: 2;
+    width: 100%;
+    justify-content: center;
+    padding: 10px 0;
+  }
+}
+
+@media (max-width: 768px) {
   .nav-links {
     flex-direction: column;
-    width: 100%;
-    gap: 1rem;
-    padding: 1rem 0;
+    align-items: center;
   }
   
-  .nav-left {
-    flex-wrap: wrap;
-    justify-content: center;
+  .nav-auth {
+    flex-direction: column;
   }
-  
-  .auth-form {
-    margin: 2rem auto;
-    padding: 1.5rem;
+
+  /* 修改导航链接统一高度 */
+  .nav-link {
+    height: auto;
+    padding: 0.8rem 1rem;
   }
 }
 
@@ -284,8 +316,13 @@ body {
 
 .navbar .container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+  position: relative;
 }
 
 .logo {
@@ -296,8 +333,10 @@ body {
 
 .nav-links {
   display: flex;
-  align-items: center;
-  gap: 1.5rem;
+  gap: 2rem;
+  justify-content: center;
+  flex: 1;
+  max-width: 800px;
 }
 
 .nav-link {
@@ -718,12 +757,12 @@ blockquote {
   display: inline-block;
   padding: 0.3rem 0.8rem;
   border-radius: 20px;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
 }
 
-.status-pending { background: #f1c40f; color: #2c3e50; }
-.status-approved { background: #2ecc71; color: white; }
-.status-rejected { background: #e74c3c; color: white; }
+.status-available { background: #2ecc71; color: white; }
+.status-adopted { background: #3498db; color: white; }
+.status-medical { background: #f1c40f; color: #2c3e50; }
 
 .admin-alert {
 background: #2ecc71;
@@ -741,22 +780,25 @@ to { transform: translateY(0); opacity: 1; }
 
 /* 下拉菜单样式 */
 .nav-item.dropdown {
-    position: relative;
+    display: flex;
+    align-items: center;
+    height: 100%;
 }
 
 .dropdown-menu {
     position: absolute;
     top: 100%;
-    left: 0;
+    left: 50%;
     min-width: 160px;
     background: white;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     opacity: 0;
     visibility: hidden;
-    transform: translateY(10px);
+    transform: translateX(-50%);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1000;
     display: block !important;
+    margin-top: -1px; /* 消除间隙 */
 }
 
 .dropdown:hover .dropdown-menu {
@@ -789,7 +831,8 @@ to { transform: translateY(0); opacity: 1; }
 /* 响应式调整 */
 @media (max-width: 1024px) {
     .nav-links {
-        gap: 1rem;
+        gap: 1.5rem;
+        flex-wrap: wrap;
     }
     
     .nav-left {
@@ -804,14 +847,30 @@ to { transform: translateY(0); opacity: 1; }
 @media (max-width: 768px) {
     .nav-links {
         flex-direction: column;
-        width: 100%;
         gap: 1rem;
-        padding: 1rem 0;
+        text-align: center;
     }
     
     .nav-left {
         flex-wrap: wrap;
         justify-content: center;
     }
+    
+    .dropdown-menu {
+        left: 0;
+        transform: none;
+    }
+}
+
+/* nav-auth新定位 */
+.nav-auth {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-left: auto;
+    padding-left: 20px;
+    position: relative;
+    z-index: 1;
+    background: inherit;
 }
 
