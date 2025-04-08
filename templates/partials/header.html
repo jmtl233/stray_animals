@@ -1,19 +1,5 @@
 <header class="header">
     <nav class="navbar">
-        <!-- 注册页面专用头部 -->
-        {% if request.resolver_match.url_name == 'register' %}
-        <div class="container register-header">
-            <h1 class="logo">🐾 流浪动物之家</h1>
-            <div class="nav-links">
-                <a href="{% url 'home' %}" class="nav-link">
-                    <i class="fas fa-home"></i>
-                    返回首页
-                </a>
-            </div>
-        </div>
-        
-        <!-- 其他页面保持原样 -->
-        {% else %}
         <h1 class="logo">🐾 流浪动物之家</h1>
         
         <div class="nav-links-container">
@@ -59,6 +45,5 @@
                 <a href="{% url 'users:register' %}" class="btn">注册</a>
             {% endif %}
         </div>
-        {% endif %}
     </nav>
 </header>
