@@ -8,14 +8,8 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container">
-            <h1 class="logo">🐾 流浪动物之家 | 用户注册</h1>
-            <div class="nav-links">
-                <a href="{% url 'home' %}" class="nav-link">返回首页</a>
-            </div>
-        </div>
-    </nav>
+    <!-- 头部开始 -->
+    {% include "partials/header.html" %}
 
     <main class="main-content">
         <form class="auth-form" method="post" action="{% url 'users:register' %}">

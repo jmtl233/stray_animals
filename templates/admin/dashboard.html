@@ -11,9 +11,7 @@
         <div class="container">
             <div class="admin-logo-container">
                 <h1 class="logo admin-logo">🔐 管理后台</h1>
-                {% if user.is_authenticated %}
-                    <span class="welcome-msg admin-welcome">欢迎：{{ user.username }}</span>
-                {% endif %}
+                <span class="admin-welcome">欢迎您：{{ request.user.username }}</span>
             </div>
             <div class="nav-links admin-nav-links">
             </div>

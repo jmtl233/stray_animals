@@ -80,15 +80,7 @@
     justify-content: flex-start; /* flex容器左对齐 */
 }
 
-/* 修改logo容器 */
-.admin-logo-container {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    margin-right: auto;
-    padding-left: 0;
-    position: relative; /* 新增定位上下文 */
-}
+
 
 .admin-logo {
     font-size: 1.4rem;
@@ -106,7 +98,7 @@
     color: #ecf0f1 !important;
     font-size: 0.9rem;
     margin-left: auto;
-    padding: 0 1rem;
+    padding: 0 2.5rem;
     position: relative; /* 为伪元素定位准备 */
 }
 
