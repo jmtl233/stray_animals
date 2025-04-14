@@ -4,8 +4,7 @@ from users.models import User
 from pets.models import Pet
 
 class AdminDashboardView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
-    template_name = 'admin/dashboard.html'
-    
+    template_name = 'admin/dashboard.html'    
     def test_func(self):
         return self.request.user.is_staff
     

@@ -1,11 +1,11 @@
 from django.contrib.auth.views import LoginView as AuthLoginView, LogoutView as AuthLogoutView
-from django.views.generic import CreateView, DetailView, DeleteView
+from django.views.generic import CreateView, DetailView, DeleteView, TemplateView
 from .forms import LoginForm, RegisterForm
 from django.contrib import messages
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth import get_user_model
-from .models import User
+from .models import User, AdoptionApplication
 
 class LoginView(AuthLoginView):
     form_class = LoginForm
@@ -58,4 +58,29 @@ class UserDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user'] = self.get_object()
+        return context
+
+class UserProfileView(LoginRequiredMixin, TemplateView):
+    template_name = 'users/profile.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        
+        # 获取用户的领养申请记录
+        context['pending_applications'] = AdoptionApplication.objects.filter(
+            user=user,
+            status='pending'
+        ).select_related('pet')
+        
+        context['approved_applications'] = AdoptionApplication.objects.filter(
+            user=user,
+            status='approved'
+        ).select_related('pet')
+        
+        context['rejected_applications'] = AdoptionApplication.objects.filter(
+            user=user,
+            status='rejected'
+        ).select_related('pet')
+        
         return context

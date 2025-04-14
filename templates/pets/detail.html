@@ -55,10 +55,13 @@
             </div>
 
             <div class="action-buttons">
-                <a href="{% url 'pets:list' %}" class="btn btn-primary">返回列表</a>
-                {% if user.is_staff %}
-                <a href="{% url 'pets:edit' pet.id %}" class="btn">编辑信息</a>
+                {% if user.is_authenticated and not user.is_staff %}
+                <form action="{% url 'apply_adoption' pet.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn--primary">申请领养</button>
+                </form>
                 {% endif %}
+                <a href="{% url 'pets:list' %}" class="btn btn--secondary">返回列表</a>
             </div>
         </div>
     </div>
@@ -70,4 +73,4 @@
     </div>
     {% endif %}
 </div>
-{% endblock %} 
+{% endblock %}

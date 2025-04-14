@@ -6,44 +6,55 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <h2>待领养宠物列表</h2>
-    <div class="filter-section">
-        <form method="get" class="filter-form">
-            <div class="filter-group">
-                <label>品种筛选：</label>
-                <select name="breed" onchange="this.form.submit()">
-                    <option value="">全部品种</option>
-                    {% for breed in breeds %}
-                    <option value="{{ breed }}" {% if request.GET.breed == breed %}selected{% endif %}>{{ breed }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="filter-group">
-                <a href="{% url 'pets:list' %}" class="reset-btn">重置筛选</a>
-            </div>
-        </form>
+<div class="pet-list-container">
+    <div class="list-header">
+        <h1>寻找您的爱心伙伴</h1>
+        <div class="filter-controls">
+            <form method="get" class="filter-form">
+                <div class="form-group">
+                    <select name="breed" class="breed-select" onchange="this.form.submit()">
+                        <option value="">所有品种</option>
+                        {% for breed in breeds %}
+                        <option value="{{ breed }}" {% if request.GET.breed == breed %}selected{% endif %}>{{ breed }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="select-arrow"></div>
+                </div>
+        </div>
     </div>
+
     <div class="pet-grid">
         {% for pet in pets %}
-        <a href="{% url 'pets:detail' pet.id %}" class="pet-card-link">
-            <div class="pet-card">
-                <div class="image-container">
-                    <img src="{{ pet.photo.url }}" alt="{{ pet.name }}" class="pet-image">
-                </div>
-                <div class="pet-info">
-                    <h3>{{ pet.name }}</h3>
-                    <p>品种：{{ pet.breed }}</p>
-                    <p>年龄：{{ pet.age }}岁</p>
-                    <p>收容日期：{{ pet.arrival_date|date:"Y-m-d" }}</p>
-                    <span class="status-badge status-{{ pet.status }}">
-                        {{ pet.get_status_display }}
-                    </span>
+        <article class="pet-card">
+            <div class="card-image">
+                <img src="{{ pet.photo.url }}" alt="{{ pet.name }}" loading="lazy">
+                <div class="status-badge status-{{ pet.status|lower }}">
+                    {{ pet.get_status_display }}
                 </div>
             </div>
-        </a>
+            <div class="card-content">
+                <h3>{{ pet.name }}</h3>
+                <div class="meta-info">
+                    <div class="meta-item">
+                        <svg class="meta-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        <span>{{ pet.breed }}</span>
+                    </div>
+                    <div class="meta-item">
+                        <svg class="meta-icon" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+                        <span>{{ pet.arrival_date|date:"Y/m/d" }}</span>
+                    </div>
+                </div>
+                <a href="{% url 'pets:detail' pet.id %}" class="card-action">
+                    查看详情
+                    <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+                </a>
+            </div>
+        </article>
         {% empty %}
-        <p class="no-pets">暂时没有待领养的宠物</p>
+        <div class="empty-state">
+            <img src="{% static 'images/empty-doghouse.svg' %}" alt="暂无宠物">
+            <p>暂时没有待领养的宠物</p>
+        </div>
         {% endfor %}
     </div>
 </div>

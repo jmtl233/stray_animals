@@ -6,6 +6,7 @@ from announcements.models import Announcement
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q  # 添加这行导入
+from users.models import User, AdoptionApplication  # 确保包含AdoptionApplication导入
 
 def dashboard(request):
     return render(request, 'admin/dashboard.html', {
@@ -92,8 +93,30 @@ def announcement_management(request):
     })
 
 def adoption_management(request):
-    # 领养审核逻辑
-    return render(request, 'admin/dashboard.html', {'adoption_management': True})
+    status_filter = request.GET.get('status', 'all')
+    search_query = request.GET.get('q', '')
+    
+    applications = AdoptionApplication.objects.select_related('user', 'pet').order_by('-apply_date')
+    
+    if status_filter != 'all':
+        applications = applications.filter(status=status_filter)
+        
+    if search_query:
+        applications = applications.filter(
+            Q(user__username__icontains=search_query) |
+            Q(pet__name__icontains=search_query)
+        )
+    
+    paginator = Paginator(applications, 10)
+    page_number = request.GET.get('page')
+    applications = paginator.get_page(page_number)
+    
+    return render(request, 'admin/dashboard.html', {  # 修改为渲染dashboard.html
+        'adoption_management': True,
+        'applications': applications,
+        'status_filter': status_filter,
+        'search_query': search_query
+    })
 
 @login_required
 def home_view(request):
@@ -113,4 +136,6 @@ def success_cases_view(request):
     return render(request, 'home/success_cases.html', {
         'success_cases': success_cases,
         'current_type': animal_type
-    }) 
+    })
+
+    

@@ -1,3 +1,294 @@
+/* 变量定义 */
+:root {
+  --primary: #FF6B6B;
+  --secondary: #4ECDC4;
+  --accent: #FFE66D;
+  --text: #2D3436;
+  --bg: #F9F9F9;
+  --card-bg: #FFFFFF;
+  --radius: 12px;
+  --shadow: 0 8px 30px rgba(0,0,0,0.12);
+  --image-height: 280px;
+  --image-width: 100%;
+}
+
+/* 基础布局 */
+.pet-list-container {
+  max-width: 1280px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+.list-header {
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+.list-header h1 {
+  font-size: 2rem;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+/* 筛选控件 */
+.filter-controls {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.filter-form {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  height: 100%;
+}
+
+.form-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.breed-select {
+  appearance: none;
+  padding: 0.8rem 2rem 0.8rem 1.2rem;
+  border: 2px solid #eee;
+  border-radius: var(--radius);
+  background: var(--card-bg);
+  font-size: 1rem;
+  min-width: 220px;
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.breed-select:hover {
+  border-color: var(--secondary);
+}
+
+.select-arrow {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid var(--text);
+  pointer-events: none;
+}
+
+.reset-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.2rem;
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.reset-icon {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.reset-btn:hover {
+  background: #FFD700;
+}
+
+/* 宠物网格布局 */
+.pet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 1rem 0;
+}
+
+/* 宠物卡片 */
+.pet-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  text-align: left;
+}
+
+.pet-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-image {
+  position: relative;
+  width: var(--image-width);
+  height: var(--image-height);
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.3s ease;
+  display: block;
+}
+
+.pet-card:hover img {
+  transform: scale(1.05);
+}
+
+.status-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  backdrop-filter: blur(4px);
+  background: rgba(255,255,255,0.9);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.status-available { color: #2ecc71; }
+.status-adopted { color: #e74c3c; }
+.status-medical { color: #f39c12; }
+
+.card-content {
+  padding: 1.5rem;
+  text-align: left;
+}
+
+.card-content h3 {
+  margin: 0 0 1rem;
+  color: var(--text);
+  font-size: 1.4rem;
+  text-align: left;
+}
+
+.meta-info {
+  display: grid;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: #666;
+  font-size: 0.95rem;
+  text-align: left;
+}
+
+.meta-icon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.card-action {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.2rem;
+  background: var(--primary);
+  color: white;
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  width: fit-content;
+}
+
+.arrow-icon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  transition: transform 0.3s ease;
+}
+
+.card-action:hover {
+  background: #FF5252;
+}
+
+.card-action:hover .arrow-icon {
+  transform: translateX(3px);
+}
+
+/* 空状态 */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: left;
+  padding: 2rem 0;
+}
+
+.empty-state img {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+}
+
+.empty-state p {
+  color: #666;
+  font-size: 1.1rem;
+  text-align: left;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .pet-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-form {
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .form-group,
+  .breed-select,
+  .reset-btn {
+    width: 100%;
+    height: auto;
+  }
+
+  :root {
+    --image-height: 240px;
+  }
+
+}
+
+@media (max-width: 480px) {
+  .pet-list-container {
+    padding: 0 1rem;
+  }
+  
+  .card-image {
+    height: 200px;
+  }
+
+  :root {
+    --image-height: 200px;
+  }
+}
+
 .pet-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -288,4 +579,5 @@
     bottom: -1rem;
     left: 5%;
     z-index: 1;
+} 
 } 

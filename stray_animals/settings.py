@@ -38,9 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users.apps.UsersConfig',  # 正确引用应用配置
-    'pets',  # 取消注释
-    'announcements.apps.AnnouncementsConfig',  # 注意类名大小写
+    'users.apps.UsersConfig',  # 用户应用（保留）
+    'pets',                   # 宠物应用
+    'announcements.apps.AnnouncementsConfig',  # 公告应用
+    'adoptions.apps.AdoptionsConfig',  # 领养应用（保留一个）
+    # 移除重复的'users.apps.UsersConfig'
 ]
 
 MIDDLEWARE = [

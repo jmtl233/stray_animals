@@ -39,6 +39,7 @@
                     欢迎：{{ user.username }}           
                     {% if user.is_staff %}<span class="admin-tag">(管理员)</span>{% endif %}
                 </span>
+                <a href="{% url 'users:profile' %}" class="btn">个人中心</a>
                 <a href="{% url 'users:logout' %}" class="btn">退出</a>
             {% else %}
                 <a href="{% url 'users:login' %}" class="btn">登录</a>

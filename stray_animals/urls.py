@@ -15,18 +15,28 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path, reverse_lazy
-from django.views.generic import RedirectView, TemplateView
-from . import admin_views, views  # 需要创建admin_views.py和确保导入视图模块
-from django.conf import settings
-from django.conf.urls.static import static
+from django.views.generic import RedirectView
+from django.conf import settings  # 新增导入
+from django.conf.urls.static import static  # 新增导入
+from . import admin_views, views
+from adoptions import views as adoptions_views
 
 urlpatterns = [
     path('', RedirectView.as_view(url=reverse_lazy('users:login')), name='root_redirect'),
     path('login/', RedirectView.as_view(url=reverse_lazy('users:login')), name='login_redirect'),
+    
+    # 将自定义管理路由放在 admin.site.urls 之前
     path('admin/dashboard/', admin_views.AdminDashboardView.as_view(), name='admin_dashboard'),
     path('admin/users/', views.user_management, name='admin_users'),
     path('admin/pets/', views.pet_management, name='admin_pets'),
     path('admin/announcements/', views.announcement_management, name='admin_announcements'),
+    # 领养管理路由组
+    path('admin/adoptions/', include([
+        path('', views.adoption_management, name='admin_adoptions'),
+        path('<int:pk>/', adoptions_views.AdoptionDetailView.as_view(), name='admin_adoption_detail'),
+    ])),
+    
+    # Django 原生 admin 路由放在最后
     path('admin/', admin.site.urls),
     path('users/', include(('users.urls', 'users'), namespace='users')),
     path('home/', views.home_view, name='home'),
@@ -35,4 +45,7 @@ urlpatterns = [
     path('announcements/', include('announcements.urls', namespace='announcements')),
     path('admin/adoptions/', views.adoption_management, name='admin_adoptions'),
     path('success-cases/', views.success_cases_view, name='success_cases'),
+    
+    # 添加领养申请路由
+    path('apply/<int:pet_id>/', adoptions_views.apply_adoption, name='apply_adoption'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

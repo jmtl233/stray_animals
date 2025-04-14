@@ -1,0 +1,72 @@
+<div class="admin-card">
+    <div class="admin-toolbar">
+        <form method="get" class="search-form">
+            <div class="search-wrapper">
+                <input type="text" 
+                       name="q" 
+                       placeholder="搜索申请人或宠物..." 
+                       value="{{ search_query }}"
+                       class="search-input">
+                <button type="submit" class="search-icon-btn">🔍</button>
+            </div>
+            <select name="status" class="status-filter" onchange="this.form.submit()">
+                <option value="all" {% if status_filter == 'all' %}selected{% endif %}>全部状态</option>
+                <option value="pending" {% if status_filter == 'pending' %}selected{% endif %}>待审核</option>
+                <option value="approved" {% if status_filter == 'approved' %}selected{% endif %}>已通过</option>
+                <option value="rejected" {% if status_filter == 'rejected' %}selected{% endif %}>未通过</option>
+            </select>
+        </form>
+    </div>
+
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>申请时间</th>
+                <th>宠物</th>
+                <th>申请人</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for app in applications %}
+            <tr>
+                <td>{{ app.apply_date|date:"Y-m-d H:i" }}</td>
+                <td>{{ app.pet.name }}</td>
+                <td>{{ app.user.username }}</td>
+                <td>
+                    <span class="status-badge status-{{ app.status }}">
+                        {{ app.get_status_display }}
+                    </span>
+                </td>
+                <td class="action-buttons">
+                    <a href="{% url 'admin_adoption_detail' app.id %}" class="btn btn--small btn--info">审核</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="no-data">暂无申请记录</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {# 新增分页组件 #}
+    <div class="pagination">
+        <span class="step-links">
+            {% if applications.has_previous %}
+                <a href="?page=1{% if search_query %}&q={{ search_query }}{% endif %}{% if status_filter != 'all' %}&status={{ status_filter }}{% endif %}">« 首页</a>
+                <a href="?page={{ applications.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if status_filter != 'all' %}&status={{ status_filter }}{% endif %}">上一页</a>
+            {% endif %}
+
+            <span class="current">
+                第 {{ applications.number }} / {{ applications.paginator.num_pages }} 页
+            </span>
+
+            {% if applications.has_next %}
+                <a href="?page={{ applications.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if status_filter != 'all' %}&status={{ status_filter }}{% endif %}">下一页</a>
+                <a href="?page={{ applications.paginator.num_pages }}{% if search_query %}&q={{ search_query }}{% endif %}{% if status_filter != 'all' %}&status={{ status_filter }}{% endif %}">末页 »</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
