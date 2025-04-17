@@ -2,6 +2,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import DetailView, UpdateView
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib import messages
+from django.utils import timezone
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from pets.models import Pet
 from users.models import AdoptionApplication
 
@@ -38,3 +41,46 @@ def apply_adoption(request, pet_id):
         messages.success(request, '领养申请已提交！')
         return redirect('pets:detail', pet.id)
     return redirect('pets:list')
+
+# 新增拒绝申请的视图函数
+def reject_application(request, application_id):
+    if not request.user.is_staff:
+        messages.error(request, '您没有权限执行此操作')
+        return redirect('admin_dashboard')
+        
+    application = get_object_or_404(AdoptionApplication, id=application_id)
+    
+    if request.method == 'POST':
+        reject_reason = request.POST.get('reject_reason', '')
+        
+        # 更新申请状态
+        application.status = 'rejected'
+        application.reject_reason = reject_reason
+        application.approve_date = timezone.now()
+        application.save()
+        
+        messages.success(request, f'已拒绝 {application.user.username} 的领养申请')
+        
+    return HttpResponseRedirect(reverse('admin_adoptions'))
+
+# 新增同意申请的视图函数
+def approve_application(request, application_id):
+    if not request.user.is_staff:
+        messages.error(request, '您没有权限执行此操作')
+        return redirect('admin_dashboard')
+        
+    application = get_object_or_404(AdoptionApplication, id=application_id)
+    
+    # 更新申请状态
+    application.status = 'approved'
+    application.approve_date = timezone.now()
+    application.save()
+    
+    # 更新宠物状态为已领养
+    pet = application.pet
+    pet.status = 'adopted'
+    pet.save()
+    
+    messages.success(request, f'已同意 {application.user.username} 的领养申请')
+    
+    return HttpResponseRedirect(reverse('admin_adoptions'))

@@ -34,6 +34,9 @@ urlpatterns = [
     path('admin/adoptions/', include([
         path('', views.adoption_management, name='admin_adoptions'),
         path('<int:pk>/', adoptions_views.AdoptionDetailView.as_view(), name='admin_adoption_detail'),
+        # 添加审批和拒绝的路由
+        path('approve/<int:application_id>/', adoptions_views.approve_application, name='approve_application'),
+        path('reject/<int:application_id>/', adoptions_views.reject_application, name='reject_application'),
     ])),
     
     # Django 原生 admin 路由放在最后
@@ -43,9 +46,12 @@ urlpatterns = [
     path('pets/', include('pets.urls', namespace='pets')),
     path('events/', include('events.urls', namespace='events')),
     path('announcements/', include('announcements.urls', namespace='announcements')),
-    path('admin/adoptions/', views.adoption_management, name='admin_adoptions'),
+    # 删除重复的路由
+    # path('admin/adoptions/', views.adoption_management, name='admin_adoptions'),
     path('success-cases/', views.success_cases_view, name='success_cases'),
     
     # 添加领养申请路由
     path('apply/<int:pet_id>/', adoptions_views.apply_adoption, name='apply_adoption'),
+    # 删除重复的路由，已经在上面的include中添加了
+    # path('admin/adoptions/reject/<int:application_id>/', adoptions_views.reject_application, name='reject_application'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
