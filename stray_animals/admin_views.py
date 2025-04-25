@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView
+from django.views.generic import ListView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from users.models import User
 from pets.models import Pet
@@ -20,4 +20,14 @@ class AdminDashboardView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
             'user_management': False,  # 禁用未完成模块
             'pet_management': False    # 禁用宠物管理模块显示
         })
-        return context 
+        return context
+
+
+class AdminPetsView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    model = Pet
+    template_name = 'admin/pets.html'
+    context_object_name = 'pets'
+    paginate_by = 10  # 确保这里设置了分页数量
+    
+    def test_func(self):
+        return self.request.user.is_staff

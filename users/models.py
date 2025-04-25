@@ -42,7 +42,3 @@ class AdoptionApplication(models.Model):
     def __str__(self):
         return f"{self.user.username} 申请领养 {self.pet.name}"
 
-# 重要：在users/apps.py中添加
-# class UsersConfig(AppConfig):
-#     default_auto_field = 'django.db.models.BigAutoField'
-#     name = 'users'

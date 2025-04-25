@@ -110,9 +110,24 @@
 /* 宠物网格布局 */
 .pet-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, 1fr);  /* 修改为固定3列 */
   gap: 2rem;
   padding: 1rem 0;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* 在小屏幕上自适应为2列和1列 */
+@media (max-width: 992px) {
+  .pet-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .pet-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* 宠物卡片 */
@@ -291,9 +306,6 @@
 
 .pet-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 0;
-    padding: 1rem;
 }
 
 .pet-card {
@@ -579,5 +591,4 @@
     bottom: -1rem;
     left: 5%;
     z-index: 1;
-} 
-} 
+}

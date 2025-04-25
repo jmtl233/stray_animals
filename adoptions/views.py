@@ -42,7 +42,7 @@ def apply_adoption(request, pet_id):
         return redirect('pets:detail', pet.id)
     return redirect('pets:list')
 
-# 新增拒绝申请的视图函数
+# 拒绝申请的视图函数
 def reject_application(request, application_id):
     if not request.user.is_staff:
         messages.error(request, '您没有权限执行此操作')
@@ -63,13 +63,18 @@ def reject_application(request, application_id):
         
     return HttpResponseRedirect(reverse('admin_adoptions'))
 
-# 新增同意申请的视图函数
+# 同意申请的视图函数
 def approve_application(request, application_id):
     if not request.user.is_staff:
         messages.error(request, '您没有权限执行此操作')
         return redirect('admin_dashboard')
         
     application = get_object_or_404(AdoptionApplication, id=application_id)
+    
+    # 检查宠物是否已经被领养
+    if application.pet.is_adopted:
+        messages.error(request, f'{application.pet.name} 已经被其他人领养')
+        return HttpResponseRedirect(reverse('admin_adoptions'))
     
     # 更新申请状态
     application.status = 'approved'
@@ -79,7 +84,20 @@ def approve_application(request, application_id):
     # 更新宠物状态为已领养
     pet = application.pet
     pet.status = 'adopted'
+    pet.is_adopted = True
     pet.save()
+    
+    # 拒绝该宠物的其他待处理申请
+    AdoptionApplication.objects.filter(
+        pet=pet,
+        status='pending'
+    ).exclude(
+        id=application.id
+    ).update(
+        status='rejected',
+        reject_reason='该宠物已被其他申请人领养',
+        approve_date=timezone.now()
+    )
     
     messages.success(request, f'已同意 {application.user.username} 的领养申请')
     

@@ -46,7 +46,7 @@
                             拒绝
                         </button>
                     {% else %}
-                        <a href="{% url 'admin_adoption_detail' app.id %}" class="btn btn--small btn--info">详情</a>
+                        <span class="status-text">已操作</span>
                     {% endif %}
                 </td>
             </tr>
@@ -58,32 +58,50 @@
         </tbody>
     </table>
 
-    {# 新增分页组件 #}
-    <div class="pagination">
-        <span class="step-links">
+    {# 统一样式分页组件 #}
+    <div class="pagination-wrapper">
+        {% if applications.paginator.num_pages > 1 %}
+        <div class="pagination-container">
             {% if applications.has_previous %}
-                <a href="?page=1{% if search_query %}&q={{ search_query }}{% endif %}{% if status_filter != 'all' %}&status={{ status_filter }}{% endif %}">« 首页</a>
-                <a href="?page={{ applications.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if status_filter != 'all' %}&status={{ status_filter }}{% endif %}">上一页</a>
+                <a href="?page={{ applications.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if status_filter != 'all' %}&status={{ status_filter }}{% endif %}" class="page-btn prev-page" title="上一页">
+                    <i class="fas fa-angle-left"></i> 上一页
+                </a>
+                <a href="?page=1{% if search_query %}&q={{ search_query }}{% endif %}{% if status_filter != 'all' %}&status={{ status_filter }}{% endif %}" class="page-btn first-page" title="首页">
+                    首页
+                </a>
             {% endif %}
-
-            <span class="current">
-                第 {{ applications.number }} / {{ applications.paginator.num_pages }} 页
-            </span>
-
+            
+            <div class="page-numbers">
+                {% for i in applications.paginator.page_range %}
+                    {% if applications.number == i %}
+                        <span class="page-btn current">{{ i }}</span>
+                    {% elif i > applications.number|add:"-3" and i < applications.number|add:"3" %}
+                        <a href="?page={{ i }}{% if search_query %}&q={{ search_query }}{% endif %}{% if status_filter != 'all' %}&status={{ status_filter }}{% endif %}" class="page-btn">{{ i }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            
             {% if applications.has_next %}
-                <a href="?page={{ applications.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if status_filter != 'all' %}&status={{ status_filter }}{% endif %}">下一页</a>
-                <a href="?page={{ applications.paginator.num_pages }}{% if search_query %}&q={{ search_query }}{% endif %}{% if status_filter != 'all' %}&status={{ status_filter }}{% endif %}">末页 »</a>
+                <a href="?page={{ applications.paginator.num_pages }}{% if search_query %}&q={{ search_query }}{% endif %}{% if status_filter != 'all' %}&status={{ status_filter }}{% endif %}" class="page-btn last-page" title="末页">
+                    末页
+                </a>
+                <a href="?page={{ applications.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if status_filter != 'all' %}&status={{ status_filter }}{% endif %}" class="page-btn next-page" title="下一页">
+                    下一页 <i class="fas fa-angle-right"></i>
+                </a>
             {% endif %}
-        </span>
+        </div>
+        <div class="page-info">
+            第 {{ applications.number }} 页，共 {{ applications.paginator.num_pages }} 页
+        </div>
+        {% endif %}
     </div>
 </div>
 
-<!-- 添加拒绝原因弹窗 -->
-<!-- 在页面底部添加模态弹窗 -->
+<!-- 拒绝申请的模态框 -->
 <div id="rejectModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <h3>请输入拒绝原因</h3>
+        <h3>拒绝领养申请</h3>
         <form id="rejectForm" method="post" action="">
             {% csrf_token %}
             <div class="form-group">
@@ -92,49 +110,43 @@
             </div>
             <div class="form-actions">
                 <button type="submit" class="btn btn--danger">确认拒绝</button>
-                <button type="button" class="btn btn--secondary cancel-btn">取消</button>
+                <button type="button" class="btn btn--secondary close-modal">取消</button>
             </div>
         </form>
     </div>
 </div>
 
-<!-- 添加JavaScript处理弹窗逻辑 -->
 <script>
+    // 模态框相关脚本
     document.addEventListener('DOMContentLoaded', function() {
-        // 获取弹窗元素
-        const modal = document.getElementById('rejectModal');
-        const rejectForm = document.getElementById('rejectForm');
+        var modal = document.getElementById('rejectModal');
+        var rejectBtns = document.querySelectorAll('.reject-btn');
+        var closeBtn = document.querySelector('.close');
+        var closeModalBtn = document.querySelector('.close-modal');
+        var rejectForm = document.getElementById('rejectForm');
         
-        // 获取所有拒绝按钮
-        const rejectButtons = document.querySelectorAll('.reject-btn');
-        
-        // 关闭按钮和取消按钮
-        const closeBtn = document.querySelector('.close');
-        const cancelBtn = document.querySelector('.cancel-btn');
-        
-        // 点击拒绝按钮打开弹窗
-        rejectButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const applicationId = this.getAttribute('data-application-id');
-                rejectForm.action = `/admin/adoptions/reject/${applicationId}/`;
+        // 点击拒绝按钮打开模态框
+        rejectBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var applicationId = this.getAttribute('data-application-id');
+                rejectForm.action = '/admin/adoptions/reject/' + applicationId + '/';
                 modal.style.display = 'block';
             });
         });
         
-        // 点击关闭按钮关闭弹窗
-        closeBtn.addEventListener('click', function() {
+        // 关闭模态框的方法
+        function closeModal() {
             modal.style.display = 'none';
-        });
+        }
         
-        // 点击取消按钮关闭弹窗
-        cancelBtn.addEventListener('click', function() {
-            modal.style.display = 'none';
-        });
+        // 点击关闭按钮关闭模态框
+        if(closeBtn) closeBtn.addEventListener('click', closeModal);
+        if(closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
         
-        // 点击弹窗外部关闭弹窗
+        // 点击模态框外部关闭模态框
         window.addEventListener('click', function(event) {
             if (event.target == modal) {
-                modal.style.display = 'none';
+                closeModal();
             }
         });
     });

@@ -69,22 +69,42 @@
         </tbody>
     </table>
 
-    <div class="pagination">
-        <span class="step-links">
+    {# 统一样式分页组件 #}
+    <div class="pagination-wrapper">
+        {% if pets.paginator.num_pages > 1 %}
+        <div class="pagination-container">
             {% if pets.has_previous %}
-                <a href="?page=1{% if search_query %}&q={{ search_query }}{% endif %}">« 首页</a>
-                <a href="?page={{ pets.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}">上一页</a>
+                <a href="?page={{ pets.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if status_filter != 'all' %}&status={{ status_filter }}{% endif %}" class="page-btn prev-page" title="上一页">
+                    <i class="fas fa-angle-left"></i> 上一页
+                </a>
+                <a href="?page=1{% if search_query %}&q={{ search_query }}{% endif %}{% if status_filter != 'all' %}&status={{ status_filter }}{% endif %}" class="page-btn first-page" title="首页">
+                    首页
+                </a>
             {% endif %}
-
-            <span class="current">
-                第 {{ pets.number }} / {{ pets.paginator.num_pages }} 页
-            </span>
-
+            
+            <div class="page-numbers">
+                {% for i in pets.paginator.page_range %}
+                    {% if pets.number == i %}
+                        <span class="page-btn current">{{ i }}</span>
+                    {% elif i > pets.number|add:"-3" and i < pets.number|add:"3" %}
+                        <a href="?page={{ i }}{% if search_query %}&q={{ search_query }}{% endif %}{% if status_filter != 'all' %}&status={{ status_filter }}{% endif %}" class="page-btn">{{ i }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            
             {% if pets.has_next %}
-                <a href="?page={{ pets.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}">下一页</a>
-                <a href="?page={{ pets.paginator.num_pages }}{% if search_query %}&q={{ search_query }}{% endif %}">末页 »</a>
+                <a href="?page={{ pets.paginator.num_pages }}{% if search_query %}&q={{ search_query }}{% endif %}{% if status_filter != 'all' %}&status={{ status_filter }}{% endif %}" class="page-btn last-page" title="末页">
+                    末页
+                </a>
+                <a href="?page={{ pets.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if status_filter != 'all' %}&status={{ status_filter }}{% endif %}" class="page-btn next-page" title="下一页">
+                    下一页 <i class="fas fa-angle-right"></i>
+                </a>
             {% endif %}
-        </span>
+        </div>
+        <div class="page-info">
+            第 {{ pets.number }} 页，共 {{ pets.paginator.num_pages }} 页
+        </div>
+        {% endif %}
     </div>
 </div>
-{% endblock %} 
+{% endblock %}

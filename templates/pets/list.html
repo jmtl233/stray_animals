@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/pets.css' %}">
+<link rel="stylesheet" href="{% static 'css/pet-list.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -20,42 +20,72 @@
                     </select>
                     <div class="select-arrow"></div>
                 </div>
+            </form>
         </div>
     </div>
 
     <div class="pet-grid">
+        <!-- 这里应该有宠物列表，但是只有注释 -->
         {% for pet in pets %}
-        <article class="pet-card">
-            <div class="card-image">
-                <img src="{{ pet.photo.url }}" alt="{{ pet.name }}" loading="lazy">
-                <div class="status-badge status-{{ pet.status|lower }}">
-                    {{ pet.get_status_display }}
+        <div class="pet-card">
+            <div class="pet-image-container">
+                <img src="{{ pet.photo.url }}" alt="{{ pet.name }}" class="pet-image">
+                <div class="pet-status">
+                    {% if pet.is_vaccinated %}<span class="status-tag vaccinated">已接种</span>{% endif %}
+                    {% if pet.is_neutered %}<span class="status-tag neutered">已绝育</span>{% endif %}
                 </div>
             </div>
-            <div class="card-content">
+            <div class="pet-info">
                 <h3>{{ pet.name }}</h3>
-                <div class="meta-info">
-                    <div class="meta-item">
-                        <svg class="meta-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                        <span>{{ pet.breed }}</span>
-                    </div>
-                    <div class="meta-item">
-                        <svg class="meta-icon" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
-                        <span>{{ pet.arrival_date|date:"Y/m/d" }}</span>
-                    </div>
-                </div>
-                <a href="{% url 'pets:detail' pet.id %}" class="card-action">
-                    查看详情
-                    <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
-                </a>
+                <p class="pet-breed">{{ pet.breed }}</p>
+                <p class="pet-meta">{{ pet.get_gender_display }} · {{ pet.age }}岁</p>
+                <a href="{% url 'pets:detail' pet.id %}" class="pet-btn">查看详情</a>
             </div>
-        </article>
+        </div>
         {% empty %}
-        <div class="empty-state">
-            <img src="{% static 'images/empty-doghouse.svg' %}" alt="暂无宠物">
-            <p>暂时没有待领养的宠物</p>
+        <div class="no-pets-message">
+            <p>抱歉，目前没有符合条件的待领养宠物。</p>
+            <p>请稍后再来查看，或者调整筛选条件。</p>
         </div>
         {% endfor %}
+    </div>
+
+    {# 统一样式分页组件 #}
+    <div class="pagination-wrapper">
+        {% if page_obj.paginator.num_pages > 1 %}
+        <div class="pagination-container">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.breed %}&breed={{ request.GET.breed }}{% endif %}" class="page-btn prev-page" title="上一页">
+                    <i class="fas fa-angle-left"></i> 上一页
+                </a>
+                <a href="?page=1{% if request.GET.breed %}&breed={{ request.GET.breed }}{% endif %}" class="page-btn first-page" title="首页">
+                    首页
+                </a>
+            {% endif %}
+            
+            <div class="page-numbers">
+                {% for i in page_obj.paginator.page_range %}
+                    {% if page_obj.number == i %}
+                        <span class="page-btn current">{{ i }}</span>
+                    {% elif i > page_obj.number|add:"-3" and i < page_obj.number|add:"3" %}
+                        <a href="?page={{ i }}{% if request.GET.breed %}&breed={{ request.GET.breed }}{% endif %}" class="page-btn">{{ i }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.breed %}&breed={{ request.GET.breed }}{% endif %}" class="page-btn last-page" title="末页">
+                    末页
+                </a>
+                <a href="?page={{ page_obj.next_page_number }}{% if request.GET.breed %}&breed={{ request.GET.breed }}{% endif %}" class="page-btn next-page" title="下一页">
+                    下一页 <i class="fas fa-angle-right"></i>
+                </a>
+            {% endif %}
+        </div>
+        <div class="page-info">
+            第 {{ page_obj.number }} 页，共 {{ page_obj.paginator.num_pages }} 页
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
