@@ -1,0 +1,353 @@
+/* 全局样式 */
+:root {
+    --primary-color: #4CAF50;
+    --secondary-color: #2c3e50;
+    --light-gray: #f8f9fa;
+    --medium-gray: #e9ecef;
+    --dark-gray: #6c757d;
+    --pending-color: #f1c40f;
+    --approved-color: #2ecc71;
+    --rejected-color: #e74c3c;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --border-radius: 8px;
+}
+
+.user-profile-container {
+    max-width: 900px;
+    margin: 30px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 个人信息部分 */
+.profile-section {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--medium-gray);
+}
+
+.profile-header h2 {
+    color: var(--secondary-color);
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.edit-btn {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
+
+.edit-btn:hover {
+    background-color: #3d8b40;
+}
+
+.profile-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.avatar-section {
+    flex: 0 0 180px;
+}
+
+.user-avatar, .default-avatar {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.default-avatar {
+    background-color: var(--medium-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: var(--dark-gray);
+}
+
+.profile-details {
+    flex: 1;
+    min-width: 300px;
+}
+
+.detail-item {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--medium-gray);
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    display: block;
+    color: var(--dark-gray);
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.detail-value {
+    color: var(--secondary-color);
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+/* 领养记录部分 */
+.adoption-section {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 25px;
+}
+
+.adoption-section h2 {
+    color: var(--secondary-color);
+    margin: 0 0 25px 0;
+    font-size: 1.5rem;
+}
+
+/* 标签页样式 */
+.tabs {
+    margin-top: 20px;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+/* 标签按钮样式 */
+.tab-header {
+    display: flex;
+    background-color: var(--light-gray);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    overflow: hidden;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 15px 20px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--dark-gray);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.tab-button i {
+    font-size: 1.1rem;
+}
+
+.tab-button:hover {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: var(--primary-color);
+}
+
+.tab-button.active {
+    color: var(--primary-color);
+    border-bottom: 3px solid var(--primary-color);
+    background-color: white;
+}
+
+/* 标签内容面板样式 */
+.tab-content {
+    background-color: white;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.tab-panel {
+    display: none;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.tab-panel.active {
+    display: block;
+    opacity: 1;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* 调整卡片样式以适应新的标签页设计 */
+.adoption-card {
+    margin-bottom: 15px;
+    border-radius: var(--border-radius);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.adoption-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* 空状态样式优化 */
+.empty-state {
+    padding: 30px;
+    text-align: center;
+    background-color: var(--light-gray);
+    border-radius: var(--border-radius);
+}
+
+.empty-state i {
+    font-size: 2.5rem;
+    color: var(--dark-gray);
+    opacity: 0.5;
+    margin-bottom: 15px;
+}
+
+.empty-state p {
+    color: var(--dark-gray);
+    font-size: 1.1rem;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .profile-content {
+        flex-direction: column;
+    }
+    
+    .avatar-section {
+        margin: 0 auto 20px;
+    }
+    
+    .adoption-card {
+        flex-direction: column;
+    }
+    
+    .pet-image {
+        margin: 0 0 15px 0;
+    }
+    
+    .status {
+        position: static;
+        margin-top: 10px;
+    }
+}
+
+/* 领养记录并列布局 */
+.applications-container {
+    display: grid;
+    gap: 2rem;
+}
+
+.application-status {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+}
+
+.application-status h3 {
+    color: var(--secondary-color);
+    margin: 0 0 15px 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--medium-gray);
+}
+
+/* 领养卡片样式 */
+.adoption-card {
+    display: flex;
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    margin-bottom: 15px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid var(--medium-gray);
+}
+
+.adoption-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.pet-image {
+    flex: 0 0 100px;
+    margin-right: 20px;
+}
+
+.pet-image img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+}
+
+.adoption-info {
+    flex: 1;
+    position: relative;
+}
+
+.adoption-info h3 {
+    margin: 0 0 10px 0;
+    color: var(--secondary-color);
+    font-size: 1.2rem;
+}
+
+.adoption-info p {
+    margin: 5px 0;
+    color: var(--dark-gray);
+    font-size: 0.95rem;
+}
+
+.adoption-info p span {
+    font-weight: 500;
+    color: var(--secondary-color);
+}
+
+.reject-reason {
+    color: var(--rejected-color) !important;
+    font-style: italic;
+}
+
+.status {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.status.pending {
+    background-color: var(--pending-color);
+    color: #664d03;
+}
+
+.status.approved {
+    background-color: var(--approved-color);
+    color: white;
+}
+
+.status.rejected {
+    background-color: var(--rejected-color);
+    color: white;
+}

@@ -1,140 +1,170 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class="user-profile-container">
-    <div class="profile-header">
-        <h2>我的个人信息</h2>
-        <a href="#" class="btn btn--primary">编辑资料</a>
-    </div>
-
-    <div class="profile-content">
-        <div class="avatar-section">
-            <div class="avatar-preview">
+    <!-- 个人信息部分 -->
+    <div class="profile-section">
+        <div class="profile-header">
+            <h2>个人信息</h2>
+            <a href="#" class="edit-btn">编辑资料</a>
+        </div>
+        
+        <div class="profile-content">
+            <div class="avatar-section">
                 {% if user.avatar %}
-                <img src="{{ user.avatar.url }}" alt="用户头像">
+                <img src="{{ user.avatar.url }}" alt="用户头像" class="user-avatar">
                 {% else %}
-                <div class="default-avatar">暂无头像</div>
+                <div class="default-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
                 {% endif %}
             </div>
-        </div>
-
-        <div class="profile-details">
-            <div class="detail-item">
-                <label>用户名：</label>
-                <span>{{ user.username }}</span>
-            </div>
-            <div class="detail-item">
-                <label>电子邮箱：</label>
-                <span>{{ user.email|default:"未填写" }}</span>
-            </div>
-            <div class="detail-item">
-                <label>手机号码：</label>
-                <span>{{ user.phone|default:"未填写" }}</span>
-            </div>
-            <div class="detail-item">
-                <label>注册时间：</label>
-                <span>{{ user.date_joined|date:"Y-m-d H:i" }}</span>
+            
+            <div class="profile-details">
+                <div class="detail-item">
+                    <span class="detail-label">用户名</span>
+                    <span class="detail-value">{{ user.username }}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">电子邮箱</span>
+                    <span class="detail-value">{{ user.email|default:"未填写" }}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">手机号码</span>
+                    <span class="detail-value">{{ user.phone|default:"未填写" }}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">注册时间</span>
+                    <span class="detail-value">{{ user.date_joined|date:"Y-m-d H:i" }}</span>
+                </div>
             </div>
         </div>
     </div>
-
-    <!-- 新增领养记录部分 -->
-    <div class="adoption-records">
-        <h3>我的领养记录</h3>
-        <div class="adoption-tabs">
-            <button class="tab-btn active" data-tab="pending">待审核</button>
-            <button class="tab-btn" data-tab="approved">已通过</button>
-            <button class="tab-btn" data-tab="rejected">未通过</button>
-        </div>
-
-        <div class="adoption-content">
-            <!-- 待审核申请 -->
-            <div class="tab-pane active" id="pending">
-                {% for application in pending_applications %}
-                <div class="adoption-card">
-                    <div class="pet-info">
-                        <img src="{{ application.pet.photo.url }}" alt="{{ application.pet.name }}">
-                        <div class="pet-details">
-                            <h4>{{ application.pet.name }}</h4>
-                            <p>品种：{{ application.pet.breed }}</p>
-                            <p>申请时间：{{ application.apply_date|date:"Y-m-d" }}</p>
-                        </div>
-                    </div>
-                    <div class="status-badge status-pending">审核中</div>
-                </div>
-                {% empty %}
-                <p class="no-records">暂无待审核的申请</p>
-                {% endfor %}
+    
+    <!-- 领养记录部分 -->
+    <div class="adoption-section">
+        <h2>我的领养记录</h2>
+        
+        <div class="tabs">
+            <div class="tab-header">
+                <button class="tab-button active" data-tab="pending">
+                    <i class="fas fa-clock"></i> 待审核申请
+                </button>
+                <button class="tab-button" data-tab="approved">
+                    <i class="fas fa-check-circle"></i> 已通过申请
+                </button>
+                <button class="tab-button" data-tab="rejected">
+                    <i class="fas fa-times-circle"></i> 未通过申请
+                </button>
             </div>
-
-            <!-- 已通过申请 -->
-            <div class="tab-pane" id="approved">
-                {% for application in approved_applications %}
-                <div class="adoption-card">
-                    <div class="pet-info">
-                        <img src="{{ application.pet.photo.url }}" alt="{{ application.pet.name }}">
-                        <div class="pet-details">
-                            <h4>{{ application.pet.name }}</h4>
-                            <p>品种：{{ application.pet.breed }}</p>
-                            <p>领养时间：{{ application.approve_date|date:"Y-m-d" }}</p>
+            
+            <div class="tab-content">
+                <!-- 待审核申请 -->
+                <div class="tab-panel active" id="pending-tab">
+                    {% if pending_applications %}
+                        {% for application in pending_applications %}
+                        <div class="adoption-card">
+                            <div class="pet-image">
+                                <img src="{{ application.pet.photo.url }}" alt="{{ application.pet.name }}">
+                            </div>
+                            <div class="adoption-info">
+                                <h3>{{ application.pet.name }}</h3>
+                                <p><span>品种：</span>{{ application.pet.breed }}</p>
+                                <p><span>申请时间：</span>{{ application.apply_date|date:"Y-m-d" }}</p>
+                                <div class="status pending">审核中</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="status-badge status-approved">已领养</div>
-                </div>
-                {% empty %}
-                <p class="no-records">暂无已通过的申请</p>
-                {% endfor %}
-            </div>
-
-            <!-- 未通过申请 -->
-            <div class="tab-pane" id="rejected">
-                {% for application in rejected_applications %}
-                <div class="adoption-card">
-                    <div class="pet-info">
-                        <img src="{{ application.pet.photo.url }}" alt="{{ application.pet.name }}">
-                        <div class="pet-details">
-                            <h4>{{ application.pet.name }}</h4>
-                            <p>品种：{{ application.pet.breed }}</p>
-                            <p>申请时间：{{ application.apply_date|date:"Y-m-d" }}</p>
-                            <p class="reject-reason">未通过原因：{{ application.reject_reason }}</p>
+                        {% endfor %}
+                    {% else %}
+                        <div class="empty-state">
+                            <i class="fas fa-inbox"></i>
+                            <p>暂无待审核的申请</p>
                         </div>
-                    </div>
-                    <div class="status-badge status-rejected">未通过</div>
+                    {% endif %}
                 </div>
-                {% empty %}
-                <p class="no-records">暂无未通过的申请</p>
-                {% endfor %}
+                
+                <!-- 已通过申请 -->
+                <div class="tab-panel" id="approved-tab">
+                    {% if approved_applications %}
+                        {% for application in approved_applications %}
+                        <div class="adoption-card">
+                            <div class="pet-image">
+                                <img src="{{ application.pet.photo.url }}" alt="{{ application.pet.name }}">
+                            </div>
+                            <div class="adoption-info">
+                                <h3>{{ application.pet.name }}</h3>
+                                <p><span>品种：</span>{{ application.pet.breed }}</p>
+                                <p><span>领养时间：</span>{{ application.approve_date|date:"Y-m-d" }}</p>
+                                <div class="status approved">已领养</div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="empty-state">
+                            <i class="fas fa-inbox"></i>
+                            <p>暂无已通过的申请</p>
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <!-- 未通过申请 -->
+                <div class="tab-panel" id="rejected-tab">
+                    {% if rejected_applications %}
+                        {% for application in rejected_applications %}
+                        <div class="adoption-card">
+                            <div class="pet-image">
+                                <img src="{{ application.pet.photo.url }}" alt="{{ application.pet.name }}">
+                            </div>
+                            <div class="adoption-info">
+                                <h3>{{ application.pet.name }}</h3>
+                                <p><span>品种：</span>{{ application.pet.breed }}</p>
+                                <p><span>申请时间：</span>{{ application.apply_date|date:"Y-m-d" }}</p>
+                                <p class="reject-reason"><span>未通过原因：</span>{{ application.reject_reason }}</p>
+                                <div class="status rejected">未通过</div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="empty-state">
+                            <i class="fas fa-inbox"></i>
+                            <p>暂无未通过的申请</p>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
 </div>
-{% endblock %}
 
-{% block extra_js %}
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // 获取所有标签按钮和内容面板
-    const tabButtons = document.querySelectorAll('.tab-btn');
-    const tabPanes = document.querySelectorAll('.tab-pane');
-
-    // 为每个标签按钮添加点击事件
-    tabButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // 移除所有按钮的active类
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            // 为当前点击的按钮添加active类
-            this.classList.add('active');
-
-            // 获取目标面板的id
-            const targetId = this.getAttribute('data-tab');
-
-            // 隐藏所有面板
-            tabPanes.forEach(pane => pane.classList.remove('active'));
-            // 显示目标面板
-            document.getElementById(targetId).classList.add('active');
+    // 标签页切换功能
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabPanels = document.querySelectorAll('.tab-panel');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // 移除所有按钮的active类
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                // 给当前点击的按钮添加active类
+                this.classList.add('active');
+                
+                // 获取对应的标签面板ID
+                const tabId = this.getAttribute('data-tab') + '-tab';
+                
+                // 隐藏所有标签面板
+                tabPanels.forEach(panel => panel.classList.remove('active'));
+                // 显示当前标签面板
+                document.getElementById(tabId).classList.add('active');
+            });
         });
     });
-});
 </script>
 {% endblock %}
+
+

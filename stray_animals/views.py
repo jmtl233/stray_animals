@@ -124,6 +124,31 @@ def home_view(request):
     print(f"用户对象: {request.user}")  # 调试输出
     return render(request, 'home/home.html')
 
+def success_cases(request):
+    """成功救助案例页面"""
+    # 获取类型过滤参数
+    pet_type = request.GET.get('type', '')
+    
+    # 查询已有救助故事的宠物
+    query = Pet.objects.filter(rescue_story__isnull=False, rescue_story__gt='')
+    
+    # 根据类型过滤
+    if pet_type == 'cat':
+        query = query.filter(breed__in=['中华田园猫', '布偶猫', '英国短毛猫', '波斯猫', '暹罗猫'])
+    elif pet_type == 'dog':
+        query = query.filter(breed__in=['中华田园犬', '金毛寻回犬', '拉布拉多', '哈士奇', '柯基犬'])
+    
+    # 确保rescue_date字段有值
+    success_cases = query.exclude(rescue_date__isnull=True).order_by('-rescue_date')
+    
+    # 如果没有找到有救助日期的案例，则使用所有有救助故事的宠物
+    if not success_cases.exists():
+        success_cases = query.order_by('-id')
+    
+    return render(request, 'home/success_cases.html', {
+        'success_cases': success_cases
+    })
+
 def success_cases_view(request):
     animal_type = request.GET.get('type', 'all')
     success_cases = Pet.objects.filter(is_adopted=True)

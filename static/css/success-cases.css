@@ -1,0 +1,98 @@
+/* 救助案例容器 */
+.success-cases {
+  padding: 4rem 0;
+  background: #fff;
+}
+
+/* 案例类型标题 */
+.case-type-title {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+/* 案例网格布局 */
+.case-grid {
+  display: grid;
+  /* 修改网格布局，固定列宽而不是自适应 */
+  grid-template-columns: repeat(3, 1fr); /* 固定为3列 */
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* 案例卡片 */
+.case-card {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: white;
+  box-shadow: var(--shadow-sm);
+  /* 添加最大宽度限制 */
+  max-width: 350px;
+  /* 居中显示 */
+  margin: 0 auto;
+  width: 100%;
+}
+
+
+.case-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* 案例图片 */
+.case-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* 案例信息 */
+.case-info {
+  padding: 1.5rem;
+}
+
+.case-info h3 {
+  margin-top: 0;
+  color: var(--text-dark);
+  font-size: 1.3rem;
+}
+
+.case-info p {
+  margin: 0.5rem 0;
+  color: var(--text-light);
+}
+
+/* 案例描述 */
+.case-desc {
+  margin-top: 1rem;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+
+/* 领养人信息 */
+.adopter {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+/* 日期样式 */
+.date {
+  color: #95a5a6;
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+/* 引用样式 */
+blockquote {
+  border-left: 3px solid #4CAF50;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  color: #2c3e50;
+  font-style: italic;
+}
+
