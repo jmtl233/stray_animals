@@ -38,11 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users.apps.UsersConfig',  # 用户应用（保留）
-    'pets',                   # 宠物应用
-    'announcements.apps.AnnouncementsConfig',  # 公告应用
-    'adoptions.apps.AdoptionsConfig',  # 领养应用（保留一个）
-    # 移除重复的'users.apps.UsersConfig'
+    'users',
+    'pets',
+    'announcements',
+    'adoptions',
+    'events',  # 添加 events 应用
 ]
 
 MIDDLEWARE = [
@@ -68,6 +68,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # 添加自定义上下文处理器，用于获取最新公告
+                'stray_animals.context_processors.latest_announcement',
             ],
         },
     },

@@ -12,17 +12,14 @@
 </head>
 <body>
     {% include 'partials/header.html' %}
-
-    {% block content %}
-    <!-- 主要内容区块 -->
-    {% if user.is_authenticated %}
-        <a href="{% url 'users:logout' %}" class="btn">退出</a>
-    {% else %}
-        <a href="{% url 'users:login' %}" class="btn">登录</a>
-        <a href="{% url 'users:register' %}" class="btn">注册</a>
-    {% endif %}
-    {% endblock %}
-
+    
+    <!-- 在头部下方添加公告栏 -->
+    {% include 'partials/announcement_bar.html' %}
+    
+    {% block content %}{% endblock %}
+    
     {% include 'partials/footer.html' %}
+    
+    {% block extra_js %}{% endblock %}
 </body>
 </html>

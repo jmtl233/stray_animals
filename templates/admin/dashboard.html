@@ -23,6 +23,7 @@
 
 {% block content %}
 <div class="admin-container">
+    <!-- 在现有的侧边栏导航中添加活动管理链接 -->
     <aside class="admin-sidebar">
         <h3>管理导航</h3>
         <nav>
@@ -30,11 +31,9 @@
             <a href="{% url 'admin_users' %}" class="admin-nav-link {% if user_management %}active{% endif %}">用户管理</a>
             <a href="{% url 'admin_pets' %}" class="admin-nav-link {% if pet_management %}active{% endif %}">宠物管理</a>
             <a href="{% url 'admin_announcements' %}" class="admin-nav-link {% if announcement_management %}active{% endif %}">公告管理</a>
-            <a href="{% url 'admin_adoptions' %}" class="admin-nav-link {% if adoption_management %}active{% endif %}">领养审核</a>
-            <a href="{% url 'users:logout' %}" class="admin-nav-link">
-                <i class="fas fa-sign-out-alt"></i>
-                退出系统
-            </a>
+            <a href="{% url 'admin_events' %}" class="admin-nav-link {% if event_management %}active{% endif %}">活动管理</a>
+            <a href="{% url 'admin_adoptions' %}" class="admin-nav-link {% if adoption_management %}active{% endif %}">领养管理</a>
+            <a href="{% url 'users:logout' %}" class="admin-nav-link logout">退出登录</a>
         </nav>
     </aside>
     
@@ -59,6 +58,10 @@
 
         {% if adoption_management %}
             {% include "admin/adoptions.html" %}
+        {% endif %}
+
+        {% if event_management %}
+            {% include "admin/events.html" %}
         {% endif %}
     </main>
 </div>

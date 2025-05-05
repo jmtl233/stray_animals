@@ -8,6 +8,7 @@ from django.contrib.auth import get_user_model
 from .models import User, AdoptionApplication
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
+from announcements.models import Announcement  # 添加公告模型导入
 
 class LoginView(AuthLoginView):
     form_class = LoginForm
@@ -20,6 +21,13 @@ class LoginView(AuthLoginView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
+        # 获取最新的已发布公告
+        latest_announcement = Announcement.objects.filter(is_published=True).order_by('-publish_date').first()
+        if latest_announcement:
+            # 将公告信息存储在会话中，以便在下一个页面显示
+            self.request.session['announcement_id'] = latest_announcement.id
+            self.request.session['announcement_title'] = latest_announcement.title
+            self.request.session['announcement_content'] = latest_announcement.content
         return response
 
 class RegisterView(CreateView):

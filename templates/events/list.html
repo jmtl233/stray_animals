@@ -1,8 +1,97 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/events.css' %}">
+{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h2>近期救助活动</h2>
-    <!-- 活动列表内容 -->
+<div class="events-container">
+    <div class="container">
+        <h2 class="section-title">近期救助活动</h2>
+        
+        {% if events %}
+        <div class="events-grid">
+            {% for event in events %}
+            <div class="event-card">
+                <!-- 新增图片部分 -->
+                <div class="event-image">
+                    {% if event.image %}
+                    <img src="{{ event.image.url }}" alt="{{ event.title }}">
+                    {% else %}
+                    <div class="no-image">📷</div>
+                    {% endif %}
+                    <div class="image-overlay"></div>
+                    <span class="status-label {{ event.is_active|yesno:'status-active,status-inactive' }}">
+                        {{ event.is_active|yesno:"进行中,已结束" }}
+                    </span>
+                </div>
+                <div class="event-content">
+                    <h3 class="event-title">{{ event.title }}</h3>
+                    <div class="event-time">
+                        <span>
+                            <i class="fas fa-clock"></i>
+                            开始时间：{{ event.start_date|date:"Y-m-d H:i" }}
+                        </span>
+                        <span>
+                            <i class="fas fa-clock"></i>
+                            结束时间：{{ event.end_date|date:"Y-m-d H:i" }}
+                        </span>
+                    </div>
+                    <!-- 新增活动描述 -->
+                    <div class="event-description">
+                        {{ event.description|truncatechars:100 }}
+                    </div>
+                    <div class="event-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        {{ event.location }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="no-events">
+            <p>暂无近期活动，请稍后查看。</p>
+        </div>
+        {% endif %}
+        
+        <h3 class="section-subtitle">历史活动</h3>
+        {% if past_events %}
+            <div class="past-events">
+                {% for event in past_events %}
+                <div class="past-event-item">
+                    <div class="past-event-image">
+                        {% if event.image %}
+                        <img src="{{ event.image.url }}" alt="{{ event.title }}">
+                        {% else %}
+                        <div class="no-image-small">📷</div>
+                        {% endif %}
+                    </div>
+                    <div class="past-event-date">{{ event.start_date|date:"Y-m-d" }}</div>
+                    <div class="past-event-content">
+                        <div class="past-event-title">{{ event.title }}</div>
+                        <div class="past-event-description">
+                            {{ event.description|truncatechars:80 }}
+                        </div>
+                        <div class="past-event-meta">
+                            <span class="past-event-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                {{ event.location }}
+                            </span>
+                            <span class="past-event-status {{ event.is_active|yesno:'status-active,status-inactive' }}">
+                                {{ event.is_active|yesno:"进行中,已结束" }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="no-events">
+                <p>暂无历史活动记录</p>
+            </div>
+        {% endif %}
+    </div>
 </div>
-{% endblock %} 
+{% endblock %}

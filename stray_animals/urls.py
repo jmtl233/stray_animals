@@ -29,7 +29,10 @@ urlpatterns = [
     path('admin/dashboard/', admin_views.AdminDashboardView.as_view(), name='admin_dashboard'),
     path('admin/users/', views.user_management, name='admin_users'),
     path('admin/pets/', views.pet_management, name='admin_pets'),
+    # 在现有的urlpatterns中添加或修改
     path('admin/announcements/', views.announcement_management, name='admin_announcements'),
+    # 添加活动管理路由 - 确保放在这里，在Django原生admin路由之前
+    path('admin/events/', views.event_management, name='admin_events'),
     # 领养管理路由组
     path('admin/adoptions/', include([
         path('', views.adoption_management, name='admin_adoptions'),
@@ -45,13 +48,12 @@ urlpatterns = [
     path('home/', views.home_view, name='home'),
     path('pets/', include('pets.urls', namespace='pets')),
     path('events/', include('events.urls', namespace='events')),
+    # 在现有的urlpatterns中确保有以下行
     path('announcements/', include('announcements.urls', namespace='announcements')),
-    # 删除重复的路由
-    # path('admin/adoptions/', views.adoption_management, name='admin_adoptions'),
     path('success-cases/', views.success_cases_view, name='success_cases'),
     
     # 添加领养申请路由
     path('apply/<int:pet_id>/', adoptions_views.apply_adoption, name='apply_adoption'),
-    # 删除重复的路由，已经在上面的include中添加了
-    # path('admin/adoptions/reject/<int:application_id>/', adoptions_views.reject_application, name='reject_application'),
+    path('clear-announcement/', views.clear_announcement, name='clear_announcement'),
+    # 删除这里的重复路由
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,203 @@
+{% if latest_announcement %}
+<div class="announcement-bar-container">
+    <div class="announcement-bar">
+        <div class="announcement-icon">📢</div>
+        <div class="announcement-content">
+            <marquee behavior="scroll" direction="left" scrollamount="3" onmouseover="this.stop();" onmouseout="this.start();">
+                {{ latest_announcement.title }}: {{ latest_announcement.content|truncatechars:100 }}
+            </marquee>
+        </div>
+        <button class="announcement-detail-btn" id="showAnnouncementBtn">查看详情</button>
+    </div>
+</div>
+
+<!-- 公告详情弹窗 -->
+<div id="announcementModal" class="announcement-modal">
+    <div class="announcement-modal-content">
+        <span class="close-btn">&times;</span>
+        <h3 class="announcement-modal-title">{{ latest_announcement.title }}</h3>
+        <div class="announcement-modal-body">
+            {{ latest_announcement.content|linebreaks }}
+        </div>
+        <div class="announcement-modal-footer">
+            <span class="announcement-date">发布时间: {{ latest_announcement.publish_date|date:"Y-m-d H:i" }}</span>
+            <button class="btn close-announcement">我知道了</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* 公告栏样式 */
+    .announcement-bar-container {
+        width: 100%;
+        background-color: #fff8e1;
+        border-bottom: 1px solid #ffe082;
+    }
+    
+    .announcement-bar {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 8px 15px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .announcement-icon {
+        font-size: 18px;
+        margin-right: 10px;
+        color: #ff9800;
+    }
+    
+    .announcement-content {
+        flex: 1;
+        overflow: hidden;
+    }
+    
+    .announcement-detail-btn {
+        background-color: transparent;
+        border: 1px solid #4CAF50;
+        color: #4CAF50;
+        padding: 4px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: all 0.3s;
+    }
+    
+    .announcement-detail-btn:hover {
+        background-color: #4CAF50;
+        color: white;
+    }
+    
+    /* 公告弹窗样式 */
+    .announcement-modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+    
+    .announcement-modal-content {
+        background-color: #fff;
+        margin: 10% auto;
+        padding: 20px;
+        border-radius: 8px;
+        width: 80%;
+        max-width: 600px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        animation: modalFadeIn 0.3s;
+        position: relative;
+    }
+    
+    @keyframes modalFadeIn {
+        from {opacity: 0; transform: translateY(-30px);}
+        to {opacity: 1; transform: translateY(0);}
+    }
+    
+    .close-btn {
+        position: absolute;
+        right: 20px;
+        top: 15px;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+        color: #aaa;
+    }
+    
+    .close-btn:hover {
+        color: #333;
+    }
+    
+    .announcement-modal-title {
+        margin-top: 0;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+        color: #333;
+    }
+    
+    .announcement-modal-body {
+        margin: 20px 0;
+        line-height: 1.6;
+        max-height: 300px;
+        overflow-y: auto;
+        color: #444;
+        white-space: pre-line; /* 保留换行符 */
+    }
+    
+    .announcement-modal-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+        padding-top: 15px;
+        border-top: 1px solid #eee;
+    }
+    
+    .announcement-date {
+        color: #777;
+        font-size: 14px;
+    }
+    
+    .close-announcement {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    .close-announcement:hover {
+        background-color: #388E3C;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 获取弹窗元素
+        const modal = document.getElementById('announcementModal');
+        const showBtn = document.getElementById('showAnnouncementBtn');
+        const closeBtn = document.querySelector('.close-btn');
+        const closeButton = document.querySelector('.close-announcement');
+        
+        // 点击查看详情按钮显示弹窗
+        if (showBtn) {
+            showBtn.onclick = function() {
+                modal.style.display = 'block';
+                
+                // 确保弹窗内容区域可以滚动
+                const modalBody = document.querySelector('.announcement-modal-body');
+                if (modalBody.scrollHeight > modalBody.clientHeight) {
+                    modalBody.style.overflowY = 'scroll';
+                }
+            }
+        }
+        
+        // 点击关闭按钮关闭弹窗
+        if (closeBtn) {
+            closeBtn.onclick = function() {
+                modal.style.display = 'none';
+            }
+        }
+        
+        // 点击"我知道了"按钮关闭弹窗
+        if (closeButton) {
+            closeButton.onclick = function() {
+                modal.style.display = 'none';
+            }
+        }
+        
+        // 点击弹窗外部关闭弹窗
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    });
+</script>
+{% endif %}

@@ -1,0 +1,104 @@
+<!-- <div id="announcementModal" class="announcement-modal">
+    <div class="announcement-content">
+        <span class="close-btn">&times;</span>
+        <h2>📢 {{ announcement_title }}</h2>
+        <div class="announcement-body">
+            {{ announcement_content|linebreaks }}
+        </div>
+        <div class="announcement-footer">
+            <button class="btn close-announcement">我知道了</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .announcement-modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+    }
+    
+    .announcement-content {
+        background-color: #fff;
+        margin: 10% auto;
+        padding: 20px;
+        border-radius: 10px;
+        width: 80%;
+        max-width: 600px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        position: relative;
+        animation: modalFadeIn 0.3s;
+    }
+    
+    @keyframes modalFadeIn {
+        from {opacity: 0; transform: translateY(-50px);}
+        to {opacity: 1; transform: translateY(0);}
+    }
+    
+    .close-btn {
+        position: absolute;
+        right: 20px;
+        top: 10px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+        color: #aaa;
+    }
+    
+    .close-btn:hover {
+        color: #333;
+    }
+    
+    .announcement-body {
+        margin: 20px 0;
+        max-height: 300px;
+        overflow-y: auto;
+        line-height: 1.6;
+    }
+    
+    .announcement-footer {
+        text-align: center;
+        margin-top: 20px;
+    }
+    
+    .close-announcement {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('announcementModal');
+        const closeBtn = document.querySelector('.close-btn');
+        const closeButton = document.querySelector('.close-announcement');
+        
+        // 显示模态框
+        modal.style.display = 'block';
+        
+        // 点击关闭按钮关闭模态框
+        closeBtn.onclick = function() {
+            modal.style.display = 'none';
+        }
+        
+        closeButton.onclick = function() {
+            modal.style.display = 'none';
+        }
+        
+        // 点击模态框外部关闭模态框
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    });
+</script> -->

@@ -86,10 +86,26 @@ def pet_management(request):
     })
 
 def announcement_management(request):
-    announcements = Announcement.objects.all()
+    # 获取搜索查询参数
+    search_query = request.GET.get('q', '')
+    
+    # 基础查询集
+    announcements = Announcement.objects.all().order_by('-publish_date')
+    
+    # 如果有搜索查询，过滤公告列表
+    if search_query:
+        announcements = announcements.filter(title__icontains=search_query)
+    
+    # 分页处理
+    paginator = Paginator(announcements, 10)  # 每页10条
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
     return render(request, 'admin/dashboard.html', {
-        'announcement_management': True,  # 激活公告管理模块
-        'announcements': announcements
+        'announcement_management': True,
+        'announcements': page_obj,
+        'page_obj': page_obj,
+        'search_query': search_query
     })
 
 def adoption_management(request):
@@ -161,6 +177,49 @@ def success_cases_view(request):
     return render(request, 'home/success_cases.html', {
         'success_cases': success_cases,
         'current_type': animal_type
+    })
+
+# 在文件顶部添加必要的导入
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+
+# 在文件中添加以下视图函数
+@require_POST
+def clear_announcement(request):
+    """清除会话中的公告信息"""
+    if 'announcement_id' in request.session:
+        del request.session['announcement_id']
+    if 'announcement_title' in request.session:
+        del request.session['announcement_title']
+    if 'announcement_content' in request.session:
+        del request.session['announcement_content']
+    return JsonResponse({'status': 'success'})
+
+# 在文件中添加以下函数
+# 添加以下导入（如果尚未导入）
+from django.shortcuts import render
+from django.core.paginator import Paginator
+
+# 添加event_management视图函数
+def event_management(request):
+    from events.models import Event
+    from django.core.paginator import Paginator
+    
+    search_query = request.GET.get('q', '')
+    
+    events = Event.objects.all().order_by('-created_at')
+    
+    if search_query:
+        events = events.filter(title__icontains=search_query)
+    
+    paginator = Paginator(events, 10)
+    page_number = request.GET.get('page')
+    events = paginator.get_page(page_number)
+    
+    return render(request, 'admin/dashboard.html', {
+        'event_management': True,
+        'events': events,
+        'search_query': search_query
     })
 
     

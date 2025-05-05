@@ -1,4 +1,86 @@
 <div class="admin-card">
-    <h3>公告管理</h3>
-    <p class="text-muted">功能开发中，敬请期待</p>
-</div> 
+    <div class="admin-toolbar">
+        <form method="get" class="search-form">
+            <div class="search-wrapper">
+                <input type="text" 
+                       name="q" 
+                       placeholder="搜索公告..." 
+                       value="{{ search_query }}"
+                       class="search-input">
+                <button type="submit" class="search-icon-btn">🔍</button>
+            </div>
+        </form>
+        <a href="{% url 'admin_announcements:create' %}" class="btn btn--success">+ 发布新公告</a>
+    </div>
+
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>标题</th>
+                <th>发布时间</th>
+                <th>状态</th>
+                <th style="text-align: center">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for announcement in announcements %}
+            <tr>
+                <td>{{ announcement.title }}</td>
+                <td>{{ announcement.publish_date|date:"Y-m-d H:i" }}</td>
+                <td>
+                    <span class="status-badge {% if announcement.is_published %}status-active{% else %}status-inactive{% endif %}">
+                        {{ announcement.is_published|yesno:"已发布,未发布" }}
+                    </span>
+                </td>
+                <td class="action-buttons">
+                    <a href="{% url 'admin_announcements:edit' announcement.id %}" class="btn btn--primary">编辑</a>
+                    <a href="{% url 'admin_announcements:delete' announcement.id %}" class="btn btn--danger">删除</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="no-data">暂无公告记录</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {# 分页组件 #}
+    <div class="pagination-wrapper">
+        {% if page_obj.paginator.num_pages > 1 %}
+        <div class="pagination-container">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}" class="page-btn prev-page" title="上一页">
+                    <i class="fas fa-angle-left"></i> 上一页
+                </a>
+                <a href="?page=1{% if search_query %}&q={{ search_query }}{% endif %}" class="page-btn first-page" title="首页">
+                    首页
+                </a>
+            {% endif %}
+            
+            <div class="page-numbers">
+                {% for i in page_obj.paginator.page_range %}
+                    {% if page_obj.number == i %}
+                        <span class="page-btn current">{{ i }}</span>
+                    {% elif i > page_obj.number|add:"-3" and i < page_obj.number|add:"3" %}
+                        <a href="?page={{ i }}{% if search_query %}&q={{ search_query }}{% endif %}" class="page-btn">{{ i }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.paginator.num_pages }}{% if search_query %}&q={{ search_query }}{% endif %}" class="page-btn last-page" title="末页">
+                    末页
+                </a>
+                <a href="?page={{ page_obj.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}" class="page-btn next-page" title="下一页">
+                    下一页 <i class="fas fa-angle-right"></i>
+                </a>
+            {% endif %}
+        </div>
+        
+        <div class="page-info">
+            当前第 {{ page_obj.number }} 页，共 {{ page_obj.paginator.num_pages }} 页，总计 {{ page_obj.paginator.count }} 条记录
+        </div>
+        {% endif %}
+    </div>
+</div>

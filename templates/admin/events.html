@@ -1,0 +1,67 @@
+<div class="admin-card">
+    <div class="admin-toolbar">
+        <form method="get" class="search-form">
+            <div class="search-wrapper">
+                <input type="text" 
+                       name="q" 
+                       placeholder="搜索活动..." 
+                       value="{{ search_query }}"
+                       class="search-input">
+                <button type="submit" class="search-icon-btn">🔍</button>
+            </div>
+        </form>
+        <a href="{% url 'events:create' %}" class="btn btn--success">+ 创建新活动</a>
+    </div>
+
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>活动标题</th>
+                <th>活动时间</th>
+                <th>活动地点</th>
+                <th>状态</th>
+                <th style="text-align: center">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in events %}
+            <tr>
+                <td>{{ event.title }}</td>
+                <!-- 在表格中修改时间列 -->
+                <td>{{ event.start_date|date:"Y-m-d H:i" }}</td>
+                <td>{{ event.end_date|date:"Y-m-d H:i" }}</td>
+                
+                <!-- 修改状态判断逻辑 -->
+                <td>
+                    <span class="status-badge 
+                        {% if event.is_past_due %}status-inactive
+                        {% elif event.is_active %}status-active
+                        {% else %}status-inactive{% endif %}">
+                        {% if event.is_past_due %}
+                            已结束
+                        {% elif event.is_active %}
+                            进行中
+                        {% else %}
+                            未激活
+                        {% endif %}
+                    </span>
+                </td>
+                <td class="action-buttons">
+                    <a href="{% url 'events:edit' event.id %}" class="btn btn--small btn--primary">
+                        <i class="fas fa-edit"></i> 编辑
+                    </a>
+                    <a href="{% url 'events:delete' event.id %}" class="btn btn--small btn--danger">
+                        <i class="fas fa-trash"></i> 删除
+                    </a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="empty-table-message">暂无活动数据</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% include "partials/pagination.html" with page_obj=page_obj %}
+</div>

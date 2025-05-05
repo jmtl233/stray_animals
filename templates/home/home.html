@@ -12,28 +12,6 @@
         </div>
     </section>
 
-    <section class="featured-pets">
-        <div class="container">
-            <h2>本周推荐宠物</h2>
-            <div class="pet-grid">
-                {% for pet in featured_pets %}
-                <div class="pet-card">
-                    <img src="{{ pet.photo.url }}" alt="{{ pet.name }}" class="pet-image">
-                    <div class="pet-info">
-                        <h3>{{ pet.name }}</h3>
-                        <p>{{ pet.get_gender_display }} · {{ pet.age }}岁 · {{ pet.breed }}</p>
-                        <div class="pet-status">
-                            <span class="status-tag {% if pet.is_vaccinated %}vaccinated{% endif %}">已疫苗</span>
-                            <span class="status-tag {% if pet.is_neutered %}neutered{% endif %}">已绝育</span>
-                        </div>
-                        {# 注释掉未实现的宠物相关链接 #}
-                        {# <a href="{% url 'pets:detail' pet.id %}" class="btn">了解详情</a> #}
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-    </section>
 
     
             <section class="feature-card feature-card--adopt">
@@ -119,23 +97,6 @@
         </div>
     </section>
 
-    <section class="success-cases">
-        <div class="container">
-            <h3>领养成功案例</h3>
-            <div class="case-grid">
-                {% for case in success_cases %}
-                <div class="case-card">
-                    <img src="{{ case.pet.photo.url }}" alt="{{ case.pet.name }}">
-                    <div class="case-info">
-                        <h4>{{ case.pet.name }}的新家</h4>
-                        <p class="adopter">领养人：{{ case.applicant.username }}</p>
-                        <p class="date">领养日期：{{ case.apply_date|date:"Y-m-d" }}</p>
-                        <blockquote>"感谢平台让我们相遇"</blockquote>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-    </section>
+
 </main>
 {% endblock %}

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}{{ announcement.title }} - 公告详情{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="announcement-detail-container">
+        <div class="announcement-detail-header">
+            <h1 class="announcement-title">{{ announcement.title }}</h1>
+            <div class="announcement-meta">
+                <span class="announcement-date">发布时间: {{ announcement.publish_date|date:"Y-m-d H:i" }}</span>
+            </div>
+        </div>
+        <div class="announcement-content">
+            {{ announcement.content|linebreaks }}
+        </div>
+        <div class="announcement-actions">
+            <a href="{% url 'home' %}" class="btn btn-primary">返回首页</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .announcement-detail-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .announcement-detail-header {
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 1rem;
+    }
+    
+    .announcement-title {
+        font-size: 1.8rem;
+        color: #333;
+        margin-bottom: 0.5rem;
+    }
+    
+    .announcement-meta {
+        color: #777;
+        font-size: 0.9rem;
+    }
+    
+    .announcement-content {
+        line-height: 1.8;
+        color: #444;
+        margin-bottom: 2rem;
+    }
+    
+    .announcement-actions {
+        text-align: center;
+        margin-top: 2rem;
+    }
+</style>
+{% endblock %}
