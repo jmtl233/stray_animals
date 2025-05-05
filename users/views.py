@@ -6,6 +6,8 @@ from django.urls import reverse, reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth import get_user_model
 from .models import User, AdoptionApplication
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
 
 class LoginView(AuthLoginView):
     form_class = LoginForm
@@ -84,3 +86,31 @@ class UserProfileView(LoginRequiredMixin, TemplateView):
         ).select_related('pet')
         
         return context
+
+
+@login_required
+def update_profile(request):
+    if request.method == 'POST':
+        user = request.user
+        
+        # 更新用户名、邮箱和手机号
+        username = request.POST.get('username', '')
+        if username and username != user.username:
+            # 检查用户名是否已存在
+            if User.objects.filter(username=username).exists():
+                messages.error(request, '用户名已被使用')
+            else:
+                user.username = username
+        
+        user.email = request.POST.get('email', '')
+        user.phone = request.POST.get('phone', '')
+        
+        # 处理头像上传
+        if 'avatar' in request.FILES:
+            user.avatar = request.FILES['avatar']
+        
+        user.save()
+        messages.success(request, '个人资料已更新')
+        return redirect('users:profile')
+    
+    return redirect('users:profile')

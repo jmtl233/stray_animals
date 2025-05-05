@@ -1,5 +1,9 @@
 from django.urls import path
-from .views import LoginView, RegisterView, LogoutView, UserDetailView, UserDeleteView, UserProfileView
+from .views import (
+    LoginView, RegisterView, LogoutView, 
+    UserDetailView, UserDeleteView, UserProfileView,
+    update_profile  # 添加这一行导入update_profile函数
+)
 
 app_name = 'users'
 
@@ -21,4 +25,5 @@ urlpatterns = [
     
     # 用户个人中心
     path('profile/', UserProfileView.as_view(), name='profile'),
-] 
+    path('update-profile/', update_profile, name='update_profile'),
+]
