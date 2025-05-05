@@ -208,32 +208,6 @@ body {
   text-align: center;
 }
 
-/* 响应式设计 */
-@media (max-width: 1024px) {
-  .nav-links-container {
-    position: static;
-    transform: none;
-    order: 2;
-    width: 100%;
-    margin: 1rem 0;
-  }
-  
-  .navbar {
-    flex-wrap: wrap;
-    padding: 10px 15px;
-  }
-  
-  .nav-links {
-    justify-content: center;
-  }
-}
-
-@media (max-width: 768px) {
-  .nav-links {
-    flex-direction: column;
-    align-items: center;
-  }
-}
 
 /* 管理员特殊样式 */
 .admin-badge::after {
@@ -274,11 +248,6 @@ body {
   line-height: 1.6;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
 
 /* 导航栏 */
 .navbar {
@@ -804,40 +773,6 @@ to { transform: translateY(0); opacity: 1; }
     color: #3498db;
 }
 
-/* 响应式调整 */
-@media (max-width: 1024px) {
-    .nav-links {
-        gap: 1.5rem;
-        flex-wrap: wrap;
-    }
-    
-    .nav-left {
-        gap: 1rem;
-    }
-    
-    .welcome-msg {
-        display: none;
-    }
-}
-
-@media (max-width: 768px) {
-    .nav-links {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .nav-left {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    
-    .dropdown-menu {
-        position: static !important;
-        transform: none !important;
-        width: 100%;
-        box-shadow: none;
-    }
-}
 
 /* nav-auth新定位 */
 .nav-auth {
@@ -877,13 +812,7 @@ to { transform: translateY(0); opacity: 1; }
     gap: 1.5rem;
 }
 
-/* 注册页面头部专用样式 */
-/* .register-header {
-    background: #fff;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    position: relative;
-    z-index: 100;
-} */
+
 
 .register-nav-container {
     max-width: 1200px;
@@ -893,16 +822,7 @@ to { transform: translateY(0); opacity: 1; }
     justify-content: space-between;
     align-items: center;
 }
-/* 
-.register-logo {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    text-decoration: none;
-    color: #2c3e50;
-    font-size: 1.5rem;
-    font-weight: 600;
-} */
+
 
 .register-subtitle {
     color: #7f8c8d;
@@ -938,23 +858,18 @@ to { transform: translateY(0); opacity: 1; }
     color: #4CAF50;
 }
 
-
-    /* .register-logo {
-        flex-direction: column;
-        text-align: center;
-    } */
     
-    .register-nav-links {
+.register-nav-links {
         flex-direction: column;
         width: 100%;
-    }
+}
     
-    .register-nav-link {
+.register-nav-link {
         justify-content: center;
         width: 100%;
         padding: 0.8rem;
         border: 1px solid #eee;
-    }
+}
   
 
 /* 注册页面头部布局 */

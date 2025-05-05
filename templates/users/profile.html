@@ -109,4 +109,32 @@
         </div>
     </div>
 </div>
-{% endblock %} 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 获取所有标签按钮和内容面板
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    // 为每个标签按钮添加点击事件
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // 移除所有按钮的active类
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            // 为当前点击的按钮添加active类
+            this.classList.add('active');
+
+            // 获取目标面板的id
+            const targetId = this.getAttribute('data-tab');
+
+            // 隐藏所有面板
+            tabPanes.forEach(pane => pane.classList.remove('active'));
+            // 显示目标面板
+            document.getElementById(targetId).classList.add('active');
+        });
+    });
+});
+</script>
+{% endblock %}
