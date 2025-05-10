@@ -556,3 +556,13 @@ select.form-control:focus {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
+
+/* 文本居中样式 */
+.text-center {
+    text-align: center !important;
+}
+
+/* 确保操作按钮在居中状态下的间距合适 */
+.action-buttons.text-center .btn {
+    margin: 0 5px;
+}

@@ -25,7 +25,7 @@
                 <th>宠物</th>
                 <th>申请人</th>
                 <th>状态</th>
-                <th>操作</th>
+                <th class="text-center">操作</th>
             </tr>
         </thead>
         <tbody>
@@ -39,7 +39,7 @@
                         {{ app.get_status_display }}
                     </span>
                 </td>
-                <td class="action-buttons">
+                <td class="action-buttons text-center">
                     {% if app.status == 'pending' %}
                         <a href="{% url 'approve_application' app.id %}" class="btn btn--success">同意</a>
                         <button type="button" class="btn btn--danger reject-btn" data-application-id="{{ app.id }}">
