@@ -1,18 +1,17 @@
 <div class="data-overview">
     <div class="admin-stat-grid">
-        <div class="admin-card">
+        <div class="admin-card clickable" onclick="window.location.href='/admin/users/'">
             <h4>注册用户</h4>
             <p class="stat-number">{{ stats.total_users }}</p>
         </div>
-        <div class="admin-card">
+        <div class="admin-card clickable" onclick="window.location.href='/admin/adoptions/'">
             <h4>待审申请</h4>
             <p class="stat-number">{{ stats.pending_adoptions }}</p>
         </div>
-        <div class="admin-card">
+        <div class="admin-card clickable" onclick="window.location.href='/admin/pets/'">
             <h4>在册宠物</h4>
             <p class="stat-number">{{ stats.total_pets }}</p>
         </div>
     </div>
 
-
-</div> 
+</div>

@@ -9,11 +9,16 @@ from django.db.models import Q  # 添加这行导入
 from users.models import User, AdoptionApplication  # 确保包含AdoptionApplication导入
 
 def dashboard(request):
+    # 添加调试代码
+    pending_count = AdoptionApplication.objects.filter(status='pending').count()
+    print(f"待审核申请数量: {pending_count}")
+    
+    # 修改这里，使用正确的待审核申请数量
     return render(request, 'admin/dashboard.html', {
         'show_stats': True,
         'stats': {
             'total_users': User.objects.count(),  # 真实用户数量
-            'pending_adoptions': 0,  # 待实现功能
+            'pending_adoptions': pending_count,  # 修改为实际查询
             'total_pets': Pet.objects.count()  # 真实宠物数量
         }
     })

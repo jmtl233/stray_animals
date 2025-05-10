@@ -1,6 +1,6 @@
 from django.views.generic import ListView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from users.models import User
+from users.models import User, AdoptionApplication  # 添加导入
 from pets.models import Pet
 
 class AdminDashboardView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
@@ -10,11 +10,14 @@ class AdminDashboardView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # 获取实际的待审核申请数量
+        pending_adoptions = AdoptionApplication.objects.filter(status='pending').count()
+        
         context.update({
             'show_stats': True,
             'stats': {
                 'total_users': User.objects.count(),  # 真实用户数
-                'pending_adoptions': 0,  # 待实现功能
+                'pending_adoptions': pending_adoptions,  # 实际待审核数量
                 'total_pets': Pet.objects.count()  # 真实宠物数
             },
             'user_management': False,  # 禁用未完成模块
