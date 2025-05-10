@@ -32,7 +32,7 @@
                         {{ announcement.is_published|yesno:"已发布,未发布" }}
                     </span>
                 </td>
-                <td class="action-buttons">
+                <td class="action-buttons" style="text-align: center; display: flex; justify-content: center;">
                     <a href="{% url 'admin_announcements:edit' announcement.id %}" class="btn btn--primary">编辑</a>
                     <a href="{% url 'admin_announcements:delete' announcement.id %}" class="btn btn--danger">删除</a>
                 </td>
