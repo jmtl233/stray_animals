@@ -22,9 +22,14 @@
                     <div class="no-image">📷</div>
                     {% endif %}
                     <div class="image-overlay"></div>
-                    <span class="status-label {{ event.is_active|yesno:'status-active,status-inactive' }}">
-                        {{ event.is_active|yesno:"进行中,已结束" }}
-                    </span>
+                    {% now "Y-m-d H:i:s" as current_time %}
+                    {% if event.start_date|date:"Y-m-d H:i:s" > current_time %}
+                        <span class="status-label status-pending">待开始</span>
+                    {% elif event.is_active %}
+                        <span class="status-label status-active">进行中</span>
+                    {% else %}
+                        <span class="status-label status-inactive">已结束</span>
+                    {% endif %}
                 </div>
                 <div class="event-content">
                     <h3 class="event-title">{{ event.title }}</h3>
@@ -82,9 +87,14 @@
                                 <i class="fas fa-map-marker-alt"></i>
                                 {{ event.location }}
                             </span>
-                            <span class="past-event-status {{ event.is_past_due|yesno:'status-inactive,status-active' }}">
-                                {{ event.is_past_due|yesno:"已结束,进行中" }}
-                            </span>
+                            {% now "Y-m-d H:i:s" as current_time %}
+                            {% if event.start_date|date:"Y-m-d H:i:s" > current_time %}
+                                <span class="past-event-status status-pending">待开始</span>
+                            {% elif event.is_past_due %}
+                                <span class="past-event-status status-inactive">已结束</span>
+                            {% else %}
+                                <span class="past-event-status status-active">进行中</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

@@ -138,6 +138,12 @@
   color: white;
 }
 
+/* 添加待开始状态样式 */
+.status-pending {
+  background: rgba(52, 152, 219, 0.9);
+  color: white;
+}
+
 .event-content {
   padding: 1.5rem;
 }

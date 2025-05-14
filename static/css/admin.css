@@ -566,3 +566,15 @@ select.form-control:focus {
 .action-buttons.text-center .btn {
     margin: 0 5px;
 }
+.status-badge.status-active {
+    background-color: #4CAF50;
+}
+
+.status-badge.status-inactive {
+    background-color: #e74c3c;
+}
+
+/* 添加待开始状态样式 */
+.status-badge.status-pending {
+    background-color: #3498db;
+}

@@ -33,18 +33,14 @@
                 
                 <!-- 修改状态判断逻辑 -->
                 <td>
-                    <span class="status-badge 
-                        {% if event.is_past_due %}status-inactive
-                        {% elif event.is_active %}status-active
-                        {% else %}status-inactive{% endif %}">
-                        {% if event.is_past_due %}
-                            已结束
-                        {% elif event.is_active %}
-                            进行中
-                        {% else %}
-                            未激活
-                        {% endif %}
-                    </span>
+                    {% now "Y-m-d H:i:s" as current_time %}
+                    {% if event.start_date|date:"Y-m-d H:i:s" > current_time %}
+                        <span class="status-badge status-pending">待开始</span>
+                    {% elif event.end_date|date:"Y-m-d H:i:s" < current_time %}
+                        <span class="status-badge status-inactive">已结束</span>
+                    {% else %}
+                        <span class="status-badge status-active">进行中</span>
+                    {% endif %}
                 </td>
                 <td class="action-buttons" style="text-align: center; display: flex; justify-content: center;">
                     <a href="{% url 'events:edit' event.id %}" class="btn btn--small btn--primary">
