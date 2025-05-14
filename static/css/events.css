@@ -238,11 +238,10 @@
 }
 
 .past-event-date {
-    font-size: 1rem;
+    font-size: 0.85rem;
     color: var(--text-light);
-    min-width: 100px;
-    padding-right: 1rem;
-    border-right: 1px solid #eee;
+    margin-top: 8px;
+    line-height: 1.4;
 }
 
 .past-event-content {
